@@ -15,6 +15,41 @@ class EducationService {
     const education = await Education.findByOwner(owner);
     return education;
   }
+  static async getIdEducation({ id }) {
+    const education = await Education.findById(id);
+    return education;
+  }
+
+  static async setEducation({ id, toUpdate }) {
+    let education = await Education.findById({ id });
+    if (!education) {
+      const errorMessage = "해당 학적사항이 없습니다";
+
+      return { errorMessage };
+    }
+    if (education.owner != toUpdate.owner) {
+      const errorMessage = "본인의 학적사항이 아닙니다";
+
+      return { errorMessage };
+    }
+    if (toUpdate.name) {
+      const fieldToUpdate = "name";
+      const newValue = toUpdate.name;
+      education = await Education.update({ id, fieldToUpdate, newValue });
+    }
+    if (toUpdate.major) {
+      const fieldToUpdate = "major";
+      const newValue = toUpdate.major;
+      education = await Education.update({ id, fieldToUpdate, newValue });
+    }
+    if (toUpdate.present) {
+      const fieldToUpdate = "present";
+      const newValue = toUpdate.present;
+      education = await Education.update({ id, fieldToUpdate, newValue });
+    }
+
+    return education;
+  }
 }
 
 export { EducationService };
