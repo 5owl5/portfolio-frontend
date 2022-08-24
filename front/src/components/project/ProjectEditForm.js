@@ -4,20 +4,26 @@ import * as Api from "../../api";
 import DatePicker from 'react-datepicker';
 
 
-function ProjectEditForm({ setIsEditing, project, setProjects }) {
-  const [title, setTitle] = useState(project.title);
-  const [description, setDescription] = useState(project.description);
-  const [fromDate, setFromDate] = useState(project.fromDate);
-  const [toDate, setToDate] = useState(project.toDate);
+function ProjectEditForm({ setIsEditing, project, setProjects, portfolioOwnerId }) {
+  const [title, setTitle] = useState(project.projectName);
+  const [description, setDescription] = useState(project.content);
+  const [fromDate, setFromDate] = useState(new Date(project.startpoint));
+  const [toDate, setToDate] = useState(new Date(project.endpoint));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    const res = await Api.put(`users/${portfolioOwnerId}/projects/${project._id}`, {
+      "projectName": title,
+      "content": description,
+      "startpoint": fromDate,
+      "endpoint": toDate
+    })
+    const updateProjects = res.data;
+    setProjects(updateProjects);
+    setIsEditing(false);
   }
 
   return (
-    <Card className="mb-2">
-      <Card.Body>
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="projectEditTitle" className="mb-3">
             <Form.Control
@@ -63,8 +69,6 @@ function ProjectEditForm({ setIsEditing, project, setProjects }) {
             </Col>
           </Form.Group>
         </Form>
-      </Card.Body>
-    </Card>
   );
 }
 

@@ -14,6 +14,7 @@ function Project({portfolioOwnerId, project, setProjects}) {
           setIsEditing={setIsEditing}
           project={project}
           setProjects={setProjects}
+          portfolioOwnerId={portfolioOwnerId}
         />
       ) : (
       project &&

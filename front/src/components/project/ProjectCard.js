@@ -3,9 +3,9 @@ import { Card, Row, Button, Col } from "react-bootstrap";
 
 function ProjectCard({ project, setIsEditing }) {
   const navigate = useNavigate();
-  console.log(project)
   const fromDate = project.startpoint.split("T")[0];
   const toDate = project.endpoint.split("T")[0];
+  console.log(project)
   return (
     <Row className="mb-4">
       <Col>
