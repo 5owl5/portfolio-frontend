@@ -16,8 +16,11 @@ function Project({portfolioOwnerId, project, setProjects}) {
           setProjects={setProjects}
         />
       ) : (
+      project &&
         <ProjectCard 
-          setIsEditing={setIsEditing}/>
+          project={project}
+          setIsEditing={setIsEditing}
+        />
       )}
     </>
   )

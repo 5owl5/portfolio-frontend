@@ -3,13 +3,16 @@ import { Card, Row, Button, Col } from "react-bootstrap";
 
 function ProjectCard({ project, setIsEditing }) {
   const navigate = useNavigate();
+  console.log(project)
+  const fromDate = project.startpoint.split("T")[0];
+  const toDate = project.endpoint.split("T")[0];
   return (
-    <Row>
+    <Row className="mb-4">
       <Col>
         <Card.Text>
-        <div>프로젝트 이름</div>
-        <div>프로젝트 설명</div>
-        <div>프로젝트 기간</div>
+        <div>{project.projectName}</div>
+        <div style={{color: "#6c757d"}}>{project.content}</div>
+        <div style={{color: "#6c757d"}}>{fromDate} ~ {toDate}</div>
         </Card.Text>
       </Col>
       <Col>

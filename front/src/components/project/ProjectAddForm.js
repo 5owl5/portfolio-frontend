@@ -7,23 +7,23 @@ function ProjectAddForm({portfolioOwnerId, user, setIsAdding, setProjects}) {
   /*
   
   */
-  const [title, setTitle] = useState(null);
-  const [description, setDescription] = useState(null);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
   const [fromDate, setFromDate] = useState(new Date());
   const [toDate, setToDate] = useState(new Date());
   
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const res = await Api.post(`users/${portfolioOwnerId}/projects`, {
+    await Api.post(`users/${portfolioOwnerId}/projects`, {
       "projectName": title,
       "content": description,
       "startpoint": fromDate,
       "endpoint": toDate
     });
     
-    const newProject = res.data;
-    setProjects(newProject);
+    const res = await Api.get(`users/${portfolioOwnerId}/projects`); 
+    const newProjects = res.data;
+    setProjects(newProjects);
     setIsAdding(false);
   }
 
