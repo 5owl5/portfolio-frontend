@@ -18,7 +18,7 @@ educationRouter.post(
       const name = req.body.name;
       const major = req.body.major;
       const present = req.body.present;
-      const newEducation = await EducationService.addEdcation({
+      const newEducation = await EducationService.addEducation({
         owner,
         name,
         major,
