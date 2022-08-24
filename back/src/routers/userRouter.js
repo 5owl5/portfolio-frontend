@@ -3,6 +3,8 @@ import { Router } from "express";
 import { login_required } from "../middlewares/login_required";
 import { userAuthService } from "../services/userService";
 
+import { projectRouter } from "./projectRouter";
+
 const userAuthRouter = Router();
 
 userAuthRouter.post("/user/register", async function (req, res, next) {
@@ -146,5 +148,7 @@ userAuthRouter.get("/afterlogin", login_required, function (req, res, next) {
       `안녕하세요 ${req.currentUserId}님, jwt 웹 토큰 기능 정상 작동 중입니다.`
     );
 });
+
+userAuthRouter.use("/users/:id/projects", login_required, projectRouter); // Project 라우터 연결
 
 export { userAuthRouter };
