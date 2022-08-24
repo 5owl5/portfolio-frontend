@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { Card, Button, Row, Col } from "react-bootstrap";
 import * as Api from "../../api";
-
+import AwardAddForm from './AwardAddForm';
 const Awards=({portfolioOwnerId, isEditable})=>{
     let [awards, setAwards]= useState([]);
     let [isAdding,setIsAdding]=useState(false);
@@ -24,7 +24,11 @@ const Awards=({portfolioOwnerId, isEditable})=>{
                     </Row>
                 )}
                 {isAdding && (
-                    // 어워드 추가하는 창 뜨게 하면 된다
+                   <AwardAddForm
+                    portfolioOwnerId={portfolioOwnerId}
+                    setAwards={setAwards}
+                    setIsAdding={setIsAdding}
+                    />
                 )}
             </Card.Body>
         </Card>
