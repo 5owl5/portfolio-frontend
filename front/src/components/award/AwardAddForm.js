@@ -17,7 +17,8 @@ const AwardAddForm=({portfolioOwnerId, setAwards, setIsAdding})=>{
         awardDetail,
     });
     const res= await Api.get('awardList', userId)
-    setAwards(res.data);
+    const update=res.data
+    setAwards(update);
     }
 
     return(             

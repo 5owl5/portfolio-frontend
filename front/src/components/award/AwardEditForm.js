@@ -16,7 +16,8 @@ const AwardEditForm=({currentAward,setAwards,setisEditing})=>{
         })
 
         const res= await Api.get('상목록',userId);
-        setAwards(res.data)
+        const edit=res.data
+        setAwards(edit)
         setisEditing(false)
     }
     return(
