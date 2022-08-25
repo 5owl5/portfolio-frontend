@@ -1,8 +1,8 @@
 import { Schema, model } from "mongoose";
 
 const projectSchema = new Schema({
-  user: {
-    type: Schema.Types.ObjectId,
+  userId: {
+    type: String,
     ref: "User",
     required: true,
   },

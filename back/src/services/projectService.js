@@ -2,7 +2,7 @@ import { Project } from "../db";
 
 class projectService {
   static async addProject({
-    userSchema,
+    userId,
     projectNumber,
     projectName,
     content,
@@ -10,7 +10,7 @@ class projectService {
     endpoint,
   }) {
     const newProject = {
-      user: userSchema,
+      userId,
       projectNumber,
       projectName,
       content,
@@ -19,19 +19,17 @@ class projectService {
     };
 
     const createdNewProject = await Project.create({ newProject });
-    createdNewProject.errorMessage = null;
     return createdNewProject;
   }
 
-  static async getProject({ userSchema }) {
-    const projects = await Project.findByUser({ user: userSchema });
-
+  static async getProject({ userId }) {
+    const projects = await Project.findById({ userId });
     return projects;
   }
 
-  static async updateProject({ userSchema, projectNumber, updateContent }) {
-    let updatedproject = await Project.findByUserAndNumber({
-      user: userSchema,
+  static async updateProject({ userId, projectNumber, updateContent }) {
+    let updatedproject = await Project.findByIdAndNumber({
+      userId,
       projectNumber,
     });
 
@@ -39,7 +37,7 @@ class projectService {
       const field = "projectName";
       const newValue = updateContent.projectName;
       updatedproject = await Project.update({
-        user: userSchema,
+        userId,
         projectNumber,
         updateContent: field,
         newValue,
@@ -50,7 +48,7 @@ class projectService {
       const field = "content";
       const newValue = updateContent.content;
       updatedproject = await Project.update({
-        user: userSchema,
+        userId,
         projectNumber,
         updateContent: field,
         newValue,
@@ -61,7 +59,7 @@ class projectService {
       const field = "startpoint";
       const newValue = updateContent.startpoint;
       updatedproject = await Project.update({
-        user: userSchema,
+        userId,
         projectNumber,
         updateContent: field,
         newValue,
@@ -72,7 +70,7 @@ class projectService {
       const field = "endpoint";
       const newValue = updateContent.endpoint;
       updatedproject = await Project.update({
-        user: userSchema,
+        userId,
         projectNumber,
         updateContent: field,
         newValue,
