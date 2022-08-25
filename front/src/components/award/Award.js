@@ -1,15 +1,18 @@
 import React from "react";
+import AwardEditForm from "./AwardEditForm";
 
 
-
-const Award=()=>{
+const Award=(award,setAwards,isEditable)=>{
     let [isEditing,setisEditing]= useState(false)
     return(
         <>
         {
             isEditing ? (
-                <></>
-                // 편집창
+                <AwardEditForm
+                    currentAward={award}
+                    setAwards={setAwards}
+                    setisEditing={setisEditing}
+                />
             )
             :(
                <></>
