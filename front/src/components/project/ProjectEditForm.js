@@ -16,6 +16,7 @@ function ProjectEditForm({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     await Api.put(`projects/${project.projectNumber}`, {
       projectName: title,
       content: description,
