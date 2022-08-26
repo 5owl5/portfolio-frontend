@@ -1,11 +1,11 @@
 import { Router } from "express";
 import { awardService } from "../services/awardService";
 
-const awardRouter = Router({ mergeParams: true }); //Router의 자식 라우터가 params를 받을 수 있게
+const awardRouter = Router();
 
 awardRouter.get("/", async function (req, res, next) {
   try {
-    const userId = req.currentUserId;
+    const userId = req.header("userId") // 헤더에서 정보 받아오기
 
     const awards = await awardService.getAward({ userId });
 
@@ -17,7 +17,7 @@ awardRouter.get("/", async function (req, res, next) {
 
 awardRouter.post("/", async function (req, res, next) {
   try {
-    const userId = req.currentUserId;
+    const userId = req.header("userId")
 
     const awards = await awardService.getAward({ userId });
     const awardslength = awards.length;
@@ -43,7 +43,7 @@ awardRouter.post("/", async function (req, res, next) {
 
 awardRouter.put("/:number", async function (req, res) {
   try {
-    const userId = req.currentUserId;
+    const userId = req.header("userId")
     const awardNumber = req.params.number;
 
     const awardWhere = req.body.awardWhere ?? null;
