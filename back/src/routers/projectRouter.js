@@ -1,11 +1,11 @@
 import { Router } from "express";
 import { projectService } from "../services/projectService";
 
-const projectRouter = Router({ mergeParams: true }); //Router의 자식 라우터가 params를 받을 수 있게
+const projectRouter = Router(); //Router의 자식 라우터가 params를 받을 수 있게
 
 projectRouter.get("/", async function (req, res, next) {
   try {
-    const userId = req.params.id;
+    const userId = req.currentUserId;
 
     const projects = await projectService.getProject({ userId });
 
@@ -17,11 +17,11 @@ projectRouter.get("/", async function (req, res, next) {
 
 projectRouter.post("/", async function (req, res, next) {
   try {
-    const userId = req.params.id;
+    const userId = req.currentUserId;
 
     const projects = await projectService.getProject({ userId });
 
-    const projectNumber = projects.length + 1;
+    const projectNumber = projects.pop().projectNumber + 1;
     const projectName = req.body.projectName;
     const content = req.body.content;
     const startpoint = req.body.startpoint;
@@ -44,7 +44,7 @@ projectRouter.post("/", async function (req, res, next) {
 
 projectRouter.put("/:number", async function (req, res) {
   try {
-    const userId = req.params.id;
+    const userId = req.currentUserId;
     const projectNumber = req.params.number;
 
     const projectName = req.body.projectName ?? null;

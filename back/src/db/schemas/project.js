@@ -9,6 +9,8 @@ const projectSchema = new Schema({
   projectNumber: {
     type: Number,
     required: true,
+    unique: true,
+    default: 0,
   },
   projectName: {
     type: String,
