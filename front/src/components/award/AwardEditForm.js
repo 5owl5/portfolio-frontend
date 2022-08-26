@@ -15,7 +15,7 @@ const AwardEditForm = ({ currentAward, setAwards, setisEditing }) => {
       awardDetail,
     });
 
-    const res = await Api.get("상목록", userId);
+    const res = await Api.get("awardlist", userId);
     const edit = res.data;
     setAwards(edit);
     setisEditing(false);
