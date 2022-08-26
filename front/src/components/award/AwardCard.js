@@ -6,7 +6,7 @@ const AwardCard = ({ award, isEditable, setIsEditing }) => {
       <Row className="align-items-center">
         <Col>
           <span>{award.title}</span> <br />
-          <span className="text-muted">{award.awardDetail}</span>
+          <span className="text-muted">{award.description}</span>
         </Col>
         {isEditable && (
           <Col xs lg="1">

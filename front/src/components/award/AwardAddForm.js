@@ -4,7 +4,7 @@ import * as Api from "../../api";
 
 const AwardAddForm = ({ portfolioOwnerId, setAwards, setIsAdding }) => {
   let [title, setTitle] = useState("");
-  let [awardDetail, setAwardDetail] = useState("");
+  let [description, setDescription] = useState("");
   const handleSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation(); //이벤트버블링 방지
@@ -14,7 +14,7 @@ const AwardAddForm = ({ portfolioOwnerId, setAwards, setIsAdding }) => {
     await Api.post("award/create", {
       userId: portfolioOwnerId,
       title,
-      awardDetail,
+      description,
     });
     const res = await Api.get("awardList", userId);
     const update = res.data;
@@ -32,12 +32,12 @@ const AwardAddForm = ({ portfolioOwnerId, setAwards, setIsAdding }) => {
         />
       </Form.Group>
 
-      <Form.Group controlId="formBasicAwardDetail">
+      <Form.Group controlId="formBasicDescription">
         <Form.Control
           type="text"
           placeholder="상세내역"
-          value={awardDetail}
-          onChange={(e) => setAwardDetail(e.target.value)}
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
         />
       </Form.Group>
 

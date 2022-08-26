@@ -4,7 +4,7 @@ import * as Api from "../../api";
 
 const AwardEditForm = ({ currentAward, setAwards, setisEditing }) => {
   let [title, setTitle] = useState(currentAward?.title);
-  let [awardDetail, setAwardDetil] = useState(currentAward?.awardDetail);
+  let [description, setDescription] = useState(currentAward?.description);
   const handleSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -12,7 +12,7 @@ const AwardEditForm = ({ currentAward, setAwards, setisEditing }) => {
     await Api.put(`awards/${currentAward.id}`, {
       userId,
       title,
-      awardDetail,
+      description,
     });
 
     const res = await Api.get("awardlist", userId);
@@ -35,8 +35,8 @@ const AwardEditForm = ({ currentAward, setAwards, setisEditing }) => {
         <Form.Control
           type="text"
           placeholder="상세내역"
-          value={awardDetail}
-          onChange={(e) => setAwardDetil(e.target.value)}
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
         />
       </Form.Group>
 
