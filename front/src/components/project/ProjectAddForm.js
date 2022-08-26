@@ -4,9 +4,6 @@ import * as Api from "../../api";
 import DatePicker from 'react-datepicker';
 
 function ProjectAddForm({portfolioOwnerId, user, setIsAdding, setProjects}) {
-  /*
-  
-  */
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [fromDate, setFromDate] = useState(new Date());
@@ -14,7 +11,7 @@ function ProjectAddForm({portfolioOwnerId, user, setIsAdding, setProjects}) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await Api.post(`users/${portfolioOwnerId}/projects`, {
+    await Api.post("projects", {
       "projectName": title,
       "content": description,
       "startpoint": fromDate,

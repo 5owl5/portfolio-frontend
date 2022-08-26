@@ -8,7 +8,6 @@ function Projects({ portfolioOwnerId, isEditable }){
   const [isAdding, setIsAdding] = useState(false);
   const [projects, setProjects] = useState([]);
 
-  //"projects/유저id" 엔드포인트로 GET요청
   useEffect(()=> {
     Api.get(`users/${portfolioOwnerId}/projects`).then((res)=>setProjects(res.data));
   },[portfolioOwnerId]);

@@ -12,7 +12,7 @@ function ProjectEditForm({ setIsEditing, project, setProjects, portfolioOwnerId 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await Api.put(`users/${portfolioOwnerId}/projects/${project.projectNumber}`, {
+    await Api.put(`projects/${project.projectNumber}`, {
       "projectName": title,
       "content": description,
       "startpoint": fromDate,
