@@ -4,24 +4,24 @@ import DatePicker from "react-datepicker";
 import * as Api from "../../api";
 
 function CertificateAddForm({ portfolioOwnerId, setCertificates, setIsAdding }) {
-  const [title, setTitle] = useState("");
+  const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [whenDate, setWhenDate] = useState(new Date());
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const userId = portfolioOwnerId;
-    const when_date = whenDate.toISOString().split("T")[0];
+    const owner = portfolioOwnerId;
+    const acquisitionDate = whenDate.toISOString().split("T")[0];
 
-    await Api.post("certificate/create", {
-      userId: portfolioOwnerId,
-      "name": title,
-      "description": description,
-      "acquisitionDate": when_date,
+    await Api.post("cer", {
+      owner,
+      name,
+      description,
+      acquisitionDate,
     });
 
-    const res = await Api.get("certificateList", userId);
+    const res = await Api.get(`users/${owner}/cer`);
     setCertificates(res.data);
     setIsAdding(false);
   }
@@ -32,8 +32,8 @@ function CertificateAddForm({ portfolioOwnerId, setCertificates, setIsAdding }) 
         <Form.Control
           type="text"
           placeholder="자격증 이름"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
       </Form.Group>
 

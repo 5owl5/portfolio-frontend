@@ -8,8 +8,10 @@ function Certificates({ portfolioOwnerId, isEditable }) {
   const [certificates, setCertificates] = useState([]);
   const [isAdding, setIsAdding] = useState(false);
 
+  const owner = portfolioOwnerId;
+
   useEffect(() => {
-    Api.get("certificateList", portfolioOwnerId).then((res) =>
+    Api.get(`users/${owner}/cer`).then((res) =>
       setCertificates(res.data)
     );
   }, [portfolioOwnerId]);
@@ -20,7 +22,7 @@ function Certificates({ portfolioOwnerId, isEditable }) {
         <Card.Title>자격증</Card.Title>
         {certificates.map((certificate) => (
           <Certificate
-            key={certificate.id}
+            key={certificate.owner}
             certificate={certificate}
             setCertificates={setCertificates}
             isEditable={isEditable}

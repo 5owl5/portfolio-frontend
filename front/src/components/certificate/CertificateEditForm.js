@@ -4,24 +4,24 @@ import DatePicker from "react-datepicker";
 import * as Api from "../../api";
 
 function CertificateEditForm({ currentCertificate, setCertificates, setIsEditing }) {
-    const [title, setTitle] = useState(currentCertificate.title);
+    const [name, setName] = useState(currentCertificate.name);
     const [description, setDescription] = useState(currentCertificate.description);
     const [whenDate, setWhenDate] = useState(new Date(currentCertificate.when_date));
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const userId = currentCertificate.userId;
-        const when_date = whenDate.toISOString().split("T")[0];
+        const owner = currentCertificate.owner;
+        const acquisitionDate = whenDate.toISOString().split("T")[0];
 
-        await Api.put(`certificates/${currentCertificate.id}`, {
-            userId,
-            "name": title,
-            "description": description,
-            "acquisitionDate": when_date,
+        await Api.put(`cer/${currentCertificate.owner}`, {
+            owner,
+            name,
+            description,
+            acquisitionDate,
         });
 
-        const res = await Api.get("certificateList", userId);
+        const res = await Api.get(`users/${owner}/cer`);
         setCertificates(res.data);
         setIsEditing(false);
     };
@@ -33,8 +33,8 @@ function CertificateEditForm({ currentCertificate, setCertificates, setIsEditing
                 <Form.Control
                     type="text"
                     placeholder="자격증 이름"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                 />
             </Form.Group>
         </Form>

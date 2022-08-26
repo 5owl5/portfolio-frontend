@@ -7,11 +7,11 @@ function CertificateCard({ certificate, isEditable, setIsEditing, setCertificate
     e.preventDefault();
     e.stopPropagation();
 
-    const userId = certificate.userId;
+    const owner = certificate.owner;
     try {
       if (window.confirm("삭제하시겠습니까?")) {
-        await Api.delete(`certificates/${certificate.id}`);
-        const res = await Api.get("certificateList", userId);
+        await Api.delete(`cer/${certificate.owner}`);
+        const res = await Api.get(`users/${owner}/cer`);
         setCertificates(res.data);
       }
     } catch (err) {
@@ -23,11 +23,11 @@ function CertificateCard({ certificate, isEditable, setIsEditing, setCertificate
     <Card.Text>
       <Row className="align-items-center">
         <Col>
-          {certificate.title}
+          {certificate.name}
           <br />
           <span className="text-muted">{certificate.description}</span>
           <br />
-          <span className="text-muted">{certificate.when_date}</span>
+          <span className="text-muted">{certificate.acquisitionDate}</span>
         </Col>
         {isEditable && (
           <Col xs lg="1">
