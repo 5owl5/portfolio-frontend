@@ -15,7 +15,7 @@ function CertificateAddForm({ portfolioOwnerId, setCertificates, setIsAdding }) 
     const when_date = whenDate.toISOString().split("T")[0];
 
     await Api.post("certificate/create", {
-      userId,
+      userId: portfolioOwnerId,
       title,
       description,
       when_date,
