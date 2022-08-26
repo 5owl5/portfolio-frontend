@@ -21,7 +21,7 @@ function CertificateAddForm({ portfolioOwnerId, setCertificates, setIsAdding }) 
       acquisitionDate,
     });
 
-    const res = await Api.get(`users/${owner}/cer`);
+    const res = await Api.get(`users/${portfolioOwnerId}/cer`);
     setCertificates(res.data);
     setIsAdding(false);
   }

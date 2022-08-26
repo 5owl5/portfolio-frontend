@@ -1,23 +1,7 @@
 import React from "react";
 import { Card, Button, Row, Col } from "react-bootstrap";
-import * as Api from "../../api";
 
-function CertificateCard({ certificate, isEditable, setIsEditing, setCertificates }) {
-  const handleDelete = async (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    const owner = certificate.owner;
-    try {
-      if (window.confirm("삭제하시겠습니까?")) {
-        await Api.delete(`cer/${certificate.owner}`);
-        const res = await Api.get(`users/${owner}/cer`);
-        setCertificates(res.data);
-      }
-    } catch (err) {
-      alert("삭제 중 오류가 발생했습니다.", err);
-    }
-  };
+function CertificateCard({ certificate, setIsEditing }) {
 
   return (
     <Card.Text>
@@ -28,27 +12,24 @@ function CertificateCard({ certificate, isEditable, setIsEditing, setCertificate
           <span className="text-muted">{certificate.description}</span>
           <br />
           <span className="text-muted">{certificate.acquisitionDate}</span>
-        </Col>
-        {isEditable && (
-          <Col xs lg="1">
-            <Button
-              variant="outline-info"
+      </Col>
+        <Col xs lg="1">
+          <Button
+            variant="outline-info"
+            size="sm"
+            onClick={() => setIsEditing(true)}
+            className="mr-3"
+          >
+            편집
+          </Button>
+          <Button
+              variant="outline-danger"
               size="sm"
-              onClick={() => setIsEditing((prev) => !prev)}
               className="mr-3"
             >
-              편집
+              삭제
             </Button>
-            <Button
-                variant="outline-danger"
-                size="sm"
-                className="mr-3"
-                onClick={handleDelete}
-              >
-                삭제
-              </Button>
-          </Col>
-        )}
+        </Col>
       </Row>
     </Card.Text>
   );

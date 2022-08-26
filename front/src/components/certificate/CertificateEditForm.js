@@ -3,15 +3,15 @@ import { Button, Form, Col, Row } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import * as Api from "../../api";
 
-function CertificateEditForm({ currentCertificate, setCertificates, setIsEditing }) {
+function CertificateEditForm({ currentCertificate, setCertificates, setIsEditing, portfolioOwnerId }) {
     const [name, setName] = useState(currentCertificate.name);
     const [description, setDescription] = useState(currentCertificate.description);
-    const [whenDate, setWhenDate] = useState(new Date(currentCertificate.when_date));
+    const [whenDate, setWhenDate] = useState(new Date(currentCertificate.acquisitionDate));
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const owner = currentCertificate.owner;
+        const owner = portfolioOwnerId;
         const acquisitionDate = whenDate.toISOString().split("T")[0];
 
         await Api.put(`cer/${currentCertificate.owner}`, {
@@ -21,7 +21,7 @@ function CertificateEditForm({ currentCertificate, setCertificates, setIsEditing
             acquisitionDate,
         });
 
-        const res = await Api.get(`users/${owner}/cer`);
+        const res = await Api.get(`users/${currentCertificate.owner}/cer`);
         setCertificates(res.data);
         setIsEditing(false);
     };

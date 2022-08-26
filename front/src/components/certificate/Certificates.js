@@ -8,10 +8,8 @@ function Certificates({ portfolioOwnerId, isEditable }) {
   const [certificates, setCertificates] = useState([]);
   const [isAdding, setIsAdding] = useState(false);
 
-  const owner = portfolioOwnerId;
-
   useEffect(() => {
-    Api.get(`users/${owner}/cer`).then((res) =>
+    Api.get(`users/${portfolioOwnerId}/cer`).then((res) =>
       setCertificates(res.data)
     );
   }, [portfolioOwnerId]);
