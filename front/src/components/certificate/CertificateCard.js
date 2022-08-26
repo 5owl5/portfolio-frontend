@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, Button, Row, Col } from "react-bootstrap";
 
-function CertificateCard({ certificate, setIsEditing }) {
+function CertificateCard({ certificate, isEditable, setIsEditing }) {
 
   return (
     <Card.Text>
@@ -13,6 +13,7 @@ function CertificateCard({ certificate, setIsEditing }) {
           <br />
           <span className="text-muted">{certificate.acquisitionDate}</span>
       </Col>
+      {isEditable && (
         <Col xs lg="1">
           <Button
             variant="outline-info"
@@ -28,8 +29,10 @@ function CertificateCard({ certificate, setIsEditing }) {
               className="mr-3"
             >
               삭제
-            </Button>
+          </Button>
         </Col>
+      )}
+
       </Row>
     </Card.Text>
   );
