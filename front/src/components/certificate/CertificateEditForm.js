@@ -14,14 +14,14 @@ function CertificateEditForm({ currentCertificate, setCertificates, setIsEditing
         const owner = portfolioOwnerId;
         const acquisitionDate = whenDate.toISOString().split("T")[0];
 
-        await Api.put(`cer/${currentCertificate.owner}`, {
+        await Api.put(`cer/${currentCertificate._id}`, {
             owner,
             name,
             description,
             acquisitionDate,
         });
 
-        const res = await Api.get(`users/${currentCertificate.owner}/cer`);
+        const res = await Api.get(`users/${portfolioOwnerId}/cer`);
         setCertificates(res.data);
         setIsEditing(false);
     };
