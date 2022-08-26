@@ -22,7 +22,7 @@ const Awards=({portfolioOwnerId, isEditable})=>{
                         key={award.id}
                         award={award}
                         setAwards={setAwards}
-                        isEditab={isEditable}
+                        isEditable={isEditable}
                     />
                 ))}
                 {isEditable && (

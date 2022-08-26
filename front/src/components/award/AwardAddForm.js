@@ -32,7 +32,7 @@ const AwardAddForm=({portfolioOwnerId, setAwards, setIsAdding})=>{
                 />
             </Form.Group>
             
-            <Form.Group controlId="formBasicTitle">
+            <Form.Group controlId="formBasicAwardDetail">
                 <Form.Control
                     type='text'
                     placeholder="상세내역"
