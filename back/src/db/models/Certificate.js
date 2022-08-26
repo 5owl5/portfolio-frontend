@@ -14,7 +14,6 @@ class Certificate {
   }
 
   static async findById(_id) {
-    console.log("findById: ");
     const Certificate = await CertificateModel.findOne({ _id });
     return Certificate;
   }
