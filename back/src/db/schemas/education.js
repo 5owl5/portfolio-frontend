@@ -2,13 +2,10 @@ import { Schema, model } from "mongoose";
 
 const EducationSchema = new Schema(
   {
-    id: {
-      type: String,
-      required: true,
-    },
     owner: {
       type: String,
       required: true,
+      ref: "user",
     },
     name: {
       type: String,

@@ -13,16 +13,16 @@ class Education {
     return Education;
   }
 
-  static async findById(id) {
-    const Education = await EducationModel.findOne({ id });
+  static async findById(_id) {
+    const Education = await EducationModel.findOne({ __id: _id });
     return Education;
   }
   static async findByAll() {
     const Education = await EducationModel.find({});
     return Education;
   }
-  static async update({ id, fieldToUpdate, newValue }) {
-    const filter = { id: id };
+  static async update({ _id, fieldToUpdate, newValue }) {
+    const filter = { _id: _id };
     const update = { [fieldToUpdate]: newValue };
     const option = { returnOriginal: false };
     const updatedEducation = await EducationModel.findOneAndUpdate(
