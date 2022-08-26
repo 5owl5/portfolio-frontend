@@ -1,50 +1,38 @@
-import { useNavigate } from "react-router-dom";
 import { Card, Row, Button, Col } from "react-bootstrap";
 
 function ProjectCard({ project, setIsEditing }) {
-  const navigate = useNavigate();
   const fromDate = project.startpoint.split("T")[0];
   const toDate = project.endpoint.split("T")[0];
-  console.log(project)
+
   return (
     <Row className="mb-4">
       <Col>
         <Card.Text>
-        <div>{project.projectName}</div>
-        <div style={{color: "#6c757d"}}>{project.content}</div>
-        <div style={{color: "#6c757d"}}>{fromDate} ~ {toDate}</div>
+          {project.projectName}
+          <br />
+          <span className="text-muted">{project.content}</span>
+          <br />
+          <span className="text-muted">
+            {fromDate} ~ {toDate}
+          </span>
         </Card.Text>
       </Col>
       <Col>
         <Button
           variant="outline-info"
           size="sm"
-          // onClick={() => setIsAdding(true)}
           style={{
-            position: 'absolute', right: 0, marginRight: "30px"
+            position: "absolute",
+            right: 0,
+            marginRight: "30px",
           }}
           onClick={() => setIsEditing(true)}
         >
-        편집
+          편집
         </Button>
       </Col>
-        {/* {isAdding && (
-          <Col>
-            <Row className="mt-3 text-center text-info">
-              <Col sm={{ span: 20 }}>
-                <Button
-                  variant="outline-info"
-                  size="sm"
-                  onClick={() => setIsAdding(true)}
-                >
-                  편집
-                </Button>
-              </Col>
-            </Row>
-          </Col>
-        )} */}
     </Row>
-  )
+  );
 }
 
 export default ProjectCard;
