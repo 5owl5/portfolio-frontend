@@ -6,7 +6,7 @@ import DatePicker from "react-datepicker";
 const AwardAddForm = ({ portfolioOwnerId, setAwards, setIsAdding }) => {
   let [title, setTitle] = useState("");
   let [description, setDescription] = useState("");
-  let [date, setDate]= useState(new Date());
+  let [date, setDate] = useState(new Date());
   const handleSubmit = async (e) => {
     e.preventDefault();
     await Api.post("awards", {
@@ -17,7 +17,7 @@ const AwardAddForm = ({ portfolioOwnerId, setAwards, setIsAdding }) => {
     const res = await Api.get(`users/${portfolioOwnerId}/awards`);
     const update = res.data;
     setAwards(update);
-    setIsAdding(false)
+    setIsAdding(false);
   };
 
   return (
@@ -41,12 +41,9 @@ const AwardAddForm = ({ portfolioOwnerId, setAwards, setIsAdding }) => {
       </Form.Group>
 
       <Form.Group>
-        <Form.Group as={Row} controlId='awardAddDate' className="mb-3">
+        <Form.Group as={Row} controlId="awardAddDate" className="mb-3">
           <Col>
-            <DatePicker
-              selected={date}
-              onChange={ (date)=> setDate(date)}
-              />
+            <DatePicker selected={date} onChange={(date) => setDate(date)} />
           </Col>
         </Form.Group>
       </Form.Group>

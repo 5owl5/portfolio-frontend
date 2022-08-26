@@ -3,16 +3,21 @@ import { Button, Form, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
 import DatePicker from "react-datepicker";
 
-const AwardEditForm = ({ award, setAwards, setIsEditing, portfolioOwnerId }) => {
+const AwardEditForm = ({
+  award,
+  setAwards,
+  setIsEditing,
+  portfolioOwnerId,
+}) => {
   let [title, setTitle] = useState(award.awardWhere);
   let [description, setDescription] = useState(award.awardName);
-  const [awardDate,setAwardDate]=useState(new Date(award.awardDate))
+  const [awardDate, setAwardDate] = useState(new Date(award.awardDate));
   const handleSubmit = async (e) => {
     e.preventDefault();
     await Api.put(`awards/${award.awardNumber}`, {
       awardWhere: title,
       awardName: description,
-      awardDate: awardDate
+      awardDate: awardDate,
     });
 
     const res = await Api.get(`users/${portfolioOwnerId}/awards`);
@@ -39,13 +44,13 @@ const AwardEditForm = ({ award, setAwards, setIsEditing, portfolioOwnerId }) => 
           onChange={(e) => setDescription(e.target.value)}
         />
       </Form.Group>
-      
-      <Form.Group as={Row} controlId='awardEditDate' className="mb-3">
+
+      <Form.Group as={Row} controlId="awardEditDate" className="mb-3">
         <Col>
           <DatePicker
             selected={awardDate}
-            onChange={(date)=>setAwardDate(date)}
-            />
+            onChange={(date) => setAwardDate(date)}
+          />
         </Col>
       </Form.Group>
 

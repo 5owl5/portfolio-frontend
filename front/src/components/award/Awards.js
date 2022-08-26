@@ -27,13 +27,15 @@ const Awards = ({ portfolioOwnerId, isEditable }) => {
           />
         ))}
         {isEditable && (
-         <Col> 
-          <Row className="mt-3 text-center mb-4">
-            <Col sm={{ span: 20 }}>
-              <Button variant="primary" onClick={() => setIsAdding(true)}>+</Button>
-            </Col>
-          </Row>
-        </Col>
+          <Col>
+            <Row className="mt-3 text-center mb-4">
+              <Col sm={{ span: 20 }}>
+                <Button variant="primary" onClick={() => setIsAdding(true)}>
+                  +
+                </Button>
+              </Col>
+            </Row>
+          </Col>
         )}
         {isAdding && (
           <AwardAddForm
