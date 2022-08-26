@@ -1,27 +1,35 @@
 import { Card, Button, Row, Col } from "react-bootstrap";
 
-const AwardCard = ({ award, isEditable, setIsEditing }) => {
+const AwardCard = ({ award,setIsEditing }) => {
+  const awardDate= award.awardDate.split("T")[0];
   return (
-    <Card.Text>
-      <Row className="align-items-center">
+  
+      <Row className="mb-4">
         <Col>
-          <span>{award.title}</span> <br />
-          <span className="text-muted">{award.description}</span>
+          <Card.Text>
+          {award.awardWhere}<br/>
+          <span className="text-muted">{award.awardName}</span><br />
+          <span className="text-muted">{awardDate}</span>
+          </Card.Text>
         </Col>
-        {isEditable && (
-          <Col xs lg="1">
+        
+          <Col>
             <Button
               variant="outline-info"
               size="sm"
-              onClick={() => setIsEditing((prev) => !prev)}
-              className="mr-3"
+              style={{
+                position: "absolute",
+                right: 0,
+                marginRight: '30px',
+              }}
+              onClick={() => setIsEditing(true)}
             >
               편집
             </Button>
           </Col>
-        )}
+        
       </Row>
-    </Card.Text>
+    
   );
 };
 

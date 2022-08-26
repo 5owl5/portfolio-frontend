@@ -1,28 +1,28 @@
 import React, { useState } from "react";
 import { Button, Form, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
+import DatePicker from "react-datepicker";
 
-const AwardEditForm = ({ currentAward, setAwards, setisEditing }) => {
-  let [title, setTitle] = useState(currentAward?.title);
-  let [description, setDescription] = useState(currentAward?.description);
+const AwardEditForm = ({ award, setAwards, setIsEditing, portfolioOwnerId }) => {
+  let [title, setTitle] = useState(award.awardWhere);
+  let [description, setDescription] = useState(award.awardName);
+  const [awardDate,setAwardDate]=useState(new Date(award.awardDate))
   const handleSubmit = async (e) => {
     e.preventDefault();
-    e.stopPropagation();
-    const userId = currentAward.userId;
-    await Api.put(`awards/${currentAward.id}`, {
-      userId,
-      title,
-      description,
+    await Api.put(`awards/${award.awardNumber}`, {
+      awardWhere: title,
+      awardName: description,
+      awardDate: awardDate
     });
 
-    const res = await Api.get("awardlist", userId);
+    const res = await Api.get(`users/${portfolioOwnerId}/awards`);
     const edit = res.data;
     setAwards(edit);
-    setisEditing(false);
+    setIsEditing(false);
   };
   return (
     <Form onSubmit={handleSubmit}>
-      <Form.Group controlId="formBasicTitle">
+      <Form.Group controlId="formBasicTitle" className="mb-3">
         <Form.Control
           type="texrt"
           placeholder="수상내역"
@@ -31,13 +31,22 @@ const AwardEditForm = ({ currentAward, setAwards, setisEditing }) => {
         />
       </Form.Group>
 
-      <Form.Group controlId="formBasicDescription" className="mt-3">
+      <Form.Group controlId="formBasicDescription" className="mb-3">
         <Form.Control
           type="text"
           placeholder="상세내역"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
+      </Form.Group>
+      
+      <Form.Group as={Row} controlId='awardEditDate' className="mb-3">
+        <Col>
+          <DatePicker
+            selected={awardDate}
+            onChange={(date)=>setAwardDate(date)}
+            />
+        </Col>
       </Form.Group>
 
       <Form.Group as={Row} className="mt-3 text-center mb-4">
@@ -48,7 +57,7 @@ const AwardEditForm = ({ currentAward, setAwards, setisEditing }) => {
           <Button
             variant="secondary"
             onClick={() => {
-              setisEditing(false);
+              setIsEditing(false);
             }}
           >
             취소

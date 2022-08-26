@@ -1,22 +1,22 @@
 import React from "react";
 import AwardEditForm from "./AwardEditForm";
 import AwardCard from "./AwardCard";
-
-const Award = (award, setAwards, isEditable) => {
-  let [isEditing, setisEditing] = useState(false);
+import { useState } from "react";
+const Award = ({portfolioOwnerId, award, setAwards}) => {
+  const [isEditing, setIsEditing] = useState(false);
   return (
     <div>
       {isEditing ? (
         <AwardEditForm
-          currentAward={award}
+          award={award}
           setAwards={setAwards}
-          setisEditing={setisEditing}
+          setIsEditing={setIsEditing}
+          portfolioOwnerId={portfolioOwnerId}
         />
       ) : (
         <AwardCard
           award={award}
-          isEditable={isEditable}
-          setisEditing={setisEditing}
+          setIsEditing={setIsEditing}
         />
       )}
     </div>
