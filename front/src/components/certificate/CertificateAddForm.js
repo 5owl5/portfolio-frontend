@@ -1,14 +1,33 @@
 import React, { useState } from "react";
 import { Button, Form, Col, Row } from "react-bootstrap";
 import DatePicker from "react-datepicker";
+import * as Api from "../../api";
 
 function CertificateAddForm({ portfolioOwnerId, setCertificates, setIsAdding }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [whenDate, setWhenDate] = useState(new Date());
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const userId = portfolioOwnerId;
+    const when_date = whenDate.toISOString().split("T")[0];
+
+    await Api.post("certificate/create", {
+      userId,
+      title,
+      description,
+      when_date,
+    });
+
+    const res = await Api.get("certificateList", userId);
+    setCertificates(res.data);
+    setIsAdding(false);
+  }
+
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <Form.Group controlId="certificateAddTitle">
         <Form.Control
           type="text"
