@@ -16,9 +16,9 @@ function CertificateAddForm({ portfolioOwnerId, setCertificates, setIsAdding }) 
 
     await Api.post("certificate/create", {
       userId: portfolioOwnerId,
-      title,
-      description,
-      when_date,
+      "name": title,
+      "description": description,
+      "acquisitionDate": when_date,
     });
 
     const res = await Api.get("certificateList", userId);
