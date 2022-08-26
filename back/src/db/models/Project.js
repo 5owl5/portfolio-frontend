@@ -6,18 +6,18 @@ class Project {
     return createdNewProject;
   }
 
-  static async findByUser({ user }) {
-    const userProjects = await projectModel.find({ user });
+  static async findById({ userId }) {
+    const userProjects = await projectModel.find({ userId });
     return userProjects;
   }
 
-  static async findByUserAndNumber({ user, projectNumber }) {
-    const userProjects = await projectModel.findOne({ user, projectNumber });
+  static async findByIdAndNumber({ userId, projectNumber }) {
+    const userProjects = await projectModel.findOne({ userId, projectNumber });
     return userProjects;
   }
 
-  static async update({ user, projectNumber, updateContent, newValue }) {
-    const filter = { user, projectNumber };
+  static async update({ userId, projectNumber, updateContent, newValue }) {
+    const filter = { userId, projectNumber };
     const content = { [updateContent]: newValue };
     const option = { returnOriginal: false };
 
