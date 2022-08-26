@@ -1,11 +1,12 @@
 import { Router } from "express";
 import { projectService } from "../services/projectService";
+import { login_required } from "../middlewares/login_required";
 
 const projectRouter = Router();
 
-projectRouter.get("/", async function (req, res, next) {
+projectRouter.get("/users/:id/projects", login_required, async function (req, res, next) {
   try {
-    const userId = req.header("userId") // 헤더에서 정보 받아오기
+    const userId = req.params.id // 헤더에서 정보 받아오기
 
     const projects = await projectService.getProject({ userId });
 
@@ -15,9 +16,9 @@ projectRouter.get("/", async function (req, res, next) {
   }
 });
 
-projectRouter.post("/", async function (req, res, next) {
+projectRouter.post("/projects", login_required,async function (req, res, next) {
   try {
-    const userId = req.header("userId")
+    const userId = req.currentUserId
 
     const projects = await projectService.getProject({ userId });
     const projectslength = projects.length;
@@ -43,9 +44,9 @@ projectRouter.post("/", async function (req, res, next) {
   }
 });
 
-projectRouter.put("/:number", async function (req, res) {
+projectRouter.put("/projects/:number", login_required, async function (req, res, next) {
   try {
-    const userId = req.header("userId")
+    const userId = req.currentUserId
     const projectNumber = req.params.number;
 
     const projectName = req.body.projectName ?? null;
