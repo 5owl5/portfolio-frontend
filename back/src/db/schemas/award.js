@@ -9,7 +9,6 @@ const awardSchema = new Schema({
   awardNumber: {
     type: Number,
     required: true,
-    unique: true,
     default: 0,
   },
   awardWhere: {

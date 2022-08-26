@@ -1,11 +1,12 @@
 import { Router } from "express";
 import { awardService } from "../services/awardService";
+import { login_required } from "../middlewares/login_required";
 
-const awardRouter = Router({ mergeParams: true }); //Router의 자식 라우터가 params를 받을 수 있게
+const awardRouter = Router();
 
-awardRouter.get("/", async function (req, res, next) {
+awardRouter.get("/users/:id/awards", login_required, async function (req, res, next) {
   try {
-    const userId = req.currentUserId;
+    const userId = req.params.id
 
     const awards = await awardService.getAward({ userId });
 
@@ -15,9 +16,9 @@ awardRouter.get("/", async function (req, res, next) {
   }
 });
 
-awardRouter.post("/", async function (req, res, next) {
+awardRouter.post("/awards", login_required, async function (req, res, next) {
   try {
-    const userId = req.currentUserId;
+    const userId = req.currentUserId
 
     const awards = await awardService.getAward({ userId });
     const awardslength = awards.length;
@@ -41,9 +42,9 @@ awardRouter.post("/", async function (req, res, next) {
   }
 });
 
-awardRouter.put("/:number", async function (req, res) {
+awardRouter.put("/awards/:number", login_required, async function (req, res, next) {
   try {
-    const userId = req.currentUserId;
+    const userId = req.currentUserId
     const awardNumber = req.params.number;
 
     const awardWhere = req.body.awardWhere ?? null;
