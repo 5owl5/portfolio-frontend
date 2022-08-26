@@ -22,6 +22,7 @@ function ProjectEditForm({
       startpoint: fromDate,
       endpoint: toDate,
     });
+
     const res = await Api.get(`users/${portfolioOwnerId}/projects`);
     const UpdateProjects = res.data;
     setProjects(UpdateProjects);
