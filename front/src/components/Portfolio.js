@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Container, Col, Row } from "react-bootstrap";
-
+import Awards from "./award/Awards";
 import { UserStateContext } from "../App";
 import * as Api from "../api";
 import User from "./user/User";
@@ -64,10 +64,18 @@ function Portfolio() {
         </Col>
         <Col>
 
+
           <Projects 
             portfolioOwnerId={portfolioOwner.id}
             isEditable={portfolioOwner.id === userState.user?.id}
           />
+
+          
+          <Awards
+            portfolioOwnerId={portfolioOwner.id}
+            isEditable={portfolioOwner.id === userState.user?.id}></Awards>
+          
+
 
         </Col>
       </Row>
