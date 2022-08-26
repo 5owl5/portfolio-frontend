@@ -10,8 +10,9 @@ function CertificateEditForm({ currentCertificate, setCertificates, setIsEditing
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        e.stopPropagation();
 
-        const owner = portfolioOwnerId;
+        const owner = currentCertificate.owner;
         const acquisitionDate = whenDate.toISOString().split("T")[0];
 
         await Api.put(`cer/${currentCertificate._id}`, {
@@ -27,51 +28,44 @@ function CertificateEditForm({ currentCertificate, setCertificates, setIsEditing
     };
 
     return (
-        <>
         <Form onSubmit={handleSubmit}>
             <Form.Group controlId="certificateEditTitle">
                 <Form.Control
-                    type="text"
-                    placeholder="자격증 이름"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
+                type="text"
+                placeholder="자격증 이름"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 />
             </Form.Group>
-        </Form>
-        
-        <Form>
             <Form.Group controlId="certificateEditDescription" className="mt-3">
-                 <Form.Control
-                    type="text"
-                    placeholder="상세내역"
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
+                <Form.Control
+                type="text"
+                placeholder="상세내역"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
                 />
             </Form.Group>
-        </Form>
 
-        <Form>
             <Form.Group as={Row} className="mt-3">
-                 <Col xs="auto">
-                    <DatePicker
-                        selected={whenDate}
-                        onChange={(date) => setWhenDate(date)}
+                <Col xs="auto">
+                <DatePicker
+                    selected={whenDate}
+                    onChange={(date) => setWhenDate(date)}
                 />
                 </Col>
             </Form.Group>
 
             <Form.Group as={Row} className="mt-3 text-center mb-4">
-                <Col sm={{ span: 20}}>
-                    <Button variant="primary" type="submit" className="me-3">
-                        확인
-                    </Button>
-                    <Button variant="secondary" onClick={() => setIsEditing(false)}>
-                        취소
-                    </Button>
+                <Col sm={{ span: 20 }}>
+                <Button variant="primary" type="submit" className="me-3">
+                    확인
+                </Button>
+                <Button variant="secondary" onClick={() => setIsEditing(false)}>
+                    취소
+                </Button>
                 </Col>
             </Form.Group>
         </Form>
-        </>
     );
 }
 
