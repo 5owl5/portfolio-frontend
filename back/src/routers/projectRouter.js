@@ -20,8 +20,9 @@ projectRouter.post("/", async function (req, res, next) {
     const userId = req.currentUserId;
 
     const projects = await projectService.getProject({ userId });
+    const projectslength = projects.length;
 
-    const projectNumber = projects.pop().projectNumber + 1;
+    const projectNumber = projectslength ? projects.pop().projectNumber + 1 : 1;
     const projectName = req.body.projectName;
     const content = req.body.content;
     const startpoint = req.body.startpoint;
