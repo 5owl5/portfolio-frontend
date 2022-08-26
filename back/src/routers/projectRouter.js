@@ -1,11 +1,11 @@
 import { Router } from "express";
 import { projectService } from "../services/projectService";
 
-const projectRouter = Router(); //Router의 자식 라우터가 params를 받을 수 있게
+const projectRouter = Router();
 
 projectRouter.get("/", async function (req, res, next) {
   try {
-    const userId = req.currentUserId;
+    const userId = req.header("userId") // 헤더에서 정보 받아오기
 
     const projects = await projectService.getProject({ userId });
 
@@ -17,7 +17,7 @@ projectRouter.get("/", async function (req, res, next) {
 
 projectRouter.post("/", async function (req, res, next) {
   try {
-    const userId = req.currentUserId;
+    const userId = req.header("userId")
 
     const projects = await projectService.getProject({ userId });
     const projectslength = projects.length;
@@ -45,7 +45,7 @@ projectRouter.post("/", async function (req, res, next) {
 
 projectRouter.put("/:number", async function (req, res) {
   try {
-    const userId = req.currentUserId;
+    const userId = req.header("userId")
     const projectNumber = req.params.number;
 
     const projectName = req.body.projectName ?? null;
