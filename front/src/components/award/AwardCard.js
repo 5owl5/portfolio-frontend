@@ -1,7 +1,10 @@
 import { Card, Button, Row, Col } from "react-bootstrap";
+import moment from "moment-timezone";
 
 const AwardCard = ({ award, setIsEditing, isEditable }) => {
-  const awardDate = award.awardDate.split("T")[0];
+  let agreementTime = moment(award.awardDate).tz("Asia/Seoul").format('YYYY-MM-DD');
+  const awardDate = agreementTime;
+
   return (
     <Row className="mb-4">
       <Col>
