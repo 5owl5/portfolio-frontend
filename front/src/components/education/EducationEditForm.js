@@ -22,7 +22,7 @@ function EducationEditForm({
     const owner = currentCertificate.owner;
     const acquisitionDate = whenDate.toISOString().split("T")[0];
 
-    await Api.put(`edu/${currentEducation.id}`, {
+    await Api.put(`edu/${currentEducation._id}`, {
       owner,
       name,
       description,
