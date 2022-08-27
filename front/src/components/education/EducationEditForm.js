@@ -1,8 +1,14 @@
 import React, { useState } from "react";
 import { Button, Form, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
+import DatePicker from "react-datepicker";
 
-function EducationEditForm({ education, setEducations, setIsEditing }) {
+function EducationEditForm({
+  education,
+  setEducations,
+  setIsEditing,
+  portfolioOwnerId,
+}) {
   const [title, setTitle] = useState(currentEducation.educationName);
   const [description, setDescription] = useState(currentEducation.description);
 
@@ -10,12 +16,12 @@ function EducationEditForm({ education, setEducations, setIsEditing }) {
     e.preventDefault();
     const userId = currentAward.userId;
     await Api.put(`educations/${currentEducation.id}`, {
-      userId,
-      title,
-      description,
+      educationTitle: title,
+      educationName: description,
+      educationDate: educationDate,
     });
 
-    const res = await Api.get("educationList", userId);
+    const res = await Api.get("http://localhost:5001/edu/:_id", userId);
     setEducations(res.data);
     setIsEditing(false);
   };
