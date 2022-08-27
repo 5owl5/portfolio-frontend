@@ -14,6 +14,7 @@ function ProjectEditForm({
   const [fromDate, setFromDate] = useState(new Date(project.startpoint));
   const [toDate, setToDate] = useState(new Date(project.endpoint));
 
+  //console.log(fromDate, toDate);
   const handleSubmit = async (e) => {
     e.preventDefault();
 
