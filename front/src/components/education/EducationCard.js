@@ -1,27 +1,29 @@
 import { Card, Button, Row, Col } from "react-bootstrap";
+import React from "react";
 
 function EducationCard({ education, isEditable, setIsEditing }) {
-  const awardDate = award.awardDate.split("T")[0];
-
   return (
     <Card.Text>
-      <Row className="align-items-center">
+      <Row className="mb-4">
         <Col>
-          <span>{education.educationTitle}</span>
+          {education.name}
           <br />
-          <span className="text-muted">{education.educationName}</span>
+          <span className="text-muted">{education.description}</span>
           <br />
-          <span className="text-muted">{awardDate}</span>
+          <span className="text-muted">{education.acquisitionDate}</span>
         </Col>
         {isEditable && (
           <Col xs lg="1">
             <Button
               variant="outline-info"
               size="sm"
-              onClick={() => setIsEditing((prev) => !prev)}
+              onClick={() => setIsEditing(true)}
               className="mr-3"
             >
               편집
+            </Button>
+            <Button variant="outline-danger" size="sm" className="mr-3">
+              삭제
             </Button>
           </Col>
         )}
