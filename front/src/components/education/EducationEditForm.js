@@ -4,24 +4,32 @@ import * as Api from "../../api";
 import DatePicker from "react-datepicker";
 
 function EducationEditForm({
-  education,
+  currentEducation,
   setEducations,
   setIsEditing,
   portfolioOwnerId,
 }) {
-  const [title, setTitle] = useState(currentEducation.educationName);
+  const [name, setName] = useState(currentEducation.name);
+
   const [description, setDescription] = useState(currentEducation.description);
+  const [whenDate, setWhenDate] = useState(
+    new Date(currentEducation.acquisitionDate)
+  );
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const userId = currentAward.userId;
-    await Api.put(`educations/${currentEducation.id}`, {
-      educationTitle: title,
-      educationName: description,
-      educationDate: educationDate,
+    e.stopPropagation();
+    const owner = currentCertificate.owner;
+    const acquisitionDate = whenDate.toISOString().split("T")[0];
+
+    await Api.put(`edu/${currentEducation.id}`, {
+      owner,
+      name,
+      description,
+      acquisitionDate,
     });
 
-    const res = await Api.get("http://localhost:5001/edu/:_id", userId);
+    const res = await Api.get(`users/${portfolioOwnerId}/edu`);
     setEducations(res.data);
     setIsEditing(false);
   };
@@ -32,8 +40,8 @@ function EducationEditForm({
         <Form.Control
           type="text"
           placeholder="학력내역"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
       </Form.Group>
 
@@ -44,6 +52,15 @@ function EducationEditForm({
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
+      </Form.Group>
+
+      <Form.Group as={Row} className="mt-3">
+        <Col xs="auto">
+          <DatePicker
+            selected={whenDate}
+            onChange={(date) => setWhenDate(date)}
+          />
+        </Col>
       </Form.Group>
 
       <Form.Group as={Row} className="mt-3 text-center mb-4">
