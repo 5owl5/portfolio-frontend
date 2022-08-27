@@ -1,6 +1,6 @@
 import { Card, Button, Row, Col } from "react-bootstrap";
 
-const AwardCard = ({ award, setIsEditing }) => {
+const AwardCard = ({ award, setIsEditing, isEditable }) => {
   const awardDate = award.awardDate.split("T")[0];
   return (
     <Row className="mb-4">
@@ -14,7 +14,8 @@ const AwardCard = ({ award, setIsEditing }) => {
         </Card.Text>
       </Col>
 
-      <Col>
+      
+      {isEditable&&(<Col>
         <Button
           variant="outline-info"
           size="sm"
@@ -27,9 +28,10 @@ const AwardCard = ({ award, setIsEditing }) => {
         >
           편집
         </Button>
-      </Col>
+      </Col>)}
     </Row>
   );
 };
+
 
 export default AwardCard;
