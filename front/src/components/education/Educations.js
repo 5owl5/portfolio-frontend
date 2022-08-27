@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Card, Button, Row, Col } from "react-bootstrap";
 import * as Api from "../../api";
 import EducationAddForm from "./EducationAddForm";
+import Education from "./Education";
 
 function Educations({ portfolioOwnerId, isEditable }) {
   const [educations, setEducations] = useState([]);
   const [isAdding, setIsAdding] = useState(false);
 
   useEffect(() => {
-    Api.get(`users/${portfolioOwnerId}/educations`).then((res) =>
+    Api.get(`users/${portfolioOwnerId}/edu`).then((res) =>
       setEducations(res.data)
     );
   }, [portfolioOwnerId]);
@@ -18,8 +19,8 @@ function Educations({ portfolioOwnerId, isEditable }) {
       <Card.Body>
         <Card.Title>학력</Card.Title>
         {educations.map((education) => (
-          <education
-            key={education.educationNumber}
+          <Education
+            key={education._id}
             education={education}
             setEducations={setEducations}
             isEditable={isEditable}
