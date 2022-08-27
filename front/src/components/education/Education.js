@@ -12,11 +12,15 @@ function Education({ education, setEducations, portfolioOwnerId }) {
           currentEducation={education}
           setEducations={setEducations}
           setIsEditing={setIsEditing}
-          portfolioOwnerId={portfolioOwnerId}
         />
       ) : (
         education && (
-          <EducationCard education={education} setIsEditing={setIsEditing} />
+          <EducationCard
+            education={education}
+            setEducations={setEducations}
+            setIsEditing={setIsEditing}
+            isEditable={isEditable}
+          />
         )
       )}
     </>
