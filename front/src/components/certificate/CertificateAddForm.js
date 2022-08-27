@@ -6,13 +6,12 @@ import * as Api from "../../api";
 function CertificateAddForm({ portfolioOwnerId, setCertificates, setIsAdding }) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [whenDate, setWhenDate] = useState(new Date());
+  const [acquisitionDate, setAcquisitionDate] = useState(new Date());
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const owner = portfolioOwnerId;
-    const acquisitionDate = whenDate.toISOString().split("T")[0];
 
     await Api.post("cer", {
       owner,
@@ -49,8 +48,8 @@ function CertificateAddForm({ portfolioOwnerId, setCertificates, setIsAdding }) 
       <Form.Group as={Row} className="mt-3">
         <Col xs="auto">
           <DatePicker
-            selected={whenDate}
-            onChange={(date) => setWhenDate(date)}
+            selected={acquisitionDate}
+            onChange={(date) => setAcquisitionDate(date)}
           />
         </Col>
       </Form.Group>
