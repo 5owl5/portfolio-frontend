@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Button, Form, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
-import DatePicker from "react-datepicker";
 
 function EducationEditForm({
   currentEducation,
@@ -10,23 +9,19 @@ function EducationEditForm({
   portfolioOwnerId,
 }) {
   const [name, setName] = useState(currentEducation.name);
-
-  const [description, setDescription] = useState(currentEducation.description);
-  const [whenDate, setWhenDate] = useState(
-    new Date(currentEducation.acquisitionDate)
-  );
+  const [major, setMajor] = useState(currentEducation.major);
+  const [present, setPresent] = useState(currentEducation.present);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
     const owner = currentEducation.owner;
-    const acquisitionDate = whenDate.toISOString().split("T")[0];
 
-    await Api.put(`edu/${currentEducation.id}`, {
+    await Api.put(`edu/${currentEducation._id}`, {
       owner,
       name,
-      description,
-      acquisitionDate,
+      major,
+      present,
     });
 
     const res = await Api.get(`users/${portfolioOwnerId}/edu`);
@@ -36,7 +31,7 @@ function EducationEditForm({
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Form.Group controlId="educationAddTitle">
+      <Form.Group controlId="educationEditTitle">
         <Form.Control
           type="text"
           placeholder="학력내역"
@@ -45,23 +40,59 @@ function EducationEditForm({
         />
       </Form.Group>
 
-      <Form.Group controlId="educationAddDescription" className="mt-3">
+      <Form.Group controlId="educationEditMajor" className="mt-3">
         <Form.Control
           type="text"
           placeholder="상세내역"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          value={major}
+          onChange={(e) => setMajor(e.target.value)}
         />
       </Form.Group>
 
-      <Form.Group as={Row} className="mt-3">
-        <Col xs="auto">
-          <DatePicker
-            selected={whenDate}
-            onChange={(date) => setWhenDate(date)}
-          />
-        </Col>
-      </Form.Group>
+      <div key={`inline-radio`} className="mb-3 mt-3">
+        <Form.Check
+          inline
+          label="재학중"
+          id="radio-add-1"
+          type="radio"
+          name="present"
+          value="재학중"
+          checked={present === "재학중"}
+          onChange={(e) => setPresent(e.target.value)}
+        />
+        <Form.Check
+          inline
+          label="학사졸업"
+          id="radio-add-2"
+          type="radio"
+          name="present"
+          value="학사졸업"
+          checked={present === "학사졸업"}
+          onChange={(e) => setPresent(e.target.value)}
+        />
+
+        <Form.Check
+          inline
+          label="석사졸업"
+          id="radio-add-3"
+          type="radio"
+          name="present"
+          value="석사졸업"
+          checked={present === "석사졸업"}
+          onChange={(e) => setPresent(e.target.value)}
+        />
+
+        <Form.Check
+          inline
+          label="박사졸업"
+          id="radio-add-4"
+          type="radio"
+          name="present"
+          value="박사졸업"
+          checked={present === "박사졸업"}
+          onChange={(e) => setPresent(e.target.value)}
+        />
+      </div>
 
       <Form.Group as={Row} className="mt-3 text-center mb-4">
         <Col sm={{ span: 20 }}>
