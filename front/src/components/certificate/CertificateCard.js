@@ -1,9 +1,11 @@
 import React from "react";
 import { Card, Button, Row, Col } from "react-bootstrap";
 import * as Api from '../../api';
+import moment from "moment-timezone";
 
 function CertificateCard({ certificate, currentCertificate, isEditable, setIsEditing, setCertificates, portfolioOwnerId }) {
-  const certificateDate = certificate.acquisitionDate.split("T")[0];
+  let agreementTime = moment(certificate.acquisitionDate).tz("Asia/Seoul").format('YYYY-MM-DD');
+  const certificateDate = agreementTime;
 
   const handleDelete = async (e) => {
     e.preventDefault();

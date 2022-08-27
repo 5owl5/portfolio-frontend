@@ -1,8 +1,10 @@
 import { Card, Row, Button, Col } from "react-bootstrap";
+import moment from "moment-timezone";
 
 function ProjectCard({ project, setIsEditing, isEditable }) {
-  const fromDate = project.startpoint.split("T")[0];
-  const toDate = project.endpoint.split("T")[0];
+  
+  const fromDate = moment(project.startpoint).tz("Asia/Seoul").format('YYYY-MM-DD');
+  const toDate = moment(project.endpoint).tz("Asia/Seoul").format('YYYY-MM-DD');
 
   return (
     <Row className="mb-4">
