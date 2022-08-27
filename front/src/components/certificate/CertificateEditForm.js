@@ -6,14 +6,13 @@ import * as Api from "../../api";
 function CertificateEditForm({ currentCertificate, setCertificates, setIsEditing, portfolioOwnerId }) {
     const [name, setName] = useState(currentCertificate.name);
     const [description, setDescription] = useState(currentCertificate.description);
-    const [whenDate, setWhenDate] = useState(new Date(currentCertificate.acquisitionDate));
+    const [acquisitionDate, setAquisitionDate] = useState(new Date(currentCertificate.acquisitionDate));
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         e.stopPropagation();
 
         const owner = currentCertificate.owner;
-        const acquisitionDate = whenDate.toISOString().split("T")[0];
 
         await Api.put(`cer/${currentCertificate._id}`, {
             owner,
@@ -23,7 +22,8 @@ function CertificateEditForm({ currentCertificate, setCertificates, setIsEditing
         });
 
         const res = await Api.get(`users/${portfolioOwnerId}/cer`);
-        setCertificates(res.data);
+        const UpdateCertificates = res.data;
+        setCertificates(UpdateCertificates);
         setIsEditing(false);
     };
 
@@ -49,13 +49,13 @@ function CertificateEditForm({ currentCertificate, setCertificates, setIsEditing
             <Form.Group as={Row} className="mt-3">
                 <Col xs="auto">
                 <DatePicker
-                    selected={whenDate}
-                    onChange={(date) => setWhenDate(date)}
+                    selected={acquisitionDate}
+                    onChange={(date) => setAquisitionDate(date)}
                 />
                 </Col>
             </Form.Group>
 
-            <Form.Group as={Row} className="mt-3 text-center mb-4">
+            <Form.Group as={Row} className="mt-3 text-center">
                 <Col sm={{ span: 20 }}>
                 <Button variant="primary" type="submit" className="me-3">
                     확인
