@@ -3,6 +3,8 @@ import { Card, Button, Row, Col } from "react-bootstrap";
 
 function CertificateCard({ certificate, isEditable, setIsEditing }) {
 
+  const certificateDate = certificate.acquisitionDate.split("T")[0];
+
   return (
     <Card.Text>
       <Row className="align-items-center">
@@ -11,7 +13,7 @@ function CertificateCard({ certificate, isEditable, setIsEditing }) {
           <br />
           <span className="text-muted">{certificate.description}</span>
           <br />
-          <span className="text-muted">{certificate.acquisitionDate}</span>
+          <span className="text-muted">{certificateDate}</span>
       </Col>
       {isEditable && (
         <Col xs lg="1">
@@ -20,15 +22,13 @@ function CertificateCard({ certificate, isEditable, setIsEditing }) {
             size="sm"
             onClick={() => setIsEditing(true)}
             className="mr-3"
+            style={{
+              position: "absolute",
+              right: 0,
+              marginRight: "30px",
+            }}
           >
             편집
-          </Button>
-          <Button
-              variant="outline-danger"
-              size="sm"
-              className="mr-3"
-            >
-              삭제
           </Button>
         </Col>
       )}
