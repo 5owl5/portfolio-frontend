@@ -1,6 +1,6 @@
 import { Card, Row, Button, Col } from "react-bootstrap";
 
-function ProjectCard({ project, setIsEditing }) {
+function ProjectCard({ project, setIsEditing, isEditable }) {
   const fromDate = project.startpoint.split("T")[0];
   const toDate = project.endpoint.split("T")[0];
 
@@ -18,18 +18,20 @@ function ProjectCard({ project, setIsEditing }) {
         </Card.Text>
       </Col>
       <Col>
-        <Button
-          variant="outline-info"
-          size="sm"
-          style={{
-            position: "absolute",
-            right: 0,
-            marginRight: "30px",
-          }}
-          onClick={() => setIsEditing(true)}
-        >
-          편집
-        </Button>
+        {isEditable && (
+          <Button
+            variant="outline-info"
+            size="sm"
+            style={{
+              position: "absolute",
+              right: 0,
+              marginRight: "30px",
+            }}
+            onClick={() => setIsEditing(true)}
+          >
+            편집
+          </Button>
+        )}
       </Col>
     </Row>
   );

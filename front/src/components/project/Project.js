@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ProjectCard from "./ProjectCard";
 import ProjectEditForm from "./ProjectEditForm";
 
-function Project({ portfolioOwnerId, project, setProjects }) {
+function Project({ portfolioOwnerId, project, setProjects, isEditable }) {
   const [isEditing, setIsEditing] = useState(false);
 
   return (
@@ -15,7 +15,11 @@ function Project({ portfolioOwnerId, project, setProjects }) {
           portfolioOwnerId={portfolioOwnerId}
         />
       ) : (
-        <ProjectCard project={project} setIsEditing={setIsEditing} />
+        <ProjectCard
+          project={project}
+          setIsEditing={setIsEditing}
+          isEditable={isEditable}
+        />
       )}
     </>
   );
