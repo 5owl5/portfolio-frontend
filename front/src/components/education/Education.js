@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import EducationCard from "./EducationCard";
 import EducationEditForm from "./EducationEditForm";
 
-function Education({ education, setEducations, isEditable }) {
+function Education({ education, setEducations, portfolioOwnerId }) {
   const [isEditing, setIsEditing] = useState(false);
 
   return (
@@ -12,6 +12,7 @@ function Education({ education, setEducations, isEditable }) {
           currentEducation={education}
           setEducations={setEducations}
           setIsEditing={setIsEditing}
+          portfolioOwnerId={portfolioOwnerId}
         />
       ) : (
         education && (
