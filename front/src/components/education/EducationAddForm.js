@@ -1,19 +1,20 @@
 import React, { useState } from "react";
 import { Button, Form, Col, Row } from "react-bootstrap";
 import * as Api from "../../api";
+import DatePicker from "react-datepicker";
 
 function EducationAddForm({ portfolioOwnerId, setEducations, setIsAdding }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-
+  let [date, setDate] = useState(new Date());
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await Api.post("education/create", {
-      userId: portfolioOwnerId,
-      title,
-      description,
+    await Api.post("educations", {
+      educationTitle: title,
+      educationName: description,
+      educationDate: date,
     });
-    const res = await Api.get("educationList", userId);
+    const res = await Api.get(`users/${portfolioOwnerId}/educations`);
     setEducations(res.data);
     setIsAdding(false);
   };
