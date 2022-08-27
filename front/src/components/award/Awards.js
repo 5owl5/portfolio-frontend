@@ -24,6 +24,7 @@ const Awards = ({ portfolioOwnerId, isEditable }) => {
             award={award}
             setAwards={setAwards}
             portfolioOwnerId={portfolioOwnerId}
+            isEditable={isEditable}
           />
         ))}
         {isEditable && (
