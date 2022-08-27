@@ -4,17 +4,23 @@ import * as Api from "../../api";
 import DatePicker from "react-datepicker";
 
 function EducationAddForm({ portfolioOwnerId, setEducations, setIsAdding }) {
-  const [title, setTitle] = useState("");
+  const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  let [date, setDate] = useState(new Date());
+  const [whenDate, setWhenDate] = useState(new Date());
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await Api.post("educations", {
-      educationTitle: title,
-      educationName: description,
-      educationDate: date,
+
+    const owner = portfolioOwnerId;
+    const acquisitionDate = whenDate.toISOString().split("T")[0];
+
+    await Api.post("edu", {
+      owner,
+      name,
+      description,
+      acquisitionDate,
     });
-    const res = await Api.get(`users/${portfolioOwnerId}/educations`);
+    const res = await Api.get(`users/${portfolioOwnerId}/edu`);
     setEducations(res.data);
     setIsAdding(false);
   };
@@ -25,8 +31,8 @@ function EducationAddForm({ portfolioOwnerId, setEducations, setIsAdding }) {
         <Form.Control
           type="text"
           placeholder="학력"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
       </Form.Group>
 
@@ -37,6 +43,15 @@ function EducationAddForm({ portfolioOwnerId, setEducations, setIsAdding }) {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
+      </Form.Group>
+
+      <Form.Group as={Row} className="mt-3">
+        <Col xs="auto">
+          <DatePicker
+            selected={whenDate}
+            onChange={(date) => setWhenDate(date)}
+          />
+        </Col>
       </Form.Group>
 
       <Form.Group as={Row} className="mt-3 text-center">
