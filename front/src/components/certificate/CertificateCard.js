@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, Button, Row, Col } from "react-bootstrap";
 import * as Api from "../../api";
+import convertTime from "../utils/convertTime";
 
 function CertificateCard({
   certificate,
@@ -10,12 +11,6 @@ function CertificateCard({
   setCertificates,
   portfolioOwnerId,
 }) {
-  function convertTime(date) {
-    date = new Date(date);
-    let offset = date.getTimezoneOffset() * 60000; //ms단위라 60000곱해줌
-    let dateOffset = new Date(date.getTime() - offset);
-    return dateOffset.toISOString();
-  }
   const certificateDate = convertTime(certificate.acquisitionDate).split(
     "T"
   )[0];

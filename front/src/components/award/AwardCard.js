@@ -1,9 +1,8 @@
 import { Card, Button, Row, Col } from "react-bootstrap";
-import moment from "moment-timezone";
+import convertTime from "../utils/convertTime";
 
 const AwardCard = ({ award, setIsEditing, isEditable }) => {
-  let agreementTime = moment(award.awardDate).tz("Asia/Seoul").format('YYYY-MM-DD');
-  const awardDate = agreementTime;
+  const awardDate = convertTime(award.awardDate).split("T")[0];
 
   return (
     <Row className="mb-4">
@@ -17,24 +16,24 @@ const AwardCard = ({ award, setIsEditing, isEditable }) => {
         </Card.Text>
       </Col>
 
-      
-      {isEditable&&(<Col>
-        <Button
-          variant="outline-info"
-          size="sm"
-          style={{
-            position: "absolute",
-            right: 0,
-            marginRight: "30px",
-          }}
-          onClick={() => setIsEditing(true)}
-        >
-          편집
-        </Button>
-      </Col>)}
+      {isEditable && (
+        <Col>
+          <Button
+            variant="outline-info"
+            size="sm"
+            style={{
+              position: "absolute",
+              right: 0,
+              marginRight: "30px",
+            }}
+            onClick={() => setIsEditing(true)}
+          >
+            편집
+          </Button>
+        </Col>
+      )}
     </Row>
   );
 };
-
 
 export default AwardCard;
