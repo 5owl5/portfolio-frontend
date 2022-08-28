@@ -4,16 +4,16 @@ class awardService {
   static async addAward({
     userId,
     awardNumber,
-    awardWhere,
+    awardHost,
     awardName,
-    awardDate,
+    awardedAt,
   }) {
     const newAward = {
       userId,
-      awardNumber,
-      awardWhere,
-      awardName,
-      awardDate,
+      number: awardNumber,
+      host: awardHost,
+      name: awardName,
+      awardedAt,
     };
 
     const createdNewAward = await Award.create({ newAward });
@@ -31,9 +31,9 @@ class awardService {
       awardNumber,
     });
 
-    if (updateContent.awardWhere) {
-      const field = "awardWhere";
-      const newValue = updateContent.awardWhere;
+    if (updateContent.awardHost) {
+      const field = "host";
+      const newValue = updateContent.awardHost;
       updatedAward = await Award.update({
         userId,
         awardNumber,
@@ -43,7 +43,7 @@ class awardService {
     }
 
     if (updateContent.awardName) {
-      const field = "awardName";
+      const field = "name";
       const newValue = updateContent.awardName;
       updatedAward = await Award.update({
         userId,
@@ -53,9 +53,9 @@ class awardService {
       });
     }
 
-    if (updateContent.awardDate) {
-      const field = "awardDate";
-      const newValue = updateContent.awardDate;
+    if (updateContent.awardedAt) {
+      const field = "awardedAt";
+      const newValue = updateContent.awardedAt;
       updatedAward = await Award.update({
         userId,
         awardNumber,
@@ -65,6 +65,18 @@ class awardService {
     }
 
     return updatedAward;
+  }
+
+  static async deleteAward({
+    userId,
+    awardNumber
+  }) {
+    const deleteAward = await Award.delete({
+      userId,
+      awardNumber
+    })
+
+    return deleteAward
   }
 }
 

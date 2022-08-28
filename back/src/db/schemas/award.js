@@ -6,20 +6,20 @@ const awardSchema = new Schema({
     ref: "User",
     required: true,
   },
-  awardNumber: {
+  number: {
     type: Number,
     required: true,
     default: 0,
   },
-  awardWhere: {
+  host: {
     type: String,
     required: true,
   },
-  awardName: {
+  name: {
     type: String,
     required: true,
   },
-  awardDate: {
+  awardedAt: {
     type: Date,
     required: true,
   },

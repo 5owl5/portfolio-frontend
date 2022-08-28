@@ -23,17 +23,17 @@ awardRouter.post("/awards", login_required, async function (req, res, next) {
     const awards = await awardService.getAward({ userId });
     const awardslength = awards.length;
 
-    const awardNumber = awardslength ? awards.pop().awardNumber + 1 : 1;
-    const awardWhere = req.body.awardWhere;
+    const awardNumber = awardslength ? awards.pop().number + 1 : 1;
+    const awardHost = req.body.awardWhere;
     const awardName = req.body.awardName;
-    const awardDate = req.body.awardDate;
+    const awardedAt = req.body.awardDate;
 
     const newAward = await awardService.addAward({
       userId,
       awardNumber,
-      awardWhere,
+      awardHost,
       awardName,
-      awardDate,
+      awardedAt,
     });
 
     res.status(201).json(newAward);
@@ -47,11 +47,11 @@ awardRouter.put("/awards/:number", login_required, async function (req, res, nex
     const userId = req.currentUserId
     const awardNumber = req.params.number;
 
-    const awardWhere = req.body.awardWhere ?? null;
+    const awardHost = req.body.awardWhere ?? null;
     const awardName = req.body.awardName ?? null;
-    const awardDate = req.body.awardDate ?? null;
+    const awardedAt = req.body.awardDate ?? null;
 
-    const updateContent = { awardWhere, awardName, awardDate };
+    const updateContent = { awardHost, awardName, awardedAt };
 
     const updateAward = await awardService.updateAward({
       userId,
@@ -60,6 +60,22 @@ awardRouter.put("/awards/:number", login_required, async function (req, res, nex
     });
 
     res.status(201).json(updateAward);
+  } catch (error) {
+    next(error);
+  }
+});
+
+awardRouter.delete("/awards/:number", login_required, async function (req, res, next) {
+  try {
+    const userId = req.currentUserId
+    const awardNumber = req.params.number;
+
+    const deleteAward = await awardService.deleteAward({
+      userId,
+      awardNumber,
+    });
+
+    res.status(201).json(deleteAward);
   } catch (error) {
     next(error);
   }
