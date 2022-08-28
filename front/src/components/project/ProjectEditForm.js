@@ -9,7 +9,7 @@ function ProjectEditForm({
   setProjects,
   portfolioOwnerId,
 }) {
-  const [title, setTitle] = useState(project.projectName);
+  const [title, setTitle] = useState(project.name);
   const [description, setDescription] = useState(project.content);
   const [fromDate, setFromDate] = useState(new Date(project.startpoint));
   const [toDate, setToDate] = useState(new Date(project.endpoint));
@@ -18,7 +18,7 @@ function ProjectEditForm({
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await Api.put(`projects/${project.projectNumber}`, {
+    await Api.put(`projects/${project.number}`, {
       projectName: title,
       content: description,
       startpoint: fromDate,
