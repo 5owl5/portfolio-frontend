@@ -2,15 +2,15 @@ import { Card, Button, Row, Col } from "react-bootstrap";
 import convertTime from "../utils/convertTime";
 
 const AwardCard = ({ award, setIsEditing, isEditable }) => {
-  const awardDate = convertTime(award.awardDate).split("T")[0];
+  const awardDate = convertTime(award.awardedAt).split("T")[0];
 
   return (
     <Row className="mb-4">
       <Col>
         <Card.Text>
-          {award.awardWhere}
+          {award.host}
           <br />
-          <span className="text-muted">{award.awardName}</span>
+          <span className="text-muted">{award.name}</span>
           <br />
           <span className="text-muted">{awardDate}</span>
         </Card.Text>
