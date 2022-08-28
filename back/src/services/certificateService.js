@@ -49,6 +49,14 @@ class CertificateService {
 
     return certificate;
   }
+  static async deleteIdCertificate({ _id }) {
+    let certificate = findById(_id);
+    if (!findById(_id)) {
+      return "해당되는 학적이 없습니다.";
+    }
+    await Certificate.delete(_id);
+    return certificate;
+  }
 }
 
 export { CertificateService };
