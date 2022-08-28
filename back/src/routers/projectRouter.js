@@ -8,9 +8,9 @@ projectRouter.get("/users/:id/projects", login_required, async function (req, re
   try {
     const userId = req.params.id
 
-    const projects = await projectService.getProject({ userId });
+    const projects = await projectService.getProjects({ userId });
 
-    res.status(200).send(projects); // list형태로 send
+    res.status(200).send(projects);
   } catch (error) {
     next(error);
   }
@@ -20,7 +20,7 @@ projectRouter.post("/projects", login_required,async function (req, res, next) {
   try {
     const userId = req.currentUserId
 
-    const projects = await projectService.getProject({ userId });
+    const projects = await projectService.getProjects({ userId });
     const projectslength = projects.length;
 
     const projectNumber = projectslength ? projects.pop().number + 1 : 1;
