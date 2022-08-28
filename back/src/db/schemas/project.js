@@ -6,12 +6,12 @@ const projectSchema = new Schema({
     ref: "User",
     required: true,
   },
-  projectNumber: {
+  number: {
     type: Number,
     required: true,
     default: 0,
   },
-  projectName: {
+  name: {
     type: String,
     required: true,
   },

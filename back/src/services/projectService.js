@@ -11,8 +11,8 @@ class projectService {
   }) {
     const newProject = {
       userId,
-      projectNumber,
-      projectName,
+      number: projectNumber,
+      name: projectName,
       content,
       startpoint,
       endpoint,
@@ -34,7 +34,7 @@ class projectService {
     });
 
     if (updateContent.projectName) {
-      const field = "projectName";
+      const field = "name";
       const newValue = updateContent.projectName;
       updatedproject = await Project.update({
         userId,
@@ -78,6 +78,17 @@ class projectService {
     }
 
     return updatedproject;
+  }
+
+  static async deleteProject({
+    userId,
+    projectNumber
+  }) {
+    const deleteProject = await Project.delete({
+      userId,
+      projectNumber
+    })
+    return deleteProject
   }
 }
 

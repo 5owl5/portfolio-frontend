@@ -6,7 +6,7 @@ const projectRouter = Router();
 
 projectRouter.get("/users/:id/projects", login_required, async function (req, res, next) {
   try {
-    const userId = req.params.id // 헤더에서 정보 받아오기
+    const userId = req.params.id
 
     const projects = await projectService.getProject({ userId });
 
@@ -23,7 +23,7 @@ projectRouter.post("/projects", login_required,async function (req, res, next) {
     const projects = await projectService.getProject({ userId });
     const projectslength = projects.length;
 
-    const projectNumber = projectslength ? projects.pop().projectNumber + 1 : 1;
+    const projectNumber = projectslength ? projects.pop().number + 1 : 1;
     const projectName = req.body.projectName;
     const content = req.body.content;
     const startpoint = req.body.startpoint;
@@ -63,6 +63,22 @@ projectRouter.put("/projects/:number", login_required, async function (req, res,
     });
 
     res.status(201).json(updateProject);
+  } catch (error) {
+    next(error);
+  }
+});
+
+projectRouter.delete("/projects/:number", login_required, async function (req, res, next) {
+  try {
+    const userId = req.currentUserId
+    const projectNumber = req.params.number;
+
+    const deleteProject = await projectService.deleteProject({
+      userId,
+      projectNumber,
+    });
+
+    res.status(201).json(deleteProject);
   } catch (error) {
     next(error);
   }
