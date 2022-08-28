@@ -20,7 +20,7 @@ class awardService {
     return createdNewAward;
   }
 
-  static async getAward({ userId }) {
+  static async getAwards({ userId }) {
     const awards = await Award.findById({ userId });
     return awards;
   }

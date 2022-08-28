@@ -8,9 +8,9 @@ awardRouter.get("/users/:id/awards", login_required, async function (req, res, n
   try {
     const userId = req.params.id
 
-    const awards = await awardService.getAward({ userId });
+    const awards = await awardService.getAwards({ userId });
 
-    res.status(200).send(awards); // list형태로 send
+    res.status(200).send(awards);
   } catch (error) {
     next(error);
   }
@@ -20,7 +20,7 @@ awardRouter.post("/awards", login_required, async function (req, res, next) {
   try {
     const userId = req.currentUserId
 
-    const awards = await awardService.getAward({ userId });
+    const awards = await awardService.getAwards({ userId });
     const awardslength = awards.length;
 
     const awardNumber = awardslength ? awards.pop().number + 1 : 1;
