@@ -80,5 +80,18 @@ educationRouter.put(
     }
   }
 );
-
+educationRouter.delete(
+  "/edu/:_id",
+  login_required,
+  async function (req, res, next) {
+    try {
+      const _id = req.params._id;
+      const owner = req.currentUserId;
+      const deleteEdu = await EducationService.deleteIdEdu({ _id, owner });
+      res.status(200).send(deleteEdu);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
 export { educationRouter };

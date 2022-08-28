@@ -49,6 +49,18 @@ class EducationService {
 
     return education;
   }
+
+  static async deleteIdEdu({ _id, owner }) {
+    let education = Education.findById(_id);
+    if (!education) {
+      return "해당되는 학적이 없습니다.";
+    }
+    if (education.owner != owner) {
+      return "본인의 학적이 아닙니다.";
+    }
+    education = await Education.deleteById(_id);
+    return education;
+  }
 }
 
 export { EducationService };
