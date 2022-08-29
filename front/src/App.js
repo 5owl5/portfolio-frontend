@@ -9,6 +9,7 @@ import LoginForm from "./components/user/LoginForm";
 import Network from "./components/user/Network";
 import RegisterForm from "./components/user/RegisterForm";
 import Portfolio from "./components/Portfolio";
+import GlobalCss from "./styles/GlobalCss";
 
 export const UserStateContext = createContext(null);
 export const DispatchContext = createContext(null);
@@ -56,6 +57,7 @@ function App() {
     <DispatchContext.Provider value={dispatch}>
       <UserStateContext.Provider value={userState}>
         <Router>
+          <GlobalCss />
           <Header />
           <Routes>
             <Route path="/" exact element={<Portfolio />} />

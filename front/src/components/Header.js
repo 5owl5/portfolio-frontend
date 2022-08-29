@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
 import { UserStateContext, DispatchContext } from "../App";
+import ThemeToggleButton from "./ThemeToggleBtn";
 
 function Header() {
   const navigate = useNavigate();
@@ -39,6 +40,9 @@ function Header() {
           <Nav.Link onClick={logout}>로그아웃</Nav.Link>
         </Nav.Item>
       )}
+      <Nav.Item>
+        <ThemeToggleButton />
+      </Nav.Item>
     </Nav>
   );
 }
