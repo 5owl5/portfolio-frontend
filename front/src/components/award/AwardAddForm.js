@@ -4,9 +4,9 @@ import * as Api from "../../api";
 import DatePicker from "react-datepicker";
 
 const AwardAddForm = ({ portfolioOwnerId, setAwards, setIsAdding }) => {
-  let [title, setTitle] = useState("");
-  let [description, setDescription] = useState("");
-  let [date, setDate] = useState(new Date());
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [date, setDate] = useState(new Date());
   const handleSubmit = async (e) => {
     e.preventDefault();
     await Api.post("awards", {

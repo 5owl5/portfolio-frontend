@@ -5,8 +5,8 @@ import Award from "./Award";
 import AwardAddForm from "./AwardAddForm";
 
 const Awards = ({ portfolioOwnerId, isEditable }) => {
-  let [awards, setAwards] = useState([]);
-  let [isAdding, setIsAdding] = useState(false);
+  const [awards, setAwards] = useState([]);
+  const [isAdding, setIsAdding] = useState(false);
 
   useEffect(() => {
     Api.get(`users/${portfolioOwnerId}/awards`).then((result) =>
