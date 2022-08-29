@@ -9,8 +9,8 @@ const AwardEditForm = ({
   setIsEditing,
   portfolioOwnerId,
 }) => {
-  let [title, setTitle] = useState(award.awardWhere);
-  let [description, setDescription] = useState(award.awardName);
+  const [title, setTitle] = useState(award.awardWhere);
+  const [description, setDescription] = useState(award.awardName);
   const [awardDate, setAwardDate] = useState(new Date(award.awardDate));
   const handleSubmit = async (e) => {
     e.preventDefault();
