@@ -9,9 +9,13 @@ function Projects({ portfolioOwnerId, isEditable }) {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    Api.get(`users/${portfolioOwnerId}/projects`).then((res) =>
-      setProjects(res.data)
-    );
+    try {
+      Api.get(`users/${portfolioOwnerId}/projects`).then((res) =>
+        setProjects(res.data)
+      );
+    } catch (e) {
+      console.error(e);
+    }
   }, [portfolioOwnerId]);
 
   return (

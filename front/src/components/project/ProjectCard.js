@@ -1,5 +1,5 @@
 import { Card, Row, Button, Col } from "react-bootstrap";
-import convertTime from "../utils/convertTime";
+import convertTime from "../../utils/convertTime";
 
 function ProjectCard({ project, setIsEditing, isEditable }) {
   const fromDate = convertTime(project.startpoint).split("T")[0];
