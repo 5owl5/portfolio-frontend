@@ -1,11 +1,11 @@
 import { Card, Button, Row, Col } from "react-bootstrap";
-<<<<<<< HEAD
 import convertTime from "../../utils/convertTime";
 =======
 import convertTime from "../utils/convertTime";
 import * as Api from '../../api';
 import React from "react";
->>>>>>> 309fdf5fc2439b318f123244ebcc8ca881ce198b
+
+
 
 const AwardCard = ({ portfoliOwnerId,award, setIsEditing, isEditable ,setAwards}) => {
   const awardDate = convertTime(award.awardDate).split("T")[0];
