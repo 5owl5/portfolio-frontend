@@ -1,10 +1,15 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Container, Col, Row } from "react-bootstrap";
-
+import Awards from "./award/Awards";
 import { UserStateContext } from "../App";
 import * as Api from "../api";
 import User from "./user/User";
+import Projects from "./project/Projects";
+import Certificates from "./certificate/Certificates";
+import Educations from "./education/Educations";
+import UserLike from './user/UserLike';
+import UserLikeList from './user/UserLikeList';
 
 function Portfolio() {
   const navigate = useNavigate();
@@ -52,20 +57,36 @@ function Portfolio() {
   }
 
   return (
-    <Container fluid>
-      <Row>
+    <Container>
+      <Row className='mb-3 py-3'>
         <Col md="3" lg="3">
           <User
             portfolioOwnerId={portfolioOwner.id}
             isEditable={portfolioOwner.id === userState.user?.id}
           />
         </Col>
-        <Col>
-
-          <div style={{ textAlign: "center" }}>
-            학력 목록, 수상이력 목록, 프로젝트 목록, 자격증 목록 만들기
-          </div>
-
+        <Col md='9' lg='9'>
+          <Educations
+            portfolioOwnerId={portfolioOwner.id}
+            isEditable={portfolioOwner.id === userState.user?.id}
+          />
+          <div className='mb-2' />
+          <Awards
+            portfolioOwnerId={portfolioOwner.id}
+            isEditable={portfolioOwner.id === userState.user?.id}
+          />
+          <div className='mb-2' />
+          <Projects
+            className='my-2'
+            portfolioOwnerId={portfolioOwner.id}
+            isEditable={portfolioOwner.id === userState.user?.id}
+          />
+          <div className='mb-2' />
+          <Certificates
+            className='my-5 py-2'
+            portfolioOwnerId={portfolioOwner.id}
+            isEditable={portfolioOwner.id === userState.user?.id}
+          />
         </Col>
       </Row>
     </Container>

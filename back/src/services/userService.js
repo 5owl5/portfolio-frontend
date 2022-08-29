@@ -1,4 +1,4 @@
-import { User } from "../db"; // from을 폴더(db) 로 설정 시, 디폴트로 index.js 로부터 import함.
+import { User, Like } from "../db"; // from을 폴더(db) 로 설정 시, 디폴트로 index.js 로부터 import함.
 import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from "uuid";
 import jwt from "jsonwebtoken";
@@ -125,6 +125,130 @@ class userAuthService {
 
     return user;
   }
+
+  // 좋아요 받은 name 객체 배열 반환
+  static async getlikeList({userId}) {
+    // 입력받은 아이디가 db에 존재하는지 확인/오류 처리
+    const currentUser = await User.findById({ user_id: userId });
+
+      if (!currentUser) {
+        const errorMessage =
+          '해당 아이디는 가입 내역이 없습니다. 다시 한 번 확인해 주세요.';
+        return { errorMessage };
+      }
+      return currentUser
+    }
+
+    // setLike() 좋아요 기능 설정
+    static async setLike({ currentUserId, otherUserId }) {
+      // 각각의 입력 받은 아이디가 db에 존재하는지 확인/오류 처리
+      const currentUser = await User.findById({ user_id: currentUserId });
+      const otherUser = await User.findById({ user_id: otherUserId });
+  
+      if (!currentUser) {
+        const errorMessage =
+          '해당 아이디는 가입 내역이 없습니다. 다시 한 번 확인해 주세요.';
+        return { errorMessage };
+      }
+  
+      if (!otherUser) {
+        const errorMessage =
+          '해당 아이디는 가입 내역이 없습니다. 다시 한 번 확인해 주세요.';
+        return { errorMessage };
+      }
+  
+      // 두 유저가 서로 좋아요 관계라면 좋아요 객체를 리턴하고, 아니면 null 리턴
+      const isLiked = await Like.findByUser({ currentUser, otherUser });
+      let updatedLike = {};
+      let updatedUser = {};
+      
+      // 좋아요 객체가 있다면 -> likeCount 1감소(좋아요 버튼을 클릭한 시점에 이미 좋아요 관계니깐 좋아요 취소하는 거) -> status는 false -> 좋아요를 받은 user 정보 갱신 -> 두 유저의 좋아요 객체 삭제
+      if (isLiked) {
+        let fieldToUpdate = "likeCount";
+        let newValue = otherUser.likeCount - 1;
+        if (newValue < 0) {
+          newValue = 0;
+        }
+        const newStatus = false;
+        const newLike = currentUser.name;
+        updatedUser = await User.updateLikeStatus({
+          user_id : otherUserId,
+          fieldToUpdate,
+          value : newValue,
+        });
+        fieldToUpdate = "status";
+        updatedUser = await User.updateLikeStatus({
+          user_id : otherUserId,
+          fieldToUpdate,
+          value : newStatus,
+        });
+        updatedUser = await User.updateLikeListDel({
+          user_id : otherUserId,
+          value : newLike,
+        });
+        await Like.deleteById({ isLiked });
+        updatedLike = { status: false, likeCount: updatedUser.likeCount };
+      } // null 이라면 -> likeCount 1증가-> status는 True -> 좋아요를 받은 user 정보 갱신 -> 두 유저의 좋아요 객체 생성
+      else {
+        let fieldToUpdate = "likeCount";
+        let newValue = otherUser.likeCount + 1;
+        if (newValue < 0) {
+          newValue = 0;
+        }
+        const newStatus = true;
+        const newLike = currentUser.name;
+        updatedUser = await User.updateLikeStatus({
+          user_id : otherUserId,
+          fieldToUpdate,
+          value : newValue,
+        });
+        fieldToUpdate = "status";
+        updatedUser = await User.updateLikeStatus({
+          user_id : otherUserId,
+          fieldToUpdate,
+          value : newStatus,
+        });
+        updatedUser = await User.updateLikeListPush({
+          user_id : otherUserId,
+          value : newLike,
+        });
+        await Like.create({ currentUser, otherUser });
+        updatedLike = { status: true, likeCount: updatedUser.likeCount };
+      }
+      // 반환 : 현재 상태를 나타내는 status와 likeCount 반환 / user의 status/likeCount 정보 갱신
+      return updatedLike;
+    }
+
+    // getLike() 좋아요 수 반환
+    static async getLike({currentUserId, otherUserId}) {
+      // 입력 받은 아이디가 db에 존재하는지 확인/오류 처리
+      const currentUser = await User.findById({ user_id: currentUserId });
+      const otherUser = await User.findById({ user_id: otherUserId });
+  
+      let updatedLike = {};
+  
+      if (!currentUser) {
+        const errorMessage =
+          '해당 아이디는 가입 내역이 없습니다. 다시 한 번 확인해 주세요.';
+        return { errorMessage };
+      }
+  
+      if (!otherUser) {
+        const errorMessage =
+          '해당 아이디는 가입 내역이 없습니다. 다시 한 번 확인해 주세요.';
+        return { errorMessage };
+      }
+  
+      const isLiked = await Like.findByUser({ currentUser, otherUser });
+      if (isLiked) {
+        updatedLike = { userStatus: true};
+      } 
+      else {
+        updatedLike = { userStatus: false};
+      }
+      return updatedLike;
+    }
+
 }
 
 export { userAuthService };
