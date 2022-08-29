@@ -1,7 +1,5 @@
 import { Card, Button, Row, Col } from "react-bootstrap";
 import convertTime from "../../utils/convertTime";
-=======
-import convertTime from "../utils/convertTime";
 import * as Api from '../../api';
 import React from "react";
 
