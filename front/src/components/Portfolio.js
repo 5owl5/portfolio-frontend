@@ -57,42 +57,33 @@ function Portfolio() {
   }
 
   return (
-    <Container fluid>
-      <Row>
+    <Container>
+      <Row className='mb-3 py-3'>
         <Col md="3" lg="3">
           <User
             portfolioOwnerId={portfolioOwner.id}
             isEditable={portfolioOwner.id === userState.user?.id}
           />
-          <Row>
-          <Col xs={5}>
-                <UserLike
-                  portfolioOwnerId={portfolioOwner.id}
-                  user={userState.user?.id}
-                />
-              </Col>
-              <Col>
-                <UserLikeList
-                  portfolioOwnerId={portfolioOwner.id}
-                  user={userState.user?.id}
-                />
-              </Col>
-          </Row>
         </Col>
-        <Col>
+        <Col md='9' lg='9'>
           <Educations
             portfolioOwnerId={portfolioOwner.id}
             isEditable={portfolioOwner.id === userState.user?.id}
           />
+          <div className='mb-2' />
           <Awards
             portfolioOwnerId={portfolioOwner.id}
             isEditable={portfolioOwner.id === userState.user?.id}
-          ></Awards>
+          />
+          <div className='mb-2' />
           <Projects
+            className='my-2'
             portfolioOwnerId={portfolioOwner.id}
             isEditable={portfolioOwner.id === userState.user?.id}
           />
+          <div className='mb-2' />
           <Certificates
+            className='my-5 py-2'
             portfolioOwnerId={portfolioOwner.id}
             isEditable={portfolioOwner.id === userState.user?.id}
           />

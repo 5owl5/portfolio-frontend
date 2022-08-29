@@ -5,6 +5,8 @@ import { Container, Col, Row, Form, Button } from "react-bootstrap";
 import * as Api from "../../api";
 import { DispatchContext } from "../../App";
 
+import { IoPersonCircleOutline } from 'react-icons/io5';
+
 function LoginForm() {
   const navigate = useNavigate();
   const dispatch = useContext(DispatchContext);
@@ -62,54 +64,62 @@ function LoginForm() {
   return (
     <Container>
       <Row className="justify-content-md-center mt-5">
-        <Col lg={8}>
-          <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="loginEmail">
-              <Form.Label>이메일 주소</Form.Label>
-              <Form.Control
-                type="email"
-                autoComplete="on"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              {!isEmailValid && (
-                <Form.Text className="text-success">
-                  이메일 형식이 올바르지 않습니다.
-                </Form.Text>
-              )}
-            </Form.Group>
+        <Col lg={3}>
+          <div className='text-center'>
+            <IoPersonCircleOutline size='3rem' color='rgb(0 0 0 / 50%' />
+          </div>
+          <div id='signIn' className='my-2 text-center'>
+            Sign In
+          </div>
+          <div className='mt-4'>
+            <Form onSubmit={handleSubmit}>
+              <Form.Group controlId="loginEmail">
+                <Form.Label>이메일 주소</Form.Label>
+                <Form.Control
+                  type="email"
+                  autoComplete="on"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                {!isEmailValid && (
+                  <Form.Text className="text-success">
+                    이메일 형식이 올바르지 않습니다.
+                  </Form.Text>
+                )}
+              </Form.Group>
 
-            <Form.Group controlId="loginPassword" className="mt-3">
-              <Form.Label>비밀번호</Form.Label>
-              <Form.Control
-                type="password"
-                autoComplete="on"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              {!isPasswordValid && (
-                <Form.Text className="text-success">
-                  비밀번호는 4글자 이상입니다.
-                </Form.Text>
-              )}
-            </Form.Group>
+              <Form.Group controlId="loginPassword" className="mt-3">
+                <Form.Label>비밀번호</Form.Label>
+                <Form.Control
+                  type="password"
+                  autoComplete="on"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                {!isPasswordValid && (
+                  <Form.Text className="text-success">
+                    비밀번호는 4글자 이상입니다.
+                  </Form.Text>
+                )}
+              </Form.Group>
 
-            <Form.Group as={Row} className="mt-3 text-center">
-              <Col sm={{ span: 20 }}>
+              <Form.Group as={Row} className="mt-3 mx-0 px-0 text-center">
                 <Button variant="primary" type="submit" disabled={!isFormValid}>
                   로그인
                 </Button>
-              </Col>
-            </Form.Group>
+              </Form.Group>
 
-            <Form.Group as={Row} className="mt-3 text-center">
-              <Col sm={{ span: 20 }}>
-                <Button variant="light" onClick={() => navigate("/register")}>
+              <Form.Group as={Row} className="mt-2 mx-0 px-0 text-center">
+                <Button
+                  variant="light"
+                  onClick={() => navigate("/register")}
+                  style={{ color: 'grey '}}
+                >
                   회원가입하기
                 </Button>
-              </Col>
-            </Form.Group>
-          </Form>
+              </Form.Group>
+            </Form>
+          </div>
         </Col>
       </Row>
     </Container>
