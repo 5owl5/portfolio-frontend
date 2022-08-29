@@ -10,9 +10,9 @@ function Network() {
   const userState = useContext(UserStateContext);
   // useState 훅을 통해 users 상태를 생성함.
   const [users, setUsers] = useState([]);
-  const [visible, setVisible]=useState(4)
+  const [visible, setVisible]=useState(10)
   const showMoreCards=()=>{
-    setVisible((preValue)=>preValue+4)
+    setVisible((preValue)=>preValue+10)
   }
   
   useEffect(() => {
@@ -28,7 +28,7 @@ function Network() {
   return (
     <Container fluid>
       <Row xs="auto" className="jusify-content-center">
-        {users.map((user) => (
+        {users.slice(0,visible).map((user) => (
           <UserCard key={user.id} user={user} isNetwork />
         ))}
       </Row>
