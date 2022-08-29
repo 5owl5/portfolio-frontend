@@ -1,4 +1,5 @@
-import { Schema, model } from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
+const AutoIncrement = require("mongoose-sequence")(mongoose);
 
 const awardSchema = new Schema({
   userId: {
@@ -8,8 +9,6 @@ const awardSchema = new Schema({
   },
   number: {
     type: Number,
-    required: true,
-    default: 0,
   },
   host: {
     type: String,
@@ -24,6 +23,8 @@ const awardSchema = new Schema({
     required: true,
   },
 });
+
+awardSchema.plugin(AutoIncrement, { inc_field: "number" });
 
 const awardModel = model("Awards", awardSchema);
 

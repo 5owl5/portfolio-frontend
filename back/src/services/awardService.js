@@ -1,16 +1,9 @@
 import { Award } from "../db";
 
 class awardService {
-  static async addAward({
-    userId,
-    awardNumber,
-    awardHost,
-    awardName,
-    awardedAt,
-  }) {
+  static async addAward({ userId, awardHost, awardName, awardedAt }) {
     const newAward = {
       userId,
-      number: awardNumber,
       host: awardHost,
       name: awardName,
       awardedAt,
@@ -67,16 +60,13 @@ class awardService {
     return updatedAward;
   }
 
-  static async deleteAward({
-    userId,
-    awardNumber
-  }) {
+  static async deleteAward({ userId, awardNumber }) {
     const deleteAward = await Award.delete({
       userId,
-      awardNumber
-    })
+      awardNumber,
+    });
 
-    return deleteAward
+    return deleteAward;
   }
 }
 
