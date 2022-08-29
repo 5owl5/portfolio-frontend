@@ -24,7 +24,7 @@ const awardSchema = new Schema({
   },
 });
 
-awardSchema.plugin(AutoIncrement, { inc_field: "number" });
+awardSchema.plugin(AutoIncrement, { id: "award_counter", inc_field: "number" });
 
 const awardModel = model("Awards", awardSchema);
 
