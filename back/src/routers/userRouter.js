@@ -2,6 +2,7 @@ import is from "@sindresorhus/is";
 import { Router } from "express";
 import { login_required } from "../middlewares/login_required";
 import { userAuthService } from "../services/userService";
+import { Like } from "../db/models/Like";
 
 const userAuthRouter = Router();
 
@@ -137,6 +138,38 @@ userAuthRouter.get(
     }
   }
 );
+
+// likeCount 반환 컴포넌트, 현재 상태를 나타내는 status와 likeCount 반환
+userAuthRouter.get("/likes/:id", login_required, async function (req, res, next) {
+  try {
+    // 좋아요 받은 사람의 id
+    const otherUserId = req.params.id;
+    const currentUserId = req.currentUserId;
+    
+    const updatedLike = await userAuthService.getLike({
+      currentUserId,
+      otherUserId,
+    });
+    res.status(200).json(updatedLike);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// 좋아요를 누른 user 목록 반환 컴포넌트, 현재 상태를 나타내는 status와 likeCount 반환
+userAuthRouter.get("/likelist/:id", login_required, async function (req, res, next) {
+  try {
+
+    const userId = req.params.id;
+
+    const updatedData = await userAuthService.getlikeList({
+      userId,
+    });
+    res.status(200).json(updatedData);
+  } catch (error) {
+    next(error);
+  }
+});
 
 // jwt 토큰 기능 확인용, 삭제해도 되는 라우터임.
 userAuthRouter.get("/afterlogin", login_required, function (req, res, next) {
