@@ -3,7 +3,6 @@ import { Project } from "../db";
 class projectService {
   static async addProject({
     userId,
-    projectNumber,
     projectName,
     content,
     startpoint,
@@ -11,7 +10,6 @@ class projectService {
   }) {
     const newProject = {
       userId,
-      number: projectNumber,
       name: projectName,
       content,
       startpoint,
@@ -80,15 +78,12 @@ class projectService {
     return updatedproject;
   }
 
-  static async deleteProject({
-    userId,
-    projectNumber
-  }) {
+  static async deleteProject({ userId, projectNumber }) {
     const deleteProject = await Project.delete({
       userId,
-      projectNumber
-    })
-    return deleteProject
+      projectNumber,
+    });
+    return deleteProject;
   }
 }
 
