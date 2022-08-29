@@ -14,7 +14,7 @@ const Award = ({ portfolioOwnerId, award, setAwards, isEditable }) => {
           portfolioOwnerId={portfolioOwnerId}
         />
       ) : (
-        <AwardCard award={award} setIsEditing={setIsEditing} portfolioOwnerId={portfolioOwnerId} isEditable={isEditable}/>
+        <AwardCard award={award} setIsEditing={setIsEditing} portfolioOwnerId={portfolioOwnerId} isEditable={isEditable} setAwards={setAwards}/> 
       )}
     </div>
   );
