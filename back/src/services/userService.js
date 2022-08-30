@@ -249,6 +249,17 @@ class userAuthService {
       return updatedLike;
     }
 
+  // deleteUser() 유저 정보 삭제
+  static async deleteUser({ user_id }) {
+    const user = await User.deleteOneUser({ user_id });
+    if (!user) {
+      const errorMessage =
+        '해당 아이디는 가입 내역이 없습니다. 다시 한 번 확인해주세요.';
+      return { errorMessage };
+    }
+    return user;
+  }
+
 }
 
 export { userAuthService };

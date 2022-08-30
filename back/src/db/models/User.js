@@ -1,5 +1,6 @@
 import { UserModel } from "../schemas/user";
 
+
 class User {
   static async create({ newUser }) {
     const createdNewUser = await UserModel.create(newUser);
@@ -62,6 +63,11 @@ class User {
       $pull: { liked: { name: value } }
     });
     return updatedUser;
+  }
+
+  static async deleteOneUser({ user_id }) {
+    const user = await UserModel.deleteOne({ id: user_id });
+    return user;
   }
 
 }
