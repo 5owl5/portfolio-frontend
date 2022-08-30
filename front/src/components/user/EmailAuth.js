@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import * as Api from "../../api";
 
+import { Row, Col, Form, Button } from "react-bootstrap";
+
 function EmailAuthForm({ email, isEmailAuth, setIsEmailAuth }) {
   const [randomNumber, setRandomNumber] = useState(null);
   const [inputNumber, setInputNumber] = useState(null);
@@ -32,22 +34,34 @@ function EmailAuthForm({ email, isEmailAuth, setIsEmailAuth }) {
 
   return (
     <>
+    <Row>
+      <Col lg={4}>
       {randomNumber ? (
-        <form>
-          <input
+        <Form.Group className="mt-3 text-center">
+          <Form.Control
             type="text"
             placeholder="인증번호를 입력하세요"
             value={inputNumber}
             onChange={(e) => setInputNumber(e.target.value)}
             disabled={isEmailAuth}
-          ></input>
-          <button onClick={hanleClickAuth}>인증</button>
-        </form>
+          />
+          <Col className="mt-3 text-center">
+            <Button onClick={hanleClickAuth} variant="primary">
+              인증
+            </Button>
+          </Col>
+        </Form.Group>
       ) : (
-        <button class="emailAuth" onClick={handleClickSend}>
-          인증코드 전송
-        </button>
+        <Form.Group className="mt-3 text-center">
+          <Col sm={{ span: 20 }}>
+            <Button class="emailAuth" onClick={handleClickSend} variant="primary">
+              인증코드 전송
+            </Button>
+          </Col>
+        </Form.Group>
       )}
+      </Col>
+      </Row>
     </>
   );
 }
