@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Card, Row, Button, Col } from "react-bootstrap";
-
+import ShareService from "./ShareService";
 function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
   const navigate = useNavigate();
   return (
@@ -34,6 +34,10 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
                 >
                   편집
                 </Button>
+                <br/>
+                <br/>
+                <ShareService></ShareService>
+                
               </Col>
             </Row>
           </Col>
