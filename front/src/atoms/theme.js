@@ -5,9 +5,12 @@ export const lightState = atom({
   key: "light",
   default: {
     mode: "light",
-    bgColor: "#F8F7F4",
+    // bgColor: "#ffffff",
+    // bgColor2: "#f4f7f9",
+    bgColor: "#F8F9FA",
+    bgColor2: "#ffffff",
     textColor: "#31302E",
-    borderColor: "1px solid #eaeaea",
+    btnBorder: "1px solid #eaeaea",
   },
 });
 
@@ -16,9 +19,13 @@ export const darkState = atom({
   key: "dark",
   default: {
     mode: "dark",
-    bgColor: "#383737",
-    textColor: "white",
-    borderColor: "1px solid #2c2d33",
+    // bgColor: "#111111",
+    // bgColor2: "#1c1d22",
+    // bgColor: "#141319",
+    bgColor: "#121212",
+    bgColor2: "#1e1e1e",
+    textColor: "#ECECEC",
+    btnBorder: "0.5px solid #2c2d33",
   },
 });
 

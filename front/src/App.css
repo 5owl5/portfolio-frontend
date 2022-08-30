@@ -1,63 +1,117 @@
 * {
-    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
-  }
-  #cardLink {
-    color: #000 !important;
-    text-decoration: none !important;
-  }
-  
-  body {
+  font-family: "Gothic A1", sans-serif;
+}
+
+#cardLink {
+  color: #000 !important;
+  text-decoration: none !important;
+}
+
+/* body {
     background-color: #f8f9fa !important;
-  }
-  
-  #networkUser {
-    background-color: #ffffff;
-    height: 23rem !important;
-  
-    border: 0;
-    border-radius: 7px;
-    cursor: pointer;
-    box-shadow: rgb(0 0 0 / 4%) 0px 4px 16px 0px;
-    transition: 0.25s ease-in 0s, transform 0.25s ease-in 0s;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  #networkUser:hover {
-    box-shadow: rgb(0 0 0 / 5%) 0px 14px 16px 0px;
-    transform: translateY(-2%);
-  }
-  
-  #signIn {
-    font-size: 25px;
-    color: rgb(0 0 0 / 50%);
-  }
-  
-  #registerForm {
-    padding: 1rem 1rem;
-    border: 0;
-    border-radius: 7px;
-    background-color: #edf2fc;
-    box-shadow: rgb(0 0 0 / 4%) 0px 4px 16px 0px;
-  }
-  #loginForm {
-    padding: 1rem 1rem;
-    border: 0;
-    border-radius: 7px;
-    background-color: #edf2fc !important;
-    box-shadow: rgb(0 0 0 / 4%) 0px 4px 16px 0px;
-  }
-  
-  #likeUserList li:not(hr){
-    list-style: none;
-    margin-left: 20px;
-    margin-right: 20px;
-  }
-  
-  #svgHeart {
-    color: #DC3545;
-    float: right;
-    margin-top: 5px;
-    margin-right: 5px;
-    text-align: center;
-  }
+  } */
+
+#networkUser {
+  background-color: #ffffff;
+  height: 23rem !important;
+
+  border: 0;
+  border-radius: 7px;
+  cursor: pointer;
+  box-shadow: rgb(0 0 0 / 4%) 0px 4px 16px 0px;
+  transition: 0.25s ease-in 0s, transform 0.25s ease-in 0s;
+  display: flex;
+  flex-direction: column;
+}
+
+#networkUser:hover {
+  box-shadow: rgb(0 0 0 / 5%) 0px 14px 16px 0px;
+  transform: translateY(-2%);
+}
+
+#signIn {
+  font-size: 25px;
+  color: rgb(0 0 0 / 50%);
+}
+
+#registerForm {
+  padding: 1rem 1rem;
+  border: 0;
+  border-radius: 7px;
+  background-color: #edf2fc;
+  box-shadow: rgb(0 0 0 / 4%) 0px 4px 16px 0px;
+}
+#loginForm {
+  padding: 1rem 1rem;
+  border: 0;
+  border-radius: 7px;
+  background-color: #edf2fc !important;
+  box-shadow: rgb(0 0 0 / 4%) 0px 4px 16px 0px;
+}
+
+#likeUserList li:not(hr) {
+  list-style: none;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+#svgHeart {
+  color: #dc3545;
+  float: right;
+  margin-top: 5px;
+  margin-right: 5px;
+  text-align: center;
+}
+
+/*카드 관련 css*/
+div.card {
+  border-radius: 0.75rem;
+  margin-bottom: 2rem;
+  box-shadow: rgb(0 0 0 / 4%) 0px 4px 16px 0px;
+}
+
+div.card-body {
+  padding: 2rem 1.5rem;
+}
+
+div.card-title {
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+}
+
+div.col-auto {
+  padding: 0 0.8rem 0 0;
+  display: flex;
+  align-items: center;
+}
+
+button.btn.btn-info.btn-sm {
+  background-color: #237bf3;
+  color: #ffffff;
+  border-color: #237bf3;
+}
+
+div.col-sm-20 button.btn.btn-info.btn-sm {
+  margin: 0 0.8rem 0 0;
+}
+
+a#logo h2 {
+  font-weight: 800;
+  padding-top: 1.2rem;
+  padding-left: 2rem;
+  font-size: 2.3rem;
+}
+
+div#my-nav-item.mx-1.px-1.nav-item {
+  display: flex;
+  align-items: center;
+}
+
+a.mt-3.card-link {
+  background-color: transparent;
+  color: #237bf3;
+}
+
+p.card-text:last-child {
+  margin-bottom: 0.5rem;
+}

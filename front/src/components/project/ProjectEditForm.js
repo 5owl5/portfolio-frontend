@@ -67,10 +67,14 @@ function ProjectEditForm({
 
       <Form.Group as={Row} className="mt-3 text-center">
         <Col sm={{ span: 20 }}>
-          <Button variant="primary" type="submit" className="me-3">
+          <Button variant="info" type="submit" size="sm">
             확인
           </Button>
-          <Button variant="secondary" onClick={() => setIsEditing(false)}>
+          <Button
+            variant="secondary"
+            onClick={() => setIsEditing(false)}
+            size="sm"
+          >
             취소
           </Button>
         </Col>

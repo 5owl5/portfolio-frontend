@@ -20,6 +20,7 @@ function Education({ education, setEducations, isEditable }) {
             setEducations={setEducations}
             setIsEditing={setIsEditing}
             isEditable={isEditable}
+            currentEducation={education}
           />
         )
       )}

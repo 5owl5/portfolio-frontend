@@ -9,12 +9,12 @@ const Awards = ({ portfolioOwnerId, isEditable }) => {
   const [isAdding, setIsAdding] = useState(false);
 
   useEffect(() => {
-    try{
-    Api.get(`users/${portfolioOwnerId}/awards`).then((result) =>
-      setAwards(result.data)
-    );
-    } catch(e){
-      console.error(e)
+    try {
+      Api.get(`users/${portfolioOwnerId}/awards`).then((result) =>
+        setAwards(result.data)
+      );
+    } catch (e) {
+      console.error(e);
     }
   }, [portfolioOwnerId]);
 
@@ -33,7 +33,7 @@ const Awards = ({ portfolioOwnerId, isEditable }) => {
         ))}
         {isEditable && (
           <Col>
-            <Row className="mt-3 text-center mb-4">
+            <Row className="mt-3 text-center">
               <Col sm={{ span: 20 }}>
                 <Button variant="primary" onClick={() => setIsAdding(true)}>
                   +

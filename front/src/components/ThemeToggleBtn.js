@@ -2,6 +2,7 @@ import React from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { darkState, lightState, modeState } from "../atoms/theme";
+import { IoMoon, IoSunnySharp } from "react-icons/io5";
 
 function ThemeToggleBtn() {
   const lightMode = useRecoilValue(lightState);
@@ -16,7 +17,11 @@ function ThemeToggleBtn() {
 
   return (
     <ToggleBtnWrapper theme={theme} onClick={toggle}>
-      {theme.mode === "dark" ? "🌚" : "🌝"}
+      {theme.mode === "dark" ? (
+        <IoMoon style={{ color: "white" }} />
+      ) : (
+        <IoSunnySharp />
+      )}
     </ToggleBtnWrapper>
   );
 }
@@ -28,19 +33,20 @@ const ToggleBtnWrapper = styled.button`
   right: 3%;
 
   background-color: ${(props) => props.theme.bgColor};
+  &:hover {
+    background-color: ${(props) => props.theme.btnBorder};
+    transition: 0.5s;
+  }
   border: ${(props) => props.theme.btnBorder};
+
   font-size: 20px;
 
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 96px;
-  height: 48px;
-  border-radius: 30px;
-  box-shadow: ${(props) =>
-    props.mode === "dark"
-      ? "0px 5px 10px rgba(40, 40, 40, 1), 0px 2px 4px rgba(40, 40, 40, 1)"
-      : "0 5px 10px rgba(100, 100, 100, 0.15), 0 2px 4px rgba(100, 100, 100, 0.15)"};
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
 `;
 
 export default ThemeToggleBtn;

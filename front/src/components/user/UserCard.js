@@ -6,9 +6,9 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
   return (
     <Card className="mb-2 ms-3 mr-5" style={{ width: "18rem" }}>
       <link
-        href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css'
-        rel='stylesheet'
-        type='text/css'
+        href="//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css"
+        rel="stylesheet"
+        type="text/css"
       />
       <Card.Body>
         <Row className="justify-content-md-center">
@@ -28,7 +28,7 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
             <Row className="mt-3 text-center text-info">
               <Col sm={{ span: 20 }}>
                 <Button
-                  variant="outline-info"
+                  variant="info"
                   size="sm"
                   onClick={() => setIsEditing(true)}
                 >

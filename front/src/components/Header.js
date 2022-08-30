@@ -27,7 +27,8 @@ function Header() {
   };
 
   return (
-    <Navbar bg="light" expand="lg">
+    // <Navbar bg="light" expand="lg">
+    <Navbar expand="lg">
       <Container className="my-2" id="my-nav-container">
         <Navbar.Brand className="my-2" id="logo" href="/">
           <h2>Portfolio</h2>
@@ -45,7 +46,7 @@ function Header() {
             {isLogin && (
               <>
                 <NavDropdown
-                  className="ms-1"
+                  className="mx-1 px-1"
                   title={<BsPersonCircle size="2rem" />}
                   id="basic-nav-dropdown"
                 >
@@ -55,6 +56,9 @@ function Header() {
                 </NavDropdown>
               </>
             )}
+            <Nav.Item id="my-nav-item" className="mx-1 px-1">
+              <ThemeToggleButton />
+            </Nav.Item>
           </Nav>
         </Navbar.Collapse>
       </Container>

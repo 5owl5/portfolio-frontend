@@ -14,19 +14,19 @@ const AwardEditForm = ({
   const [awardDate, setAwardDate] = useState(new Date(award.awardDate));
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try{
-    await Api.put(`awards/${award.awardNumber}`, {
-      awardWhere: title,
-      awardName: description,
-      awardDate: awardDate,
-    });
+    try {
+      await Api.put(`awards/${award.awardNumber}`, {
+        awardWhere: title,
+        awardName: description,
+        awardDate: awardDate,
+      });
 
-    const res = await Api.get(`users/${portfolioOwnerId}/awards`);
-    const edit = res.data;
-    setAwards(edit);
-    setIsEditing(false);
-    }catch(e){
-      console.error(e)
+      const res = await Api.get(`users/${portfolioOwnerId}/awards`);
+      const edit = res.data;
+      setAwards(edit);
+      setIsEditing(false);
+    } catch (e) {
+      console.error(e);
     }
   };
   return (
@@ -58,16 +58,15 @@ const AwardEditForm = ({
         </Col>
       </Form.Group>
 
-      <Form.Group as={Row} className="mt-3 text-center mb-4">
+      <Form.Group as={Row} className="mt-3 text-center">
         <Col sm={{ span: 20 }}>
-          <Button variant="primary" type="submit" className="me-3">
+          <Button variant="info" type="submit" size="sm">
             확인
           </Button>
           <Button
             variant="secondary"
-            onClick={() => {
-              setIsEditing(false);
-            }}
+            onClick={() => setIsEditing(false)}
+            size="sm"
           >
             취소
           </Button>
