@@ -21,11 +21,8 @@ function App() {
   const handleStorageChange = async function () {
     let refreshToken = await localStorage.getItem("refreshToken");
     let accessToken = await sessionStorage.getItem("accessToken");
-    console.log("들어옴?");
-    console.log(refreshToken);
     if (!refreshToken && !accessToken && userState.user) {
       dispatch({ type: "LOGOUT" });
-      console.log("로그아웃함");
     } else if (refreshToken && userState.user != null) {
     }
   };
@@ -38,7 +35,6 @@ function App() {
     try {
       // 이전에 발급받은 토큰이 있다면, 이를 가지고 유저 정보를 받아옴.
       await Api.updateToken();
-      console.log("토큰 업데이트 함");
       const res = await Api.get("user/current");
       const currentUser = res.data;
 
@@ -63,7 +59,6 @@ function App() {
 
   if (!isFetchCompleted) {
     handleStorageChange();
-    console.log("로딩");
     return "loading...";
   }
 

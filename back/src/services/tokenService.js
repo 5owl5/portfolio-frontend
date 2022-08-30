@@ -12,9 +12,8 @@ class tokenRefreshService {
     return token;
   }
   static async getIdByRefreshToken(refreshToken) {
-    console.log("과연?");
     const token = await Token.findByrefreshToken(refreshToken);
-    console.log("지나가나?");
+
     return token;
   }
 

@@ -3,20 +3,15 @@ import { tokenRefreshService } from "../services/tokenService";
 import jwt from "jsonwebtoken";
 
 const tokenRouter = Router();
-
 tokenRouter.post("/token", async function (req, res, next) {
   try {
-    console.log("토큰 포스트 들어옴");
     const refreshToken = req.body.refreshToken;
-    console.log(refreshToken);
     const tokenUser = await tokenRefreshService.getIdByRefreshToken(
       refreshToken
     );
-    console.log("토큰 포스트 들어옴2");
     //리프레시토큰이 비어있지 않고 검색시 리프레시토큰이db에 있을때
     if (refreshToken !== "null" && tokenUser) {
       try {
-        console.log("토큰 포스트 들어옴3");
         const secretKey = process.env.JWT_SECRET_KEY || "jwt-secret-key";
         const decoded = jwt.verify(refreshToken, secretKey);
         //까보기 성공시 accessToken발급해주기
@@ -34,14 +29,11 @@ tokenRouter.post("/token", async function (req, res, next) {
           accessToken: accessToken,
           refreshToken: newRefreshToken,
         });
-        console.log("토큰 포스트 들어옴4");
         res
           .status(201)
           .json({ accessToken: accessToken, refreshToken: newRefreshToken });
       } catch (err) {
         //토큰 유효하지 않을때 저장된 토큰 지우기
-        console.log("토큰 포스트 들어옴5");
-        console.log("이거쏩니다??");
         await tokenRefreshService.deleteByRefreshToken(refreshToken);
         res
           .status(490)
@@ -50,11 +42,9 @@ tokenRouter.post("/token", async function (req, res, next) {
     } else {
       await tokenRefreshService.deleteByRefreshToken(refreshToken);
 
-      console.log("이거쏩니다!!");
       res.status(490).send({ logout: true });
     }
   } catch (error) {
-    console.log("여기서!");
     next(error);
   }
 });

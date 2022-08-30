@@ -56,9 +56,7 @@ class userAuthService {
       expiresIn: process.env.REFRESH_TOKEN_TIMEOUT,
     });
     const testData = await Token.findById(user.id);
-    console.log(testData);
     if (testData != null) {
-      console.log("성공!");
       await Token.update({
         id: user.id,
         fieldToUpdate: "accessToken",
@@ -70,7 +68,6 @@ class userAuthService {
         newValue: refreshToken,
       });
     } else {
-      console.log("실패...");
       const newData = {
         id: user.id,
         accessToken: token,
