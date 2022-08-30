@@ -11,6 +11,8 @@ import RegisterForm from "./components/user/RegisterForm";
 import Portfolio from "./components/Portfolio";
 import GlobalCss from "./styles/GlobalCss";
 
+import './App.css';
+
 export const UserStateContext = createContext(null);
 export const DispatchContext = createContext(null);
 
