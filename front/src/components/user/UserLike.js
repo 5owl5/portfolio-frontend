@@ -22,7 +22,7 @@ function UserLike({ portfolioOwnerId, user }) {
     async (e) => {
       e.preventDefault();
 
-      const res = await Api.put(`likes/${user}`, {
+      const res = await Api.put(`like/${user}`, {
         otherUserId: portfolioOwnerId,
       });
       setCountLike(res.data.likeCount);

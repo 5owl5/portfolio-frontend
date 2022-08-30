@@ -9,7 +9,6 @@ import Projects from "./project/Projects";
 import Certificates from "./certificate/Certificates";
 import Educations from "./education/Educations";
 import UserLike from './user/UserLike';
-import UserLikeList from './user/UserLikeList';
 
 function Portfolio() {
   const navigate = useNavigate();
@@ -64,6 +63,14 @@ function Portfolio() {
             portfolioOwnerId={portfolioOwner.id}
             isEditable={portfolioOwner.id === userState.user?.id}
           />
+          <Row>
+            <Col xs={5}>
+              <UserLike
+                portfolioOwnerId={portfolioOwner.id}
+                user={userState.user?.id}
+              />
+            </Col>
+          </Row>
         </Col>
         <Col md='9' lg='9'>
           <Educations

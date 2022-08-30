@@ -27,7 +27,7 @@ function UserLikeList({ portfolioOwnerId, user }) {
         </Modal.Header>
         <Modal.Body>
           <div id='likeUserList'>
-            {likeList.map((user) => (
+            {likeList && likeList.map((user) => (
               <li key={user.id}>{user.name}
               <svg
               id='svgHeart'
