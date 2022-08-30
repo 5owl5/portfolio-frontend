@@ -17,6 +17,19 @@ const GlobalStyle = createGlobalStyle`
     background-color: ${(props) => props.bgColor};
     color: ${(props) => props.textColor};
   }
+
+  #signIn {
+    font-size: 25px;
+    color: color: ${(props) => props.textColor};
+  }
+
+  .input-form{
+    background-color: ${(props) => props.bgColor2};
+    border: none;
+    border-radius: 1rem;
+    box-shadow: rgb(0 0 0 / 4%) 0px 4px 16px 0px;
+    padding: 2rem 3rem;
+  }
   .card {
     background-color: ${(props) => props.bgColor2};
     border: none;

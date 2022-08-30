@@ -59,7 +59,7 @@ function RegisterForm() {
   return (
     <Container>
       <Row className="justify-content-md-center mt-5">
-        <Col lg={4}>
+        <Col lg={4} className="input-form">
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="registerEmail">
               <Form.Label>이메일 주소</Form.Label>

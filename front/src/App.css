@@ -29,26 +29,6 @@
   transform: translateY(-2%);
 }
 
-#signIn {
-  font-size: 25px;
-  color: rgb(0 0 0 / 50%);
-}
-
-#registerForm {
-  padding: 1rem 1rem;
-  border: 0;
-  border-radius: 7px;
-  background-color: #edf2fc;
-  box-shadow: rgb(0 0 0 / 4%) 0px 4px 16px 0px;
-}
-#loginForm {
-  padding: 1rem 1rem;
-  border: 0;
-  border-radius: 7px;
-  background-color: #edf2fc !important;
-  box-shadow: rgb(0 0 0 / 4%) 0px 4px 16px 0px;
-}
-
 #likeUserList li:not(hr) {
   list-style: none;
   margin-left: 20px;
@@ -105,6 +85,7 @@ a#logo h2 {
 div#my-nav-item.mx-1.px-1.nav-item {
   display: flex;
   align-items: center;
+  font-weight: 500;
 }
 
 a.mt-3.card-link {
