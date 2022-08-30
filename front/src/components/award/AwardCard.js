@@ -5,7 +5,7 @@ import React from "react";
 
 
 
-const AwardCard = ({ portfoliOwnerId,award, setIsEditing, isEditable ,setAwards}) => {
+const AwardCard = ({ portfolioOwnerId,award, setIsEditing, isEditable ,setAwards}) => {
   const awardDate = convertTime(award.awardDate).split("T")[0];
 
   const handleDelete= async(e)=>{
@@ -15,7 +15,7 @@ const AwardCard = ({ portfoliOwnerId,award, setIsEditing, isEditable ,setAwards}
     try{
       if(window.confirm('삭제하시겠습니까?')){
         await Api.delete(`awards/${award.awardnumber}`);
-        const res= await Api.get(`users/${portfoliOwnerId}/awards`);
+        const res= await Api.get(`users/${portfolioOwnerId}/awards`);
         setAwards(res.data)
       }
     } catch(err) {
