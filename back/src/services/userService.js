@@ -1,8 +1,7 @@
-import { User } from "../db"; // from을 폴더(db) 로 설정 시, 디폴트로 index.js 로부터 import함.
+import { User, Token } from "../db"; // from을 폴더(db) 로 설정 시, 디폴트로 index.js 로부터 import함.
 import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from "uuid";
 import jwt from "jsonwebtoken";
-
 class userAuthService {
   static async addUser({ name, email, password }) {
     // 이메일 중복 확인
@@ -50,8 +49,35 @@ class userAuthService {
 
     // 로그인 성공 -> JWT 웹 토큰 생성
     const secretKey = process.env.JWT_SECRET_KEY || "jwt-secret-key";
-    const token = jwt.sign({ user_id: user.id }, secretKey);
-
+    const token = jwt.sign({ user_id: user.id }, secretKey, {
+      expiresIn: process.env.ACCESS_TOKEN_TIMEOUT,
+    });
+    const refreshToken = jwt.sign({ user_id: user.id }, secretKey, {
+      expiresIn: process.env.REFRESH_TOKEN_TIMEOUT,
+    });
+    const testData = await Token.findById(user.id);
+    console.log(testData);
+    if (testData != null) {
+      console.log("성공!");
+      await Token.update({
+        id: user.id,
+        fieldToUpdate: "accessToken",
+        newValue: token,
+      });
+      await Token.update({
+        id: user.id,
+        fieldToUpdate: "refreshToken",
+        newValue: refreshToken,
+      });
+    } else {
+      console.log("실패...");
+      const newData = {
+        id: user.id,
+        accessToken: token,
+        refreshToken: refreshToken,
+      };
+      await Token.create(newData);
+    }
     // 반환할 loginuser 객체를 위한 변수 설정
     const id = user.id;
     const name = user.name;
@@ -59,6 +85,7 @@ class userAuthService {
 
     const loginUser = {
       token,
+      refreshToken,
       id,
       email,
       name,
@@ -80,8 +107,7 @@ class userAuthService {
 
     // db에서 찾지 못한 경우, 에러 메시지 반환
     if (!user) {
-      const errorMessage =
-        "가입 내역이 없습니다. 다시 한 번 확인해 주세요.";
+      const errorMessage = "가입 내역이 없습니다. 다시 한 번 확인해 주세요.";
       return { errorMessage };
     }
 
