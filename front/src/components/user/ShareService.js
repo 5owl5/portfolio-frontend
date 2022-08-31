@@ -9,11 +9,12 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { useScript } from "./Hooks";
 import { useEffect } from "react";
 import kakaoLogo from'../../images/kakao.png'
+import { useState } from "react";
 
 
 const FlexContainer= styled.div`
         display: flex;
-        flex-direction: column
+        flex-direction: column;
         align-items: center;
 `;
 
@@ -23,7 +24,8 @@ const GridContainer= styled.div`
         grid-column-gap: 8px;
         justify-content: center;
         align-items: center;
-        margin-bottom:16px
+        margin-bottom:16px;
+		margin-left: 16px;
 `;
 const URLShareButton = styled.button`
 	width: 48px;
@@ -41,6 +43,9 @@ const URLShareButton = styled.button`
 `;
 const KakaoShareButton= styled.a`
 		cursor: pointer;
+		&:hover{
+			opacity:50%;
+		};
 		`;
 const KakaoIcon= styled.img`
 		width:48px;
@@ -51,6 +56,20 @@ const KakaoIcon= styled.img`
 
 
 const ShareService=()=>{
+	const [isHovering, setIsHovering]=useState(false);
+	const [isHovering1, setIsHovering1]=useState(false);
+	const handleMouseEnter=()=>{
+		setIsHovering(true);
+	}
+	const handleMouseLeave=()=>{
+		setIsHovering(false);
+	}
+	const handleMouseEnter1=()=>{
+		setIsHovering1(true);
+	}
+	const handleMouseLeave1=()=>{
+		setIsHovering1(false);
+	}
     const currentUrl = window.location.href;
     const status = useScript("https://developers.kakao.com/sdk/js/kakao.js");
     useEffect(() => {
@@ -78,10 +97,10 @@ const ShareService=()=>{
 	return (
 		<FlexContainer>
 			<GridContainer>
-				<FacebookShareButton  url={currentUrl}>
+				<FacebookShareButton style={{opacity: isHovering ? '50%' : '100%' }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} url={currentUrl} >
 					<FacebookIcon size={48} round={true} borderRadius={24}></FacebookIcon>
 				</FacebookShareButton>
-				<TwitterShareButton url={currentUrl}>
+				<TwitterShareButton style={{opacity: isHovering1 ? '50%' : '100%' }} onMouseEnter={handleMouseEnter1} onMouseLeave={handleMouseLeave1} url={currentUrl}>
 					<TwitterIcon size={48} round={true} borderRadius={24}></TwitterIcon>
 				</TwitterShareButton>
                 <CopyToClipboard text={currentUrl}>
