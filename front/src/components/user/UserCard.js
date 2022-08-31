@@ -4,7 +4,7 @@ import ShareService from "./ShareService";
 function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
   const navigate = useNavigate();
   return (
-    <Card className="mb-2 ms-3 mr-5" style={{ width: "18rem" }}>
+    <Card className="mb-3 ms-3 mr-5" style={{ width: "18rem" }}>
       <link
         href="//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css"
         rel="stylesheet"

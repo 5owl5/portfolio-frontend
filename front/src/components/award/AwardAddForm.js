@@ -54,10 +54,14 @@ const AwardAddForm = ({ portfolioOwnerId, setAwards, setIsAdding }) => {
 
       <Form.Group as={Row} className="mt-3 text-center">
         <Col sm={{ span: 20 }}>
-          <Button variant="primary" type="submit" className="me-3">
+          <Button variant="info" type="submit" size="sm">
             확인
           </Button>
-          <Button variant="secondary" onClick={() => setIsAdding(false)}>
+          <Button
+            variant="secondary"
+            size="sm"
+            onClick={() => setIsAdding(false)}
+          >
             취소
           </Button>
         </Col>

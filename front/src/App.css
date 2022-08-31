@@ -46,7 +46,6 @@
 /*카드 관련 css*/
 div.card {
   border-radius: 0.75rem;
-  margin-bottom: 2rem;
   box-shadow: rgb(0 0 0 / 4%) 0px 4px 16px 0px;
 }
 
@@ -57,6 +56,10 @@ div.card-body {
 div.card-title {
   margin-bottom: 2rem;
   font-size: 1.5rem;
+}
+
+div.user-card {
+  margin-bottom: 2rem;
 }
 
 div.col-auto {
@@ -82,6 +85,10 @@ a#logo h2 {
   font-size: 2.3rem;
 }
 
+a.nav-link {
+  transition: none;
+}
+
 div.dropdown-menu.show {
   min-width: 5rem;
   text-align: center;
@@ -95,6 +102,12 @@ div#my-nav-item.mx-1.px-1.nav-item {
   font-weight: 500;
 }
 
+div#network-wrap {
+  max-width: 80rem;
+  margin: 0 auto;
+  justify-content: center;
+}
+
 a.mt-3.card-link {
   background-color: transparent;
   color: #237bf3;
@@ -102,4 +115,9 @@ a.mt-3.card-link {
 
 p.card-text:last-child {
   margin-bottom: 0.5rem;
+}
+
+div#showMore-btn {
+  display: block;
+  margin: 0 auto;
 }

@@ -5,7 +5,6 @@ import { lightMode, darkMode, modeState } from "../atoms/theme";
 import { IoMoon, IoSunnySharp } from "react-icons/io5";
 
 function ThemeToggleBtn() {
-  // 현재 모드 상태
   const [mode, setMode] = useRecoilState(modeState);
 
   const toggle = () => {
@@ -38,11 +37,9 @@ const ToggleBtnWrapper = styled.button`
 
   background-color: ${(props) => props.mode.bgColor};
   &:hover {
-    background-color: ${(props) => props.mode.btnBorder};
-    transition: 0.5s;
+    background-color: ${(props) => props.mode.btnBorder.split(" ")[2]};
   }
-  border: ${(props) => props.mode.btnBorder};
-
+  border: none;
   font-size: 20px;
 
   display: flex;

@@ -19,7 +19,7 @@ function Projects({ portfolioOwnerId, isEditable }) {
   }, [portfolioOwnerId]);
 
   return (
-    <Card>
+    <Card className="mb-4">
       <Card.Body>
         <Card.Title>프로젝트</Card.Title>
         {projects.map((project) => (
