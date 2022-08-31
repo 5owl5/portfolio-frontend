@@ -1,17 +1,17 @@
 import React from "react";
 import { Card, Button, Row, Col } from "react-bootstrap";
 import * as Api from "../../api";
+
 import convertTime from "../../utils/convertTime";
 
 function CertificateCard({
-  certificate,
   currentCertificate,
   isEditable,
   setIsEditing,
   setCertificates,
   portfolioOwnerId,
 }) {
-  const certificateDate = convertTime(certificate.acquisitionDate).split(
+  const certificateDate = convertTime(currentCertificate.acquisitionDate).split(
     "T"
   )[0];
 
@@ -23,6 +23,7 @@ function CertificateCard({
       if (window.confirm("삭제하시겠습니까?")) {
         await Api.delete(`cer/${currentCertificate._id}`);
         const res = await Api.get(`users/${portfolioOwnerId}/cer`);
+        console.log(res.data);
         setCertificates(res.data);
       }
     } catch (err) {
@@ -31,31 +32,37 @@ function CertificateCard({
   };
 
   return (
-    <Row className="mb-4">
-      <Col>
-        <Card.Text>
-          {certificate.name}
+    <Card.Text>
+      <Row className="align-items-center">
+        <Col>
+          {currentCertificate.name}
           <br />
-          <span className="text-muted">{certificate.description}</span>
+          <span className="text-muted">{currentCertificate.description}</span>
           <br />
           <span className="text-muted">{certificateDate}</span>
-        </Card.Text>
-      </Col>
-      {isEditable && (
-        <>
-          <Col xs="auto">
-            <Button variant="info" onClick={() => setIsEditing(true)} size="sm">
+        </Col>
+        {isEditable && (
+          <Col xs lg="1">
+            <Button
+              variant="outline-info"
+              size="sm"
+              onClick={() => setIsEditing(true)}
+              className="mr-3"
+            >
               편집
             </Button>
-          </Col>
-          <Col xs="auto">
-            <Button variant="secondary" onClick={handleDelete} size="sm">
+            <Button
+              variant="outline-danger"
+              size="sm"
+              className="mr-3"
+              onClick={handleDelete}
+            >
               삭제
             </Button>
           </Col>
-        </>
-      )}
-    </Row>
+        )}
+      </Row>
+    </Card.Text>
   );
 }
 

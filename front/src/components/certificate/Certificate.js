@@ -16,9 +16,10 @@ function Certificate({ portfolioOwnerId, certificate, setCertificates, isEditabl
         />
       ) : (
         <CertificateCard
-          certificate={certificate}
+          currentCertificate={certificate}
           isEditable={isEditable}
           setIsEditing={setIsEditing}
+          portfolioOwnerId={portfolioOwnerId}
           setCertificates={setCertificates}
         />
       )}

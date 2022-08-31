@@ -3,20 +3,20 @@ import React from "react";
 import * as Api from "../../api";
 
 function EducationCard({
-  education,
   isEditable,
   setIsEditing,
   setEducations,
   currentEducation,
+  portfolioOwnerId,
 }) {
   const handleDelete = async (e) => {
     e.preventDefault();
     e.stopPropagation();
-    const owner = currentEducation.owner;
+
     try {
       if (window.confirm("삭제하시겠습니까?")) {
         await Api.delete(`edu/${currentEducation._id}`);
-        const res = await Api.get(`users/${owner}/edu`);
+        const res = await Api.get(`users/${portfolioOwnerId}/edu`);
         setEducations(res.data);
       }
     } catch (err) {
@@ -28,10 +28,10 @@ function EducationCard({
     <Row className="mb-4">
       <Col>
         <Card.Text>
-          {education.name}
+          {currentEducation.name}
           <br />
           <span className="text-muted">
-            {education.major} ({education.present})
+            {currentEducation.major} ({currentEducation.present})
           </span>
         </Card.Text>
       </Col>
