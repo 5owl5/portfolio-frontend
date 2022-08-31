@@ -8,7 +8,7 @@ import User from "./user/User";
 import Projects from "./project/Projects";
 import Certificates from "./certificate/Certificates";
 import Educations from "./education/Educations";
-import UserLike from './user/UserLike';
+import UserLike from "./user/UserLike";
 
 function Portfolio() {
   const navigate = useNavigate();
@@ -63,7 +63,7 @@ function Portfolio() {
             portfolioOwnerId={portfolioOwner.id}
             isEditable={portfolioOwner.id === userState.user?.id}
           />
-          <Row>
+          <Row className="justify-content-center">
             <Col xs={5}>
               <UserLike
                 portfolioOwnerId={portfolioOwner.id}
@@ -72,7 +72,7 @@ function Portfolio() {
             </Col>
           </Row>
         </Col>
-        <Col md='9' lg='9'>
+        <Col md="9" lg="9">
           <Educations
             portfolioOwnerId={portfolioOwner.id}
             isEditable={portfolioOwner.id === userState.user?.id}
