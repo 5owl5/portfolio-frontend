@@ -9,24 +9,24 @@ const AwardEditForm = ({
   setIsEditing,
   portfolioOwnerId,
 }) => {
-  const [title, setTitle] = useState(award.awardWhere);
-  const [description, setDescription] = useState(award.awardName);
-  const [awardDate, setAwardDate] = useState(new Date(award.awardDate));
+  const [title, setTitle] = useState(award.host);
+  const [description, setDescription] = useState(award.name);
+  const [awardDate, setAwardDate] = useState(new Date(award.awardedAt));
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try{
-    await Api.put(`awards/${award.awardNumber}`, {
-      awardWhere: title,
-      awardName: description,
-      awardDate: awardDate,
-    });
+    try {
+      await Api.put(`awards/${award.number}`, {
+        awardWhere: title,
+        awardName: description,
+        awardDate: awardDate,
+      });
 
-    const res = await Api.get(`users/${portfolioOwnerId}/awards`);
-    const edit = res.data;
-    setAwards(edit);
-    setIsEditing(false);
-    }catch(e){
-      console.error(e)
+      const res = await Api.get(`users/${portfolioOwnerId}/awards`);
+      const edit = res.data;
+      setAwards(edit);
+      setIsEditing(false);
+    } catch (e) {
+      console.error(e);
     }
   };
   return (

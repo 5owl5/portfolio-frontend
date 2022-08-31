@@ -24,7 +24,7 @@ const Awards = ({ portfolioOwnerId, isEditable }) => {
         <Card.Title>수상이력</Card.Title>
         {awards.map((award) => (
           <Award
-            key={award.awardNumber}
+            key={award.number}
             award={award}
             setAwards={setAwards}
             portfolioOwnerId={portfolioOwnerId}
