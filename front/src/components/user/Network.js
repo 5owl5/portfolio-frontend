@@ -29,7 +29,7 @@ function Network() {
     <Container fluid>
       <Row xs="auto" id="network-wrap" className="jusify-content-center">
         {users.slice(0, visible).map((user) => (
-          <UserCard className="user-card" key={user.id} user={user} isNetwork />
+          <UserCard key={user.id} user={user} isNetwork />
         ))}
       </Row>
       {visible < users.length ? (

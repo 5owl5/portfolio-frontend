@@ -58,10 +58,6 @@ div.card-title {
   font-size: 1.5rem;
 }
 
-div.user-card {
-  margin-bottom: 2rem;
-}
-
 div.col-auto {
   padding: 0 0.8rem 0 0;
   display: flex;
