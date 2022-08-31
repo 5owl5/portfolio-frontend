@@ -37,6 +37,9 @@ function Header() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav activeKey={location.pathname} className="ms-auto">
             <Nav.Item id="my-nav-item" className="mx-1 px-1">
+              <ThemeToggleButton />
+            </Nav.Item>
+            <Nav.Item id="my-nav-item" className="mx-1 px-1">
               <Nav.Link onClick={() => navigate("/")}>나의 페이지</Nav.Link>
             </Nav.Item>
             <Nav.Item id="my-nav-item" className="mx-1 px-1">
@@ -56,9 +59,6 @@ function Header() {
                 </NavDropdown>
               </>
             )}
-            <Nav.Item id="my-nav-item" className="mx-1 px-1">
-              <ThemeToggleButton />
-            </Nav.Item>
           </Nav>
         </Navbar.Collapse>
       </Container>
