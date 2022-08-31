@@ -49,7 +49,6 @@ class CertificateService {
 
     return certificate;
   }
-
   static async deleteIdCertificate({ _id, owner }) {
     let certificate = Certificate.findById(_id);
     if (!certificate) {
