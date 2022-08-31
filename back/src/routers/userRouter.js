@@ -177,20 +177,6 @@ userAuthRouter.get("/like/:id", login_required, async function (req, res, next) 
   }
 });
 
-// 좋아요 누른 user 목록 반환 컴포넌트
-// 현재 상태를 나타내는 status와 likeCount 반환
-userAuthRouter.get("/likelist/:id", login_required, async function (req, res, next) {
-  try {
-    const user_id = req.params.id;
-    const updatedData = await userAuthService.getlikeList({
-      user_id,
-    });
-    res.status(200).json(updatedData);
-  } catch (error) {
-    next(error);
-  }
-});
-
 // 유저 삭제 컴포넌트
 userAuthRouter.delete(
   '/users/:id',
