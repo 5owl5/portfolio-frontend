@@ -127,9 +127,9 @@ class userAuthService {
   }
 
   // 좋아요 받은 name 객체 배열 반환
-  static async getlikeList({userId}) {
+  static async getlikeList({currentUserId}) {
     // 입력받은 아이디가 db에 존재하는지 확인/오류 처리
-    const currentUser = await User.findById({ user_id: userId });
+    const currentUser = await User.findById({ user_id: currentUserId });
 
       if (!currentUser) {
         const errorMessage =
