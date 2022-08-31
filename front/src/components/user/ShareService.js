@@ -24,7 +24,6 @@ const GridContainer = styled.div`
   justify-content: center;
   align-items: center;
   margin-bottom: 16px;
-  margin-left: 16px;
 `;
 const URLShareButton = styled.button`
   width: 48px;
@@ -38,12 +37,14 @@ const URLShareButton = styled.button`
   background-color: #7362ff;
   &:hover {
     background-color: #a99fee;
+    scale: 120%;
   }
 `;
 const KakaoShareButton = styled.a`
   cursor: pointer;
   &:hover {
     opacity: 50%;
+    scale: 120%;
   }
 `;
 const KakaoIcon = styled.img`
@@ -95,7 +96,7 @@ const ShareService = () => {
     <FlexContainer>
       <GridContainer>
         <FacebookShareButton
-          style={{ opacity: isHovering ? "50%" : "100%" }}
+          style={{ opacity: isHovering ? "50%" : "100%", scale: isHovering ? '120%' : '100%' }}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
           url={currentUrl}
@@ -103,7 +104,7 @@ const ShareService = () => {
           <FacebookIcon size={48} round={true} borderRadius={24}></FacebookIcon>
         </FacebookShareButton>
         <TwitterShareButton
-          style={{ opacity: isHovering1 ? "50%" : "100%" }}
+          style={{ opacity: isHovering1 ? "50%" : "100%", scale: isHovering1 ? '120%':'100%' }}
           onMouseEnter={handleMouseEnter1}
           onMouseLeave={handleMouseLeave1}
           url={currentUrl}
