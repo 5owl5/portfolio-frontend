@@ -6,6 +6,9 @@ import ThemeToggleButton from "./ThemeToggleBtn";
 
 import { BsPersonCircle } from 'react-icons/bs';
 
+import UserDel from "./user/UserDel";
+import swal from "sweetalert";
+
 function Header() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -49,9 +52,6 @@ function Header() {
 
             {isLogin && (
               <>
-                <Nav.Item id='my-nav-item'>
-                  <Nav.Link onClick={logout}>로그아웃</Nav.Link>
-                </Nav.Item>
                 <NavDropdown
                   className="ms-1"
                   title={<BsPersonCircle size="2rem" />}
@@ -59,6 +59,9 @@ function Header() {
                 >
                   <NavDropdown.Item href='#action/3.4'>
                     <UserDel />
+                  </NavDropdown.Item>
+                  <NavDropdown.Item href='#action/3.4'>
+                    <Nav.Link onClick={logout}>로그아웃</Nav.Link>
                   </NavDropdown.Item>
                 </NavDropdown>
               </>

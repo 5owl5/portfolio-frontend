@@ -23,6 +23,7 @@ function Educations({ portfolioOwnerId, isEditable }) {
             key={education._id}
             education={education}
             setEducations={setEducations}
+            portfolioOwnerId={portfolioOwnerId}
             isEditable={isEditable}
           />
         ))}

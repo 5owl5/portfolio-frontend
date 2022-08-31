@@ -35,7 +35,7 @@ class Education {
   static async deleteById(_id) {
     try {
       await EducationModel.findOneAndDelete({ _id });
-      return null;
+      // return null;
     } catch (error) {
       return error;
     }
