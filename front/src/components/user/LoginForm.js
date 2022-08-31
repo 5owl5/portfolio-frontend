@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Container, Col, Row, Form, Button } from "react-bootstrap";
-
+import swal from "sweetalert";
 import * as Api from "../../api";
 import { DispatchContext } from "../../App";
 
@@ -53,12 +53,13 @@ function LoginForm() {
         type: "LOGIN_SUCCESS",
         payload: user,
       });
+      swal("로그인 성공!", `${user.name}님 환영합니다!`, "success");
 
       // 기본 페이지로 이동함.
       navigate("/", { replace: true });
     } catch (err) {
       console.log("로그인에 실패하였습니다.\n", err);
-      alert("로그인에 실패하였습니다.");
+      swal("로그인 실패!", "아이디와 비밀번호를 확인해주세요.", "warning");
     }
   };
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import * as Api from "../../api";
-
+import swal from "sweetalert";
 import { Row, Col, Form, Button } from "react-bootstrap";
 
 function EmailAuthForm({ email, isEmailAuth, setIsEmailAuth }) {
@@ -25,10 +25,10 @@ function EmailAuthForm({ email, isEmailAuth, setIsEmailAuth }) {
     const validEmail = Number(randomNumber) === Number(inputNumber);
 
     if (validEmail) {
-      alert("인증이 완료 됐습니다.");
+      swal('인증 완료!',"다음 과정으로 넘어가볼까요?",'success');
       setIsEmailAuth(validEmail);
     } else {
-      alert("인증코드를 다시 한번 확인해주세요.");
+      swal('인증 실패',"인증코드를 다시 한번 확인해주세요.",'error');
     }
   };
 

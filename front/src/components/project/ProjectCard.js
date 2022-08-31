@@ -17,7 +17,7 @@ function ProjectCard({
 
     try {
       if (window.confirm("삭제하시겠습니까?")) {
-        await Api.delete(`project/${project.number}`);
+        await Api.delete(`projects/${project.number}`);
         const res = await Api.get(`users/${portfolioOwnerId}/projects`);
         setProjects(res.data);
       }

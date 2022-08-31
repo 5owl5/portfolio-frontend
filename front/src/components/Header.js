@@ -5,6 +5,7 @@ import { UserStateContext, DispatchContext } from "../App";
 import ThemeToggleButton from "./ThemeToggleBtn";
 
 import { BsPersonCircle } from "react-icons/bs";
+import swal from "sweetalert";
 
 function Header() {
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ function Header() {
     sessionStorage.removeItem("userToken");
     // dispatch 함수를 이용해 로그아웃함.
     dispatch({ type: "LOGOUT" });
+    swal("로그아웃 되었습니다.", `오늘도 즐거운 하루되세요!`, "success");
     // 기본 페이지로 돌아감.
     navigate("/");
   };
