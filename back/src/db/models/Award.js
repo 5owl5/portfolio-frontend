@@ -12,12 +12,12 @@ class Award {
   }
 
   static async findByIdAndNumber({ userId, awardNumber }) {
-    const userAwards = await awardModel.findOne({ userId, awardNumber });
+    const userAwards = await awardModel.findOne({ userId, number: awardNumber });
     return userAwards;
   }
 
   static async update({ userId, awardNumber, updateContent, newValue }) {
-    const filter = { userId, awardNumber };
+    const filter = { userId, number: awardNumber };
     const content = { [updateContent]: newValue };
     const option = { returnOriginal: false };
 
@@ -27,6 +27,11 @@ class Award {
       option
     );
     return updatedAward;
+  }
+
+  static async delete({userId, awardNumber}){
+    const deleteAward = await awardModel.findOneAndDelete({userId, number: awardNumber})
+    return deleteAward
   }
 }
 

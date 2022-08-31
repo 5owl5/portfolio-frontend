@@ -4,6 +4,8 @@ import { login_required } from "../middlewares/login_required";
 import { userAuthService } from "../services/userService";
 import { Like } from "../db/models/Like";
 
+import { mailAuthService } from "../services/mailAuthService";
+
 const userAuthRouter = Router();
 
 userAuthRouter.post("/user/register", async function (req, res, next) {
@@ -140,36 +142,43 @@ userAuthRouter.get(
 );
 
 // likeCount 반환 컴포넌트, 현재 상태를 나타내는 status와 likeCount 반환
-userAuthRouter.get("/likes/:id", login_required, async function (req, res, next) {
-  try {
-    // 좋아요 받은 사람의 id
-    const otherUserId = req.params.id;
-    const currentUserId = req.currentUserId;
-    
-    const updatedLike = await userAuthService.getLike({
-      currentUserId,
-      otherUserId,
-    });
-    res.status(200).json(updatedLike);
-  } catch (error) {
-    next(error);
+userAuthRouter.get(
+  "/likes/:id",
+  login_required,
+  async function (req, res, next) {
+    try {
+      // 좋아요 받은 사람의 id
+      const otherUserId = req.params.id;
+      const currentUserId = req.currentUserId;
+
+      const updatedLike = await userAuthService.getLike({
+        currentUserId,
+        otherUserId,
+      });
+      res.status(200).json(updatedLike);
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);
 
 // 좋아요를 누른 user 목록 반환 컴포넌트, 현재 상태를 나타내는 status와 likeCount 반환
-userAuthRouter.get("/likelist/:id", login_required, async function (req, res, next) {
-  try {
+userAuthRouter.get(
+  "/likelist/:id",
+  login_required,
+  async function (req, res, next) {
+    try {
+      const userId = req.params.id;
 
-    const userId = req.params.id;
-
-    const updatedData = await userAuthService.getlikeList({
-      userId,
-    });
-    res.status(200).json(updatedData);
-  } catch (error) {
-    next(error);
+      const updatedData = await userAuthService.getlikeList({
+        userId,
+      });
+      res.status(200).json(updatedData);
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);
 
 // jwt 토큰 기능 확인용, 삭제해도 되는 라우터임.
 userAuthRouter.get("/afterlogin", login_required, function (req, res, next) {
@@ -179,5 +188,31 @@ userAuthRouter.get("/afterlogin", login_required, function (req, res, next) {
       `안녕하세요 ${req.currentUserId}님, jwt 웹 토큰 기능 정상 작동 중입니다.`
     );
 });
+
+userAuthRouter.post(
+  "/user/register/emailAuth",
+  async function (req, res, next) {
+    const email = req.body.email;
+
+    const generateRandom = (min, max) => {
+      const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+      return randomNumber;
+    };
+
+    const randomNumber = generateRandom(111111, 999999);
+
+    try {
+      const sendMail = mailAuthService.sendMail({ email, randomNumber });
+
+      if (sendMail.errorMessage) {
+        throw new Error(sendMail.errorMessage);
+      }
+
+      res.status(200).json(randomNumber);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 
 export { userAuthRouter };
