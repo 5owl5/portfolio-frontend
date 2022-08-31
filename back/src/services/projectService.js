@@ -3,7 +3,6 @@ import { Project } from "../db";
 class projectService {
   static async addProject({
     userId,
-    projectNumber,
     projectName,
     content,
     startpoint,
@@ -11,8 +10,7 @@ class projectService {
   }) {
     const newProject = {
       userId,
-      projectNumber,
-      projectName,
+      name: projectName,
       content,
       startpoint,
       endpoint,
@@ -22,7 +20,7 @@ class projectService {
     return createdNewProject;
   }
 
-  static async getProject({ userId }) {
+  static async getProjects({ userId }) {
     const projects = await Project.findById({ userId });
     return projects;
   }
@@ -34,7 +32,7 @@ class projectService {
     });
 
     if (updateContent.projectName) {
-      const field = "projectName";
+      const field = "name";
       const newValue = updateContent.projectName;
       updatedproject = await Project.update({
         userId,
@@ -78,6 +76,14 @@ class projectService {
     }
 
     return updatedproject;
+  }
+
+  static async deleteProject({ userId, projectNumber }) {
+    const deleteProject = await Project.delete({
+      userId,
+      projectNumber,
+    });
+    return deleteProject;
   }
 }
 
