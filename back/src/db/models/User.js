@@ -50,9 +50,9 @@ class User {
   }
 
   /* updateLikeListPush() 좋아요 클릭한 유저 이름 추가 */
-  static async updateLikePush({ user_id, value }) {
+  static async updateLikeListPush({ user_id, value }) {
     const updatedUser = await UserModel.findOneAndUpdate({ id: user_id }, {
-      $push: {liked: { name: value } }
+      $push: { liked: { name: value} }
     });
     return updatedUser;
   }
