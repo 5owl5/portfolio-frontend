@@ -10,9 +10,9 @@ function Network() {
   const userState = useContext(UserStateContext);
   // useState 훅을 통해 users 상태를 생성함.
   const [users, setUsers] = useState([]);
-  const [visible, setVisible]=useState(10)
+  const [visible, setVisible]=useState(5)
   const showMoreCards=()=>{
-    setVisible((preValue)=>preValue+10)
+    setVisible((preValue)=>preValue+5)
   }
   
   useEffect(() => {
