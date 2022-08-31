@@ -32,7 +32,7 @@ function Network() {
         ))}
       </Row>
       {visible < users.length ? (
-        <Button id="showMore-btn" onClick={showMoreCards}>
+        <Button id="showMore-btn" className="mt-3 mb-5" onClick={showMoreCards}>
           더보기
         </Button>
       ) : null}
