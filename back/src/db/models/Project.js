@@ -12,12 +12,12 @@ class Project {
   }
 
   static async findByIdAndNumber({ userId, projectNumber }) {
-    const userProjects = await projectModel.findOne({ userId, projectNumber });
+    const userProjects = await projectModel.findOne({ userId, number: projectNumber });
     return userProjects;
   }
 
   static async update({ userId, projectNumber, updateContent, newValue }) {
-    const filter = { userId, projectNumber };
+    const filter = { userId, number: projectNumber };
     const content = { [updateContent]: newValue };
     const option = { returnOriginal: false };
 
@@ -27,6 +27,11 @@ class Project {
       option
     );
     return updatedProject;
+  }
+
+  static async delete({userId, projectNumber}){
+    const deleteProject = await projectModel.findOneAndDelete({userId, number: projectNumber})
+    return deleteProject
   }
 }
 
