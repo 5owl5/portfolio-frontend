@@ -13,7 +13,7 @@ function UserLike({ portfolioOwnerId, user }) {
   }, [portfolioOwnerId]);
 
   useEffect(() => {
-    Api.get('likes', portfolioOwnerId).then((res) =>
+    Api.get('like', portfolioOwnerId).then((res) =>
       setLike(res.data.userStatus)
     );
   }, [portfolioOwnerId]);
@@ -22,7 +22,7 @@ function UserLike({ portfolioOwnerId, user }) {
     async (e) => {
       e.preventDefault();
 
-      const res = await Api.put(`likes/${user}`, {
+      const res = await Api.put(`like/${user}`, {
         otherUserId: portfolioOwnerId,
       });
       setCountLike(res.data.likeCount);

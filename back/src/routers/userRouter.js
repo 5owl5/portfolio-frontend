@@ -2,7 +2,6 @@ import is from "@sindresorhus/is";
 import { Router } from "express";
 import { login_required } from "../middlewares/login_required";
 import { userAuthService } from "../services/userService";
-import { Like } from "../db/models/Like";
 
 import { mailAuthService } from "../services/mailAuthService";
 
@@ -141,39 +140,53 @@ userAuthRouter.get(
   }
 );
 
-// likeCount 반환 컴포넌트, 현재 상태를 나타내는 status와 likeCount 반환
-userAuthRouter.get(
-  "/likes/:id",
-  login_required,
-  async function (req, res, next) {
-    try {
-      // 좋아요 받은 사람의 id
-      const otherUserId = req.params.id;
-      const currentUserId = req.currentUserId;
+// likes 관리 컴포넌트
+// 현재 상태를 나타내는 status와 likeCount 반환
+// user의 status, likeCount 정보 갱신
 
-      const updatedLike = await userAuthService.getLike({
-        currentUserId,
-        otherUserId,
-      });
-      res.status(200).json(updatedLike);
-    } catch (error) {
-      next(error);
-    }
+userAuthRouter.put("/like/:id", login_required, async function (req, res, next) {
+  try {
+    // 좋아요 클릭한 유저의 id
+    const currentUserId = req.params.id;
+    // 좋아요 받은 사람의 id
+    const otherUserId = req.body.otherUserId;
+    // 현재 상태를 나타내는 status와 likeCount 반환
+    const updatedUser = await userAuthService.setLike({
+      currentUserId,
+      otherUserId,
+    });
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    next(error);
   }
-);
+});
 
-// 좋아요를 누른 user 목록 반환 컴포넌트, 현재 상태를 나타내는 status와 likeCount 반환
-userAuthRouter.get(
-  "/likelist/:id",
-  login_required,
+// likeCount 반환 컴포넌트
+// 현재 상태를 나타내는 status와 likeCount 반환
+userAuthRouter.get("/like/:id", login_required, async function (req, res, next) {
+  try {
+    // 좋아요를 받은 사람의 id
+    const otherUserId = req.params.id;
+    const currentUserId = req.currentUserId;
+
+    const updatedLike = await userAuthService.getLike({
+      currentUserId,
+      otherUserId,
+    });
+    res.status(200).json(updatedLike);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// 유저 삭제 컴포넌트
+userAuthRouter.delete(
+  '/users/:id',
   async function (req, res, next) {
     try {
-      const userId = req.params.id;
-
-      const updatedData = await userAuthService.getlikeList({
-        userId,
-      });
-      res.status(200).json(updatedData);
+      const user_id = req.params.id;
+      await userAuthService.deleteUser({ user_id });
+      res.status(200).send();
     } catch (error) {
       next(error);
     }

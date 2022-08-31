@@ -1,5 +1,6 @@
 import { UserModel } from "../schemas/user";
 
+
 class User {
   static async create({ newUser }) {
     const createdNewUser = await UserModel.create(newUser);
@@ -49,9 +50,9 @@ class User {
   }
 
   /* updateLikeListPush() 좋아요 클릭한 유저 이름 추가 */
-  static async updateLikePush({ user_id, value }) {
+  static async updateLikeListPush({ user_id, value }) {
     const updatedUser = await UserModel.findOneAndUpdate({ id: user_id }, {
-      $push: {liked: { name: value } }
+      $push: { liked: { name: value} }
     });
     return updatedUser;
   }
@@ -62,6 +63,11 @@ class User {
       $pull: { liked: { name: value } }
     });
     return updatedUser;
+  }
+
+  static async deleteOneUser({ user_id }) {
+    const user = await UserModel.deleteOne({ id: user_id });
+    return user;
   }
 
 }

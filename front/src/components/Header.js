@@ -4,7 +4,9 @@ import { Nav, Navbar, Container, NavDropdown } from "react-bootstrap";
 import { UserStateContext, DispatchContext } from "../App";
 import ThemeToggleButton from "./ThemeToggleBtn";
 
-import { BsPersonCircle } from "react-icons/bs";
+import { BsPersonCircle } from 'react-icons/bs';
+
+import UserDel from "./user/UserDel";
 import swal from "sweetalert";
 
 function Header() {
@@ -51,13 +53,16 @@ function Header() {
             {isLogin && (
               <>
                 <NavDropdown
-                  className="mx-1 px-1"
+                  className="ms-1"
                   title={<BsPersonCircle size="2rem" />}
                   id="basic-nav-dropdown"
                 >
-                  <Nav.Item id="my-nav-item">
+                  <NavDropdown.Item href='#action/3.4'>
+                    <UserDel />
+                  </NavDropdown.Item>
+                  <NavDropdown.Item href='#action/3.4'>
                     <Nav.Link onClick={logout}>로그아웃</Nav.Link>
-                  </Nav.Item>
+                  </NavDropdown.Item>
                 </NavDropdown>
               </>
             )}

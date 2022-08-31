@@ -1,17 +1,17 @@
 import React from "react";
 import { Card, Button, Row, Col } from "react-bootstrap";
 import * as Api from "../../api";
+
 import convertTime from "../../utils/convertTime";
 
 function CertificateCard({
-  certificate,
   currentCertificate,
   isEditable,
   setIsEditing,
   setCertificates,
   portfolioOwnerId,
 }) {
-  const certificateDate = convertTime(certificate.acquisitionDate).split(
+  const certificateDate = convertTime(currentCertificate.acquisitionDate).split(
     "T"
   )[0];
 
@@ -34,9 +34,9 @@ function CertificateCard({
     <Row className="mb-4">
       <Col>
         <Card.Text>
-          {certificate.name}
+          {currentCertificate.name}
           <br />
-          <span className="text-muted">{certificate.description}</span>
+          <span className="text-muted">{currentCertificate.description}</span>
           <br />
           <span className="text-muted">{certificateDate}</span>
         </Card.Text>
