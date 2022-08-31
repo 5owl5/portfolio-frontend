@@ -5,14 +5,13 @@ import * as Api from "../../api";
 import convertTime from "../../utils/convertTime";
 
 function CertificateCard({
-  certificate,
   currentCertificate,
   isEditable,
   setIsEditing,
   setCertificates,
   portfolioOwnerId,
 }) {
-  const certificateDate = convertTime(certificate.acquisitionDate).split(
+  const certificateDate = convertTime(currentCertificate.acquisitionDate).split(
     "T"
   )[0];
 
@@ -24,8 +23,8 @@ function CertificateCard({
       if (window.confirm("삭제하시겠습니까?")) {
         await Api.delete(`cer/${currentCertificate._id}`);
         const res = await Api.get(`users/${portfolioOwnerId}/cer`);
-        const UpdateCertificates = res.data;
-        setCertificates(UpdateCertificates);
+        console.log(res.data);
+        setCertificates(res.data);
       }
     } catch (err) {
       alert("오류가 발생했습니다.", err);
@@ -36,9 +35,9 @@ function CertificateCard({
     <Card.Text>
       <Row className="align-items-center">
         <Col>
-          {certificate.name}
+          {currentCertificate.name}
           <br />
-          <span className="text-muted">{certificate.description}</span>
+          <span className="text-muted">{currentCertificate.description}</span>
           <br />
           <span className="text-muted">{certificateDate}</span>
         </Col>
