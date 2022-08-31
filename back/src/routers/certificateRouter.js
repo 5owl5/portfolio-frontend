@@ -81,4 +81,18 @@ certificateRouter.put(
   }
 );
 
+certificateRouter.delete(
+  "/cer/:_id",
+  login_required,
+  async function (req, res, next) {
+    try {
+      const _id = req.params._id;
+      const deleteCertificate = await CertificateService.deleteCertificate({ _id });
+      res.status(200).json(deleteCertificate);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
 export { certificateRouter };

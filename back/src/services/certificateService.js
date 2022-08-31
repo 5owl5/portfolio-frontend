@@ -49,6 +49,11 @@ class CertificateService {
 
     return certificate;
   }
+
+  static async deleteCertificate({ _id }) {
+    const deleteCertificate = await Certificate.delete( {_id} );
+    return deleteCertificate;
+  }
 }
 
 export { CertificateService };

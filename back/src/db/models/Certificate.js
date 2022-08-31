@@ -32,6 +32,11 @@ class Certificate {
     );
     return updatedCertificate;
   }
+
+  static async delete({ _id }) {
+    const deleteCertificate = await CertificateModel.findOneAndDelete({ _id });
+    return deleteCertificate;
+  }
 }
 
 export { Certificate };
