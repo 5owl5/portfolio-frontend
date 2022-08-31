@@ -13,11 +13,11 @@ function ProjectCard({
   const toDate = convertTime(project.endpoint).split("T")[0];
 
   const handleDelete = async (e) => {
-    e.preventDefalut();
+    e.preventDefault();
 
     try {
       if (window.confirm("삭제하시겠습니까?")) {
-        await Api.delete(`project/${project.projectNumber}`);
+        await Api.delete(`project/${project.number}`);
         const res = await Api.get(`users/${portfolioOwnerId}/projects`);
         setProjects(res.data);
       }
