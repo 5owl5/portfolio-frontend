@@ -29,7 +29,7 @@ function ProjectCard({
     <Row className="mb-4">
       <Col>
         <Card.Text>
-          {project.projectName}
+          {project.name}
           <br />
           <span className="text-muted">{project.content}</span>
           <br />

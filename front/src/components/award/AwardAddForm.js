@@ -9,18 +9,18 @@ const AwardAddForm = ({ portfolioOwnerId, setAwards, setIsAdding }) => {
   const [date, setDate] = useState(new Date());
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try{
-    await Api.post("awards", {
-      awardWhere: title,
-      awardName: description,
-      awardDate: date,
-    });
-    const res = await Api.get(`users/${portfolioOwnerId}/awards`);
-    const update = res.data;
-    setAwards(update);
-    setIsAdding(false);
-    } catch(e){
-      console.error(e)
+    try {
+      await Api.post("awards", {
+        awardWhere: title,
+        awardName: description,
+        awardDate: date,
+      });
+      const res = await Api.get(`users/${portfolioOwnerId}/awards`);
+      const update = res.data;
+      setAwards(update);
+      setIsAdding(false);
+    } catch (e) {
+      console.error(e);
     }
   };
 

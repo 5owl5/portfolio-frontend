@@ -5,6 +5,7 @@ import React from "react";
 
 const AwardCard = ({
   portfoliOwnerId,
+  portfolioOwnerId,
   award,
   setIsEditing,
   isEditable,
@@ -19,7 +20,7 @@ const AwardCard = ({
     try {
       if (window.confirm("삭제하시겠습니까?")) {
         await Api.delete(`awards/${award.number}`);
-        const res = await Api.get(`users/${portfoliOwnerId}/awards`);
+        const res = await Api.get(`users/${portfolioOwnerId}/awards`);
         setAwards(res.data);
       }
     } catch (err) {

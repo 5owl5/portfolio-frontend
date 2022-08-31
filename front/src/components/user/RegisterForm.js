@@ -4,6 +4,8 @@ import { Container, Col, Row, Form, Button } from "react-bootstrap";
 
 import * as Api from "../../api";
 
+import EmailAuthForm from "./EmailAuth";
+
 function RegisterForm() {
   const navigate = useNavigate();
 
@@ -15,6 +17,8 @@ function RegisterForm() {
   const [confirmPassword, setConfirmPassword] = useState("");
   //useState로 name 상태를 생성함.
   const [name, setName] = useState("");
+
+  const [isEmailAuth, setIsEmailAuth] = useState(false);
 
   //이메일이 abc@example.com 형태인지 regex를 이용해 확인함.
   const validateEmail = (email) => {
@@ -36,7 +40,11 @@ function RegisterForm() {
 
   // 위 4개 조건이 모두 동시에 만족되는지 여부를 확인함.
   const isFormValid =
-    isEmailValid && isPasswordValid && isPasswordSame && isNameValid;
+    isEmailValid &&
+    isEmailAuth &&
+    isPasswordValid &&
+    isPasswordSame &&
+    isNameValid;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -52,6 +60,7 @@ function RegisterForm() {
       // 로그인 페이지로 이동함.
       navigate("/login");
     } catch (err) {
+      setIsEmailAuth(false);
       console.log("회원가입에 실패하였습니다.", err);
     }
   };
@@ -68,8 +77,15 @@ function RegisterForm() {
                 autoComplete="off"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                disabled={isEmailAuth}
               />
-              {!isEmailValid && (
+              {isEmailValid ? (
+                <EmailAuthForm
+                  email={email}
+                  isEmailAuth={isEmailAuth}
+                  setIsEmailAuth={setIsEmailAuth}
+                />
+              ) : (
                 <Form.Text className="text-success">
                   이메일 형식이 올바르지 않습니다.
                 </Form.Text>
