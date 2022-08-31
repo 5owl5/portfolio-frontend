@@ -15,7 +15,7 @@ const AwardEditForm = ({
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await Api.put(`awards/${award.awardNumber}`, {
+      await Api.put(`awards/${award.number}`, {
         awardWhere: title,
         awardName: description,
         awardDate: awardDate,
