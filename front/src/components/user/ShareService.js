@@ -19,21 +19,22 @@ const FlexContainer = styled.div`
 
 const GridContainer = styled.div`
   display: grid;
+  margin: 0 auto;
   grid-template-columns: repeat(4, 48px);
   grid-column-gap: 8px;
   justify-content: center;
-  align-items: center;
   margin-bottom: 16px;
   margin-left: 16px;
 `;
 const URLShareButton = styled.button`
-  width: 48px;
-  height: 48px;
+  width: 42px;
+  height: 42px;
+  margin: 0 auto;
   color: white;
   border-radius: 24px;
   border: 0px;
   font-weight: 800;
-  font-size: 16px;
+  font-size: 14px;
   cursor: pointer;
   background-color: #7362ff;
   &:hover {
@@ -47,8 +48,8 @@ const KakaoShareButton = styled.a`
   }
 `;
 const KakaoIcon = styled.img`
-  width: 48px;
-  height: 48px;
+  width: 42px;
+  height: 42px;
   border-radius: 24px;
 `;
 
@@ -100,7 +101,7 @@ const ShareService = () => {
           onMouseLeave={handleMouseLeave}
           url={currentUrl}
         >
-          <FacebookIcon size={48} round={true} borderRadius={24}></FacebookIcon>
+          <FacebookIcon size={42} round={true} borderRadius={24}></FacebookIcon>
         </FacebookShareButton>
         <TwitterShareButton
           style={{ opacity: isHovering1 ? "50%" : "100%" }}
@@ -108,13 +109,13 @@ const ShareService = () => {
           onMouseLeave={handleMouseLeave1}
           url={currentUrl}
         >
-          <TwitterIcon size={48} round={true} borderRadius={24}></TwitterIcon>
+          <TwitterIcon size={42} round={true} borderRadius={24}></TwitterIcon>
         </TwitterShareButton>
         <CopyToClipboard text={currentUrl}>
           <URLShareButton>URL</URLShareButton>
         </CopyToClipboard>
         <KakaoShareButton id="kakao-link-btn" onClick={onShareKakaoClick}>
-          <KakaoIcon src={kakaoLogo} size={48} round={true} borderRadius={24} />
+          <KakaoIcon src={kakaoLogo} size={42} round={true} borderRadius={24} />
         </KakaoShareButton>
       </GridContainer>
     </FlexContainer>

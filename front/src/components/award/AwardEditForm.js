@@ -33,7 +33,7 @@ const AwardEditForm = ({
     <Form onSubmit={handleSubmit}>
       <Form.Group controlId="formBasicTitle" className="mb-3">
         <Form.Control
-          type="texrt"
+          type="text"
           placeholder="수상내역"
           value={title}
           onChange={(e) => setTitle(e.target.value)}

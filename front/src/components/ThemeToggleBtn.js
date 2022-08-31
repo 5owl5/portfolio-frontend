@@ -1,23 +1,27 @@
-import React from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import React, { useEffect } from "react";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { darkState, lightState, modeState } from "../atoms/theme";
+import { lightMode, darkMode, modeState } from "../atoms/theme";
 import { IoMoon, IoSunnySharp } from "react-icons/io5";
 
 function ThemeToggleBtn() {
-  const lightMode = useRecoilValue(lightState);
-  const darkMode = useRecoilValue(darkState);
-
   // 현재 모드 상태
-  const [theme, setTheme] = useRecoilState(modeState);
+  const [mode, setMode] = useRecoilState(modeState);
 
   const toggle = () => {
-    setTheme((curTheme) => (curTheme === lightMode ? darkMode : lightMode));
+    setMode(mode === "light" ? "dark" : "light");
   };
+  useEffect(() => {
+    document.documentElement.setAttribute("theme", mode);
+    window.localStorage.setItem("theme", mode);
+  }, [mode]);
 
   return (
-    <ToggleBtnWrapper theme={theme} onClick={toggle}>
-      {theme.mode === "dark" ? (
+    <ToggleBtnWrapper
+      mode={mode === "light" ? lightMode : darkMode}
+      onClick={toggle}
+    >
+      {mode === "dark" ? (
         <IoMoon style={{ color: "white" }} />
       ) : (
         <IoSunnySharp />
@@ -32,12 +36,12 @@ const ToggleBtnWrapper = styled.button`
   bottom: 4%;
   right: 3%;
 
-  background-color: ${(props) => props.theme.bgColor};
+  background-color: ${(props) => props.mode.bgColor};
   &:hover {
-    background-color: ${(props) => props.theme.btnBorder};
+    background-color: ${(props) => props.mode.btnBorder};
     transition: 0.5s;
   }
-  border: ${(props) => props.theme.btnBorder};
+  border: ${(props) => props.mode.btnBorder};
 
   font-size: 20px;
 

@@ -38,7 +38,7 @@ function CertificateEditForm({
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Form.Group controlId="certificateEditTitle">
+      <Form.Group controlId="certificateEditTitle" className="mb-3">
         <Form.Control
           type="text"
           placeholder="자격증 이름"
@@ -46,7 +46,7 @@ function CertificateEditForm({
           onChange={(e) => setName(e.target.value)}
         />
       </Form.Group>
-      <Form.Group controlId="certificateEditDescription" className="mt-3">
+      <Form.Group controlId="certificateEditDescription" className="mb-3">
         <Form.Control
           type="text"
           placeholder="상세내역"
@@ -55,8 +55,8 @@ function CertificateEditForm({
         />
       </Form.Group>
 
-      <Form.Group as={Row} className="mt-3">
-        <Col xs="auto">
+      <Form.Group as={Row} className="mb-3">
+        <Col>
           <DatePicker
             selected={acquisitionDate}
             onChange={(date) => setAquisitionDate(date)}
