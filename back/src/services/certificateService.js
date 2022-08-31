@@ -50,9 +50,16 @@ class CertificateService {
     return certificate;
   }
 
-  static async deleteCertificate({ _id }) {
-    const deleteCertificate = await Certificate.delete( {_id} );
-    return deleteCertificate;
+  static async deleteIdCertificate({ _id, owner }) {
+    let certificate = Certificate.findById(_id);
+    if (!certificate) {
+      return "해당되는 학적이 없습니다.";
+    }
+    if (certificate.owner != owner) {
+      return "본인의 학적이 아닙니다.";
+    }
+    certificate = await Certificate.deleteById(_id);
+    return certificate;
   }
 }
 
