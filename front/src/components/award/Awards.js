@@ -9,12 +9,12 @@ const Awards = ({ portfolioOwnerId, isEditable }) => {
   const [isAdding, setIsAdding] = useState(false);
 
   useEffect(() => {
-    try{
-    Api.get(`users/${portfolioOwnerId}/awards`).then((result) =>
-      setAwards(result.data)
-    );
-    } catch(e){
-      console.error(e)
+    try {
+      Api.get(`users/${portfolioOwnerId}/awards`).then((result) =>
+        setAwards(result.data)
+      );
+    } catch (e) {
+      console.error(e);
     }
   }, [portfolioOwnerId]);
 

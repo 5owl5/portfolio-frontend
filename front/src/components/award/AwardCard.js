@@ -1,25 +1,29 @@
 import { Card, Button, Row, Col } from "react-bootstrap";
 import convertTime from "../../utils/convertTime";
-import * as Api from '../../api';
+import * as Api from "../../api";
 import React from "react";
 
-
-
-const AwardCard = ({ portfolioOwnerId,award, setIsEditing, isEditable ,setAwards}) => {
+const AwardCard = ({
+  portfolioOwnerId,
+  award,
+  setIsEditing,
+  isEditable,
+  setAwards,
+}) => {
   const awardDate = convertTime(award.awardDate).split("T")[0];
 
-  const handleDelete= async(e)=>{
-    e.preventDefault()
+  const handleDelete = async (e) => {
+    e.preventDefault();
     e.stopPropagation();
 
-    try{
-      if(window.confirm('삭제하시겠습니까?')){
+    try {
+      if (window.confirm("삭제하시겠습니까?")) {
         await Api.delete(`awards/${award.awardnumber}`);
-        const res= await Api.get(`users/${portfolioOwnerId}/awards`);
-        setAwards(res.data)
+        const res = await Api.get(`users/${portfolioOwnerId}/awards`);
+        setAwards(res.data);
       }
-    } catch(err) {
-      alert('오류가 발생했습니다',err);
+    } catch (err) {
+      alert("오류가 발생했습니다", err);
     }
   };
 
@@ -36,7 +40,7 @@ const AwardCard = ({ portfolioOwnerId,award, setIsEditing, isEditable ,setAwards
       </Col>
 
       {isEditable && (
-        <Col xs lg='1'>
+        <Col xs lg="1">
           <Button
             variant="outline-info"
             size="sm"
@@ -45,14 +49,14 @@ const AwardCard = ({ portfolioOwnerId,award, setIsEditing, isEditable ,setAwards
           >
             편집
           </Button>
-          <br/>
+          <br />
           <Button
             variant="outline-danger"
-            size='sm'
+            size="sm"
             className="mr-3"
             onClick={handleDelete}
           >
-          삭제
+            삭제
           </Button>
         </Col>
       )}
