@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Modal } from "react-bootstrap";
-
+import swal from "sweetalert";
 import * as Api from "../../api";
 import { DispatchContext, UserStateContext } from "../../App";
 
@@ -23,7 +23,9 @@ function UserDel() {
         await sessionStorage.removeItem('userToken');
         dispatch({ type: 'LOGOUT '});
         navigate('/');
-        alert('정상적으로 탈퇴되었습니다!');
+        swal('정상적으로 탈퇴되었습니다!', '또 이용해주세요', 'success');
+        handleClose()
+        navigate('/login')
     };
 
     return (
