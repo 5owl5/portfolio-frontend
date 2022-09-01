@@ -26,7 +26,7 @@ function UserEditForm({ user, setIsEditing, setUser }) {
       formData.append("userimages", file);
       await axios.put("http://localhost:5001/image", formData, {
         headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
+          Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
         },
       });
     }
