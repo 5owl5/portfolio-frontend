@@ -22,7 +22,8 @@ function Header() {
   // 로그아웃 클릭 시 실행되는 함수
   const logout = () => {
     // sessionStorage 에 저장했던 JWT 토큰을 삭제함.
-    sessionStorage.removeItem("userToken");
+    sessionStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
     // dispatch 함수를 이용해 로그아웃함.
     dispatch({ type: "LOGOUT" });
     swal("로그아웃 되었습니다.", `오늘도 즐거운 하루되세요!`, "success");

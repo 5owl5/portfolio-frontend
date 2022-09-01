@@ -4,6 +4,96 @@ const backendPortNumber = "5001";
 const serverUrl =
   "http://" + window.location.hostname + ":" + backendPortNumber + "/";
 
+async function updateToken() {
+  if (localStorage.getItem("refreshToken")) {
+    let refreshedAccessTokenResponse = await fetch(serverUrl + "token", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        refreshToken: localStorage.getItem("refreshToken"),
+      }),
+    });
+
+    let refreshedAccessToken = await refreshedAccessTokenResponse.json();
+    if (refreshedAccessToken.Logout) {
+      localStorage.removeItem("refreshToken");
+      localStorage.removeItem("accessToken");
+      window.location.reload();
+    } else {
+      sessionStorage.setItem("accessToken", refreshedAccessToken.accessToken);
+      localStorage.setItem("refreshToken", refreshedAccessToken.refreshToken);
+    }
+  }
+}
+
+axios.interceptors.response.use(
+  async function (response) {
+    if (response.data.token_data) {
+      let refinedData = response.data.data;
+      let tokenData = response.data.token_data;
+
+      if (tokenData.errorMessage) {
+        let refreshedAccessTokenResponse = await fetch(serverUrl + "token", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            refreshToken: localStorage.getItem("refreshToken"),
+          }),
+        });
+
+        let refreshedAccessToken = await refreshedAccessTokenResponse.json();
+
+        if (refreshedAccessToken.logout === true) {
+          sessionStorage.removeItem("accessToken");
+          localStorage.removeItem("refreshToken");
+          window.location.reload();
+        } else {
+          sessionStorage.setItem(
+            "accessToken",
+            refreshedAccessToken.accessToken
+          );
+          localStorage.setItem(
+            "refreshToken",
+            refreshedAccessToken.refreshToken
+          );
+        }
+      }
+
+      response.data = refinedData;
+    }
+
+    return response;
+  },
+  async (error) => {
+    // 오류 응답 처리
+    if (error.response.status === 490) {
+      let refreshedAccessTokenResponse = await fetch(serverUrl + "token", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          refreshToken: localStorage.getItem("refreshToken"),
+        }),
+      });
+
+      let refreshedAccessToken = await refreshedAccessTokenResponse.json();
+      if (refreshedAccessToken.logout) {
+        localStorage.removeItem("refreshToken");
+        sessionStorage.removeItem("accessToken");
+        window.location.reload();
+      } else {
+        sessionStorage.setItem("accessToken", refreshedAccessToken.accessToken);
+      }
+    }
+
+    return Promise.reject(error);
+  }
+);
 async function get(endpoint, params = "") {
   console.log(
     `%cGET 요청 ${serverUrl + endpoint + "/" + params}`,
@@ -13,7 +103,7 @@ async function get(endpoint, params = "") {
   return axios.get(serverUrl + endpoint + "/" + params, {
     // JWT 토큰을 헤더에 담아 백엔드 서버에 보냄.
     headers: {
-      Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
+      Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
     },
   });
 }
@@ -28,7 +118,7 @@ async function post(endpoint, data) {
   return axios.post(serverUrl + endpoint, bodyData, {
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
+      Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
     },
   });
 }
@@ -43,7 +133,7 @@ async function put(endpoint, data) {
   return axios.put(serverUrl + endpoint, bodyData, {
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
+      Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
     },
   });
 }
@@ -54,11 +144,11 @@ async function del(endpoint, params = "") {
   console.log(`DELETE 요청 ${serverUrl + endpoint + "/" + params}`);
   return axios.delete(serverUrl + endpoint + "/" + params, {
     headers: {
-      Authorization: `Bearer ${sessionStorage.getItem("userToken")}`,
+      Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
     },
   });
 }
 
 // 아래처럼 export한 후, import * as A 방식으로 가져오면,
 // A.get, A.post 로 쓸 수 있음.
-export { get, post, put, del as delete };
+export { get, post, put, del as delete, updateToken };
