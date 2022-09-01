@@ -17,14 +17,14 @@ function CertificateAddForm({
 
     const owner = portfolioOwnerId;
 
-    await Api.post("cer", {
+    await Api.post("certificate", {
       owner,
       name,
       description,
       acquisitionDate,
     });
 
-    const res = await Api.get(`users/${portfolioOwnerId}/cer`);
+    const res = await Api.get(`users/${portfolioOwnerId}/certificate`);
     setCertificates(res.data);
     setIsAdding(false);
   };
