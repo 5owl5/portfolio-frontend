@@ -30,42 +30,6 @@ async function updateToken() {
 
 axios.interceptors.response.use(
   async function (response) {
-    if (response.data.token_data) {
-      let refinedData = response.data.data;
-      let tokenData = response.data.token_data;
-
-      if (tokenData.errorMessage) {
-        let refreshedAccessTokenResponse = await fetch(serverUrl + "token", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            refreshToken: localStorage.getItem("refreshToken"),
-          }),
-        });
-
-        let refreshedAccessToken = await refreshedAccessTokenResponse.json();
-
-        if (refreshedAccessToken.logout === true) {
-          sessionStorage.removeItem("accessToken");
-          localStorage.removeItem("refreshToken");
-          window.location.reload();
-        } else {
-          sessionStorage.setItem(
-            "accessToken",
-            refreshedAccessToken.accessToken
-          );
-          localStorage.setItem(
-            "refreshToken",
-            refreshedAccessToken.refreshToken
-          );
-        }
-      }
-
-      response.data = refinedData;
-    }
-
     return response;
   },
   async (error) => {
@@ -87,12 +51,22 @@ axios.interceptors.response.use(
         sessionStorage.removeItem("accessToken");
         window.location.reload();
       } else {
-        sessionStorage.setItem("accessToken", refreshedAccessToken.accessToken);
-        localStorage.setItem("refreshToken", refreshedAccessToken.refreshToken);
+        await sessionStorage.setItem(
+          "accessToken",
+          refreshedAccessToken.accessToken
+        );
+        await localStorage.setItem(
+          "refreshToken",
+          refreshedAccessToken.refreshToken
+        );
+        let retryData = error.config;
+        retryData.headers.Authorization = `Bearer ${refreshedAccessToken.accessToken}`;
+        console.log(retryData);
+        return await axios.request(retryData);
       }
-    }
 
-    return Promise.reject(error);
+      return Promise.reject(error);
+    }
   }
 );
 

@@ -10,11 +10,11 @@ class CertificateService {
     return createdNewCer;
   }
 
-  static async getOwnerCertificate({ owner }) {
+  static async getUserCertificate({ owner }) {
     const certificate = await Certificate.findByOwner(owner);
     return certificate;
   }
-  static async getIdCertificate({ _id }) {
+  static async getCertificate({ _id }) {
     const certificate = await Certificate.findById(_id);
     return certificate;
   }

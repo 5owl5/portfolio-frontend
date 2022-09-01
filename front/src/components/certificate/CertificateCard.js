@@ -21,8 +21,8 @@ function CertificateCard({
 
     try {
       if (window.confirm("삭제하시겠습니까?")) {
-        await Api.delete(`cer/${currentCertificate._id}`);
-        const res = await Api.get(`users/${portfolioOwnerId}/cer`);
+        await Api.delete(`certificate/${currentCertificate._id}`);
+        const res = await Api.get(`users/${portfolioOwnerId}/certificate`);
         setCertificates(res.data);
       }
     } catch (err) {
