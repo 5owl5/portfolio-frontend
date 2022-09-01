@@ -88,12 +88,14 @@ axios.interceptors.response.use(
         window.location.reload();
       } else {
         sessionStorage.setItem("accessToken", refreshedAccessToken.accessToken);
+        localStorage.setItem("refreshToken", refreshedAccessToken.refreshToken);
       }
     }
 
     return Promise.reject(error);
   }
 );
+
 async function get(endpoint, params = "") {
   console.log(
     `%cGET 요청 ${serverUrl + endpoint + "/" + params}`,
