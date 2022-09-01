@@ -29,7 +29,7 @@ const GlobalStyle = createGlobalStyle`
     background-color: ${(props) => props.mode.bgColor2};
     border: none;
   }
-  h2, a {
+  h2, a.nav-link {
     background-color: ${(props) => props.mode.bgColor};
     color: ${(props) => props.mode.textColor};
   }
@@ -71,6 +71,16 @@ const GlobalStyle = createGlobalStyle`
     text-align: center;
     width: 8rem;
   }
+
+  .dropdown-menu a.dropdown-item{
+    background-color: ${(props) => props.mode.bgColor};
+    color: ${(props) => props.mode.textColor};
+    border-bottom: 0.0625rem solid #6c757d;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 0.25rem 0.5rem;
+  }
+  
 `;
 
 export default GlobalCss;
