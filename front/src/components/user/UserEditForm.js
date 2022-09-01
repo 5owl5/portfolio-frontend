@@ -48,9 +48,10 @@ function UserEditForm({ user, setIsEditing, setUser }) {
   return (
     <Card className="mb-2">
       <Card.Body>
-        <div>
-          <input type="file" onChange={onFileChange} />
-        </div>
+        <InputGroup className="input-group mb-3">
+            <label htmlFor='img'></label>
+            <input type="file" onChange={onFileChange} />
+        </InputGroup>
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="useEditName" className="mb-3">
             <Form.Control
