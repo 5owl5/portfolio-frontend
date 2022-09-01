@@ -9,6 +9,7 @@ import { projectRouter } from "./routers/projectRouter";
 import { token_refresh } from "./middlewares/token_refresh";
 
 import { errorMiddleware } from "./middlewares/errorMiddleware";
+import { userImageRouter } from "./routers/userImageRouter";
 
 const app = express();
 
@@ -34,7 +35,8 @@ app.use(awardRouter);
 app.use(educationRouter);
 app.use(certificateRouter);
 app.use(projectRouter);
-
+app.use(userImageRouter);
+app.use("/userimages", express.static("userimages"));
 // 순서 중요 (router 에서 next() 시 아래의 에러 핸들링  middleware로 전달됨)
 app.use(errorMiddleware);
 
