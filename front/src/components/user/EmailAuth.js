@@ -34,37 +34,33 @@ function EmailAuthForm({ email, isEmailAuth, setIsEmailAuth }) {
 
   return (
     <>
-      <Row>
-        <Col lg={4}>
-          {randomNumber ? (
-            <Form.Group className="mt-3 text-center">
-              <Form.Control
-                type="text"
-                placeholder="인증번호를 입력하세요"
-                value={inputNumber}
-                onChange={(e) => setInputNumber(e.target.value)}
-                disabled={isEmailAuth}
-              />
-              <Col className="mt-3 text-center">
-                <Button onClick={hanleClickAuth} variant="primary">
-                  인증
-                </Button>
-              </Col>
-            </Form.Group>
-          ) : (
-            <Form.Group className="mt-3 text-center">
-              <Col sm={{ span: 20 }}>
-                <Button
-                  class="emailAuth"
-                  onClick={handleClickSend}
-                  variant="primary"
-                >
-                  인증코드 전송
-                </Button>
-              </Col>
-            </Form.Group>
-          )}
-        </Col>
+    <Row>
+      <Col lg={4}>
+      {randomNumber ? (
+        <Form.Group className="mt-3 text-center">
+          <Form.Control
+            type="text"
+            placeholder="인증번호를 입력하세요"
+            value={inputNumber}
+            onChange={(e) => setInputNumber(e.target.value)}
+            disabled={isEmailAuth}
+          />
+          <Col className="mt-3 text-center">
+            <Button onClick={hanleClickAuth} variant="primary">
+              인증
+            </Button>
+          </Col>
+        </Form.Group>
+      ) : (
+        <Form.Group className="mt-3 text-center">
+          <Col sm={{ span: 20 }}>
+            <Button class="emailAuth" onClick={handleClickSend} variant="primary">
+              인증코드 전송
+            </Button>
+          </Col>
+        </Form.Group>
+      )}
+      </Col>
       </Row>
     </>
   );
