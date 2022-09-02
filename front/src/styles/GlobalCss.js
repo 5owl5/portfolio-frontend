@@ -78,7 +78,17 @@ const GlobalStyle = createGlobalStyle`
     border-bottom: 0.0625rem solid #6c757d;
     font-size: 16px;
     font-weight: 500;
-    padding: 0.25rem 0.5rem;
+    padding: 0.5rem 0.8rem;
+  }
+  
+  .modal-content{
+    background-color: ${(props) => props.mode.bgColor};
+    color: ${(props) => props.mode.textColor};
+  }
+
+  .modal-body{
+    border: none;
+    border-bottom: border-bottom: 0.0625rem solid #6c757d;
   }
   
 `;

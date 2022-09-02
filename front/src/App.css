@@ -122,3 +122,12 @@ button#showMore-btn {
 a#kakao-link-btn {
   background: none;
 }
+
+div.modal-header {
+  border: none;
+}
+
+div.modal-footer {
+  border: none;
+  margin: 0 auto;
+}

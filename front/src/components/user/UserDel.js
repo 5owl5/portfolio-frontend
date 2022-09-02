@@ -35,11 +35,11 @@ function UserDel() {
           정말로 탈퇴하시겠습니까? 탈퇴 시 회원정보는 복구 불가능합니다.
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
+          <Button variant="info" size="sm" onClick={handleDelete}>
+            삭제
           </Button>
-          <Button variant="primary" onClick={handleDelete}>
-            Delete
+          <Button variant="secondary" size="sm" onClick={handleClose}>
+            취소
           </Button>
         </Modal.Footer>
       </Modal>
