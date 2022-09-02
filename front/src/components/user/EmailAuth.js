@@ -5,8 +5,8 @@ import { Row, Col, Form, Button } from "react-bootstrap";
 
 function EmailAuthForm({ email, isEmailAuth, setIsEmailAuth }) {
   const [randomNumber, setRandomNumber] = useState(null);
-  const [inputNumber, setInputNumber] = useState(null);
-  const [visible, setVisible]= useState(true)
+  const [inputNumber, setInputNumber] = useState("");
+  const [visible, setVisible] = useState(true);
   const handleClickSend = async (e) => {
     e.preventDefault();
 
@@ -27,7 +27,7 @@ function EmailAuthForm({ email, isEmailAuth, setIsEmailAuth }) {
     if (validEmail) {
       swal("인증 완료!", "다음 과정으로 넘어가볼까요?", "success");
       setIsEmailAuth(validEmail);
-      setVisible(false)
+      setVisible(false);
     } else {
       swal("인증 실패", "인증코드를 다시 한번 확인해주세요.", "error");
     }
@@ -47,20 +47,18 @@ function EmailAuthForm({ email, isEmailAuth, setIsEmailAuth }) {
                 disabled={isEmailAuth}
               />
               <Col className="mt-3 text-center">
-                {
-                  visible ? <Button onClick={hanleClickAuth} variant="primary">
-                  인증
-                </Button>
-                : null
-                }
-                
+                {visible ? (
+                  <Button onClick={hanleClickAuth} variant="primary">
+                    인증
+                  </Button>
+                ) : null}
               </Col>
             </Form.Group>
           ) : (
             <Form.Group as={Row} className="mt-2 text-center">
               <Col>
                 <Button
-                  class="emailAuth"
+                  className="emailAuth"
                   onClick={handleClickSend}
                   variant="primary"
                 >

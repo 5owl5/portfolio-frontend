@@ -11,7 +11,7 @@ function EducationEditForm({
   const [name, setName] = useState(currentEducation.name);
   const [major, setMajor] = useState(currentEducation.major);
   const [present, setPresent] = useState(currentEducation.present);
-  console.log(currentEducation);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();

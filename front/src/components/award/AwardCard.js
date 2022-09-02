@@ -26,8 +26,8 @@ const AwardCard = ({
         dangerMode: true,
       }).then(async (willDelete) => {
         if (willDelete) {
-          await Api.delete(`awards/${award.number}`);
-          const res = await Api.get(`user/${portfolioOwnerId}/awards`);
+          await Api.delete(`award/${award.number}`);
+          const res = await Api.get(`users/${portfolioOwnerId}/awards`);
           setAwards(res.data);
           swal("삭제 완료", "화끈하시네요", "success");
         } else {

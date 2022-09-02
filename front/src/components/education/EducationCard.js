@@ -2,7 +2,7 @@ import { Card, Button, Row, Col } from "react-bootstrap";
 import React from "react";
 import * as Api from "../../api";
 import swal from "sweetalert";
-import { BsSlack } from "react-icons/bs";
+
 function EducationCard({
   isEditable,
   setIsEditing,
