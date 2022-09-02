@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Form, Card, Col, Row, InputGroup } from "react-bootstrap";
 import * as Api from "../../api";
-
+import swal from "sweetalert";
 import axios from "axios";
 
 function UserEditForm({ user, setIsEditing, setUser }) {
@@ -20,7 +20,7 @@ function UserEditForm({ user, setIsEditing, setUser }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    try{
     if (file) {
       const formData = new FormData();
       formData.append("userimages", file);
@@ -29,6 +29,9 @@ function UserEditForm({ user, setIsEditing, setUser }) {
           Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
         },
       });
+      swal('이미지가 업로드 되었습니다', '당신은 훈훈 그 자체!', 'success')
+    }}catch(error){
+      swal('이미지 업로드 실패', '용량 제한은 20MB입니다', 'error')
     }
     // "users/유저id" 엔드포인트로 PUT 요청함.
     const res = await Api.put(`users/${user.id}`, {
