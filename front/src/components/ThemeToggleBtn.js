@@ -31,7 +31,6 @@ function ThemeToggleBtn() {
 
 const ToggleBtnWrapper = styled.button`
   positin: fixed;
-  z-index: 999999;
   bottom: 4%;
   right: 3%;
 
