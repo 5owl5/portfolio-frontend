@@ -16,27 +16,25 @@ function EducationCard({
 
     try {
       swal({
-        title: '삭제하시겠습니까?',
+        title: "삭제하시겠습니까?",
         text: "한번 삭제된 데이터는 복구할 수 없습니다",
-        icon: 'warning',
+        icon: "warning",
         buttons: true,
         dangerMode: true,
-      })
-      .then(async (willDelete)=>{
-        if(willDelete){
+      }).then(async (willDelete) => {
+        if (willDelete) {
           await Api.delete(`edu/${currentEducation._id}`);
-        const res = await Api.get(`users/${portfolioOwnerId}/edu`);
-        setEducations(res.data);
-        swal('삭제 완료', '화끈하시네요', 'success')
-        }else{
-          swal('삭제취소','당신의 수상내역은 안전합니다', 'info')
+          const res = await Api.get(`users/${portfolioOwnerId}/edu`);
+          setEducations(res.data);
+          swal("삭제 완료", "화끈하시네요", "success");
+        } else {
+          swal("삭제취소", "당신의 수상내역은 안전합니다", "info");
         }
-      })
+      });
     } catch (err) {
       alert("오류가 발생했습니다", err);
     }
   };
-
 
   return (
     <Row className="mb-4">
