@@ -20,18 +20,19 @@ function UserEditForm({ user, setIsEditing, setUser }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try{
-    if (file) {
-      const formData = new FormData();
-      formData.append("userimages", file);
-      await axios.put("http://localhost:5001/image", formData, {
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
-        },
-      });
-      swal('이미지가 업로드 되었습니다', '당신은 훈훈 그 자체!', 'success')
-    }}catch(error){
-      swal('이미지 업로드 실패', '용량 제한은 20MB입니다', 'error')
+    try {
+      if (file) {
+        const formData = new FormData();
+        formData.append("userimages", file);
+        await axios.put("http://localhost:5001/image", formData, {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
+          },
+        });
+        swal("이미지가 업로드 되었습니다", "당신은 훈훈 그 자체!", "success");
+      }
+    } catch (error) {
+      swal("이미지 업로드 실패", "용량 제한은 20MB입니다", "error");
     }
     // "users/유저id" 엔드포인트로 PUT 요청함.
     const res = await Api.put(`users/${user.id}`, {
@@ -52,8 +53,8 @@ function UserEditForm({ user, setIsEditing, setUser }) {
     <Card className="mb-2">
       <Card.Body>
         <InputGroup className="input-group mb-3">
-            <label htmlFor='img'></label>
-            <input type="file" onChange={onFileChange} />
+          <label htmlFor="img"></label>
+          <input type="file" onChange={onFileChange} />
         </InputGroup>
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="useEditName" className="mb-3">
