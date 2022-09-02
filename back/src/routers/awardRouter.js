@@ -66,12 +66,12 @@ awardRouter.delete("/award/:number", async function (req, res, next) {
     const owner = req.currentUserId;
     const number = req.params.number;
 
-    const deleteAward = await AwardService.deleteAward({
+    const deletedAward = await AwardService.deleteAward({
       owner,
       number,
     });
 
-    res.status(201).json(deleteAward);
+    res.status(201).json(deletedAward);
   } catch (error) {
     next(error);
   }
