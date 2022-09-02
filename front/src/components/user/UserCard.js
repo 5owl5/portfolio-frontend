@@ -27,18 +27,16 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
         type="text/css"
       />
       <Card.Body>
-        <Row className="justify-content-md-center">
+        <div className="image-wrap">
           <Card.Img
-            style={{ width: "10rem", height: "8rem" }}
             className="mb-3"
             src={image ?? `http://${HOST}:5001/img/default.png`}
             alt="프로필 사진"
           />
-        </Row>
+        </div>
         <Card.Title>{user?.name}</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">{user?.email}</Card.Subtitle>
         <Card.Text>{user?.description}</Card.Text>
-
         {isEditable && (
           <Col>
             <Row className="mt-3 text-center text-info">
@@ -57,7 +55,6 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
             </Row>
           </Col>
         )}
-
         {isNetwork && (
           <Card.Link
             className="mt-3"

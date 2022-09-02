@@ -30,7 +30,9 @@ function Certificates({ portfolioOwnerId, isEditable }) {
         {isEditable && (
           <Row className="mt-3 text-center">
             <Col sm={{ span: 20 }}>
-              <Button onClick={() => setIsAdding(true)}>+</Button>
+              <Button className="plus-btn" onClick={() => setIsAdding(true)}>
+                +
+              </Button>
             </Col>
           </Row>
         )}

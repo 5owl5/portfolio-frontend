@@ -41,7 +41,7 @@ const GlobalStyle = createGlobalStyle`
     color: ${(props) => props.mode.textColor};
     transform: scale(1.1);
   }
-  
+
   .form-control {
     background-color: ${(props) => props.mode.bgColor};
     color: #acacac;    

@@ -54,8 +54,12 @@ div.card-body {
 }
 
 div.card-title {
-  margin-bottom: 2rem;
+  margin: 0.7rem 0 1.4rem 0;
   font-size: 1.5rem;
+}
+
+p.card-text {
+  margin-bottom: 1.5rem;
 }
 
 div.col-auto {
@@ -130,4 +134,24 @@ div.modal-header {
 div.modal-footer {
   border: none;
   margin: 0 auto;
+}
+
+.image-wrap {
+  text-align: center;
+}
+
+img.card-img.mb-3 {
+  width: 11rem;
+  height: 11rem;
+  object-fit: cover;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: rgb(0 0 0 / 4%) 0px 4px 16px 0px;
+}
+
+button.plus-btn {
+  width: 2.25rem;
+  background-color: #237bf3;
+  border-radius: 50%;
+  font-weight: 600;
 }

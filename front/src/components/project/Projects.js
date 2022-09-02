@@ -35,7 +35,11 @@ function Projects({ portfolioOwnerId, isEditable }) {
           <Col>
             <Row className="mt-3 text-center">
               <Col sm={{ span: 20 }}>
-                <Button variant="primary" onClick={() => setIsAdding(true)}>
+                <Button
+                  className="plus-btn"
+                  variant="primary"
+                  onClick={() => setIsAdding(true)}
+                >
                   +
                 </Button>
               </Col>
