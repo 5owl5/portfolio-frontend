@@ -1,4 +1,4 @@
-import { TokenModel } from "../schemas/Token";
+import { TokenModel } from "../schemas/token";
 
 class Token {
   static async create(newToken) {
