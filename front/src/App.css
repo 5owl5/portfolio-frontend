@@ -88,8 +88,9 @@ a.nav-link {
 div.dropdown-menu.show {
   min-width: 5rem;
   text-align: center;
-  left: -0.5rem;
+  left: -1rem;
   padding: 0;
+  border: none;
 }
 
 div#my-nav-item.mx-1.px-1.nav-item {
@@ -116,4 +117,8 @@ p.card-text:last-child {
 button#showMore-btn {
   display: block;
   margin: 0 auto;
+}
+
+a#kakao-link-btn {
+  background: none;
 }
