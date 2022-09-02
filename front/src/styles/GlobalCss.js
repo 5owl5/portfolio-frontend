@@ -37,8 +37,9 @@ const GlobalStyle = createGlobalStyle`
   .navbar-light .navbar-nav .nav-link {
     color: ${(props) => props.mode.textColor};
   }
-  .navbar-light .navbar-nav .nav-link:focus {
+  .navbar-light .navbar-nav .nav-link:hover {
     color: ${(props) => props.mode.textColor};
+    transform: scale(1.1);
   }
   
   .form-control {
