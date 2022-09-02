@@ -1,11 +1,11 @@
 import { Award } from "../db";
 
-class awardService {
-  static async addAward({ userId, awardHost, awardName, awardedAt }) {
+class AwardService {
+  static async addAward({ owner, host, prize, awardedAt }) {
     const newAward = {
-      userId,
-      host: awardHost,
-      name: awardName,
+      owner,
+      host,
+      prize,
       awardedAt,
     };
 
@@ -13,34 +13,34 @@ class awardService {
     return createdNewAward;
   }
 
-  static async getAwards({ userId }) {
-    const awards = await Award.findById({ userId });
+  static async getAwards({ owner }) {
+    const awards = await Award.findByOwner({ owner });
     return awards;
   }
 
-  static async updateAward({ userId, awardNumber, updateContent }) {
-    let updatedAward = await Award.findByIdAndNumber({
-      userId,
-      awardNumber,
+  static async updateAward({ owner, number, updateContent }) {
+    let updatedAward = await Award.findByOwnerAndNumber({
+      owner,
+      number,
     });
 
-    if (updateContent.awardHost) {
+    if (updateContent.host) {
       const field = "host";
-      const newValue = updateContent.awardHost;
+      const newValue = updateContent.host;
       updatedAward = await Award.update({
-        userId,
-        awardNumber,
+        owner,
+        number,
         updateContent: field,
         newValue,
       });
     }
 
-    if (updateContent.awardName) {
-      const field = "name";
-      const newValue = updateContent.awardName;
+    if (updateContent.prize) {
+      const field = "prize";
+      const newValue = updateContent.prize;
       updatedAward = await Award.update({
-        userId,
-        awardNumber,
+        owner,
+        number,
         updateContent: field,
         newValue,
       });
@@ -50,8 +50,8 @@ class awardService {
       const field = "awardedAt";
       const newValue = updateContent.awardedAt;
       updatedAward = await Award.update({
-        userId,
-        awardNumber,
+        owner,
+        number,
         updateContent: field,
         newValue,
       });
@@ -60,14 +60,14 @@ class awardService {
     return updatedAward;
   }
 
-  static async deleteAward({ userId, awardNumber }) {
-    const deleteAward = await Award.delete({
-      userId,
-      awardNumber,
+  static async deleteAward({ owner, number }) {
+    const deletedAward = await Award.delete({
+      owner,
+      number,
     });
 
-    return deleteAward;
+    return deletedAward;
   }
 }
 
-export { awardService };
+export { AwardService };

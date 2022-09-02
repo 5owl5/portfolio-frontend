@@ -10,10 +10,10 @@ const AwardAddForm = ({ portfolioOwnerId, setAwards, setIsAdding }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await Api.post("awards", {
-        awardWhere: title,
-        awardName: description,
-        awardDate: date,
+      await Api.post("award", {
+        host: title,
+        prize: description,
+        awardedAt: date,
       });
       const res = await Api.get(`users/${portfolioOwnerId}/awards`);
       const update = res.data;

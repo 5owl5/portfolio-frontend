@@ -1,27 +1,30 @@
-import { awardModel } from "../schemas/award";
+import { AwardModel } from "../schemas/award";
 
 class Award {
   static async create({ newAward }) {
-    const createdNewAward = await awardModel.create(newAward);
+    const createdNewAward = await AwardModel.create(newAward);
     return createdNewAward;
   }
 
-  static async findById({ userId }) {
-    const userAwards = await awardModel.find({ userId });
+  static async findByOwner({ owner }) {
+    const userAwards = await AwardModel.find({ owner });
     return userAwards;
   }
 
-  static async findByIdAndNumber({ userId, awardNumber }) {
-    const userAwards = await awardModel.findOne({ userId, number: awardNumber });
-    return userAwards;
+  static async findByOwnerAndNumber({ Owner, number }) {
+    const userAward = await AwardModel.findOne({
+      Owner,
+      number,
+    });
+    return userAward;
   }
 
-  static async update({ userId, awardNumber, updateContent, newValue }) {
-    const filter = { userId, number: awardNumber };
+  static async update({ Owner, number, updateContent, newValue }) {
+    const filter = { Owner, number };
     const content = { [updateContent]: newValue };
     const option = { returnOriginal: false };
 
-    const updatedAward = await awardModel.findOneAndUpdate(
+    const updatedAward = await AwardModel.findOneAndUpdate(
       filter,
       content,
       option
@@ -29,9 +32,12 @@ class Award {
     return updatedAward;
   }
 
-  static async delete({userId, awardNumber}){
-    const deleteAward = await awardModel.findOneAndDelete({userId, number: awardNumber})
-    return deleteAward
+  static async delete({ Owner, number }) {
+    const deletedAward = await AwardModel.findOneAndDelete({
+      Owner,
+      number,
+    });
+    return deletedAward;
   }
 }
 

@@ -10,15 +10,15 @@ const AwardEditForm = ({
   portfolioOwnerId,
 }) => {
   const [title, setTitle] = useState(award.host);
-  const [description, setDescription] = useState(award.name);
+  const [description, setDescription] = useState(award.prize);
   const [awardDate, setAwardDate] = useState(new Date(award.awardedAt));
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await Api.put(`awards/${award.number}`, {
-        awardWhere: title,
-        awardName: description,
-        awardDate: awardDate,
+      await Api.put(`award/${award.number}`, {
+        host: title,
+        prize: description,
+        awardedAt: awardDate,
       });
 
       const res = await Api.get(`users/${portfolioOwnerId}/awards`);
