@@ -14,7 +14,7 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
       setImage(null);
       return;
     }
-    const filename = `http://localhost:5001/userimages/${res.data.fileName}`;
+    const filename = `http://localhost:5001/img/${res.data.fileName}`;
     setImage(filename);
   });
 
@@ -30,7 +30,7 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
           <Card.Img
             style={{ width: "10rem", height: "8rem" }}
             className="mb-3"
-            src={image ?? "http://localhost:5001/userimages/default.png"}
+            src={image ?? "http://localhost:5001/img/default.png"}
             alt="프로필 사진"
           />
         </Row>

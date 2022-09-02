@@ -3,7 +3,7 @@ import { Router } from "express";
 import { login_required } from "../middlewares/login_required";
 import { userAuthService } from "../services/userService";
 
-import { mailAuthService } from "../services/mailAuthService";
+import { MailAuthService } from "../services/mailAuthService";
 
 const userAuthRouter = Router();
 
@@ -144,54 +144,59 @@ userAuthRouter.get(
 // 현재 상태를 나타내는 status와 likeCount 반환
 // user의 status, likeCount 정보 갱신
 
-userAuthRouter.put("/like/:id", login_required, async function (req, res, next) {
-  try {
-    // 좋아요 클릭한 유저의 id
-    const currentUserId = req.params.id;
-    // 좋아요 받은 사람의 id
-    const otherUserId = req.body.otherUserId;
-    // 현재 상태를 나타내는 status와 likeCount 반환
-    const updatedUser = await userAuthService.setLike({
-      currentUserId,
-      otherUserId,
-    });
-    res.status(200).json(updatedUser);
-  } catch (error) {
-    next(error);
-  }
-});
-
-// likeCount 반환 컴포넌트
-// 현재 상태를 나타내는 status와 likeCount 반환
-userAuthRouter.get("/like/:id", login_required, async function (req, res, next) {
-  try {
-    // 좋아요를 받은 사람의 id
-    const otherUserId = req.params.id;
-    const currentUserId = req.currentUserId;
-
-    const updatedLike = await userAuthService.getLike({
-      currentUserId,
-      otherUserId,
-    });
-    res.status(200).json(updatedLike);
-  } catch (error) {
-    next(error);
-  }
-});
-
-// 유저 삭제 컴포넌트
-userAuthRouter.delete(
-  '/users/:id',
+userAuthRouter.put(
+  "/like/:id",
+  login_required,
   async function (req, res, next) {
     try {
-      const user_id = req.params.id;
-      await userAuthService.deleteUser({ user_id });
-      res.status(200).send();
+      // 좋아요 클릭한 유저의 id
+      const currentUserId = req.params.id;
+      // 좋아요 받은 사람의 id
+      const otherUserId = req.body.otherUserId;
+      // 현재 상태를 나타내는 status와 likeCount 반환
+      const updatedUser = await userAuthService.setLike({
+        currentUserId,
+        otherUserId,
+      });
+      res.status(200).json(updatedUser);
     } catch (error) {
       next(error);
     }
   }
 );
+
+// likeCount 반환 컴포넌트
+// 현재 상태를 나타내는 status와 likeCount 반환
+userAuthRouter.get(
+  "/like/:id",
+  login_required,
+  async function (req, res, next) {
+    try {
+      // 좋아요를 받은 사람의 id
+      const otherUserId = req.params.id;
+      const currentUserId = req.currentUserId;
+
+      const updatedLike = await userAuthService.getLike({
+        currentUserId,
+        otherUserId,
+      });
+      res.status(200).json(updatedLike);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+// 유저 삭제 컴포넌트
+userAuthRouter.delete("/users/:id", async function (req, res, next) {
+  try {
+    const user_id = req.params.id;
+    await userAuthService.deleteUser({ user_id });
+    res.status(200).send();
+  } catch (error) {
+    next(error);
+  }
+});
 
 // jwt 토큰 기능 확인용, 삭제해도 되는 라우터임.
 userAuthRouter.get("/afterlogin", login_required, function (req, res, next) {
@@ -215,7 +220,7 @@ userAuthRouter.post(
     const randomNumber = generateRandom(111111, 999999);
 
     try {
-      const sendMail = mailAuthService.sendMail({ email, randomNumber });
+      const sendMail = MailAuthService.sendMail({ email, randomNumber });
 
       if (sendMail.errorMessage) {
         throw new Error(sendMail.errorMessage);

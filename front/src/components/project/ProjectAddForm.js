@@ -12,11 +12,11 @@ function ProjectAddForm({ portfolioOwnerId, setIsAdding, setProjects }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await Api.post("projects", {
-        projectName: title,
+      await Api.post("project", {
+        name: title,
         content: description,
-        startpoint: fromDate,
-        endpoint: toDate,
+        startDate: fromDate,
+        endDate: toDate,
       });
       const res = await Api.get(`users/${portfolioOwnerId}/projects`);
       const newProjects = res.data;

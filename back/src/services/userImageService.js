@@ -1,9 +1,9 @@
 import { UserImage } from "../db";
 
-class userImageService {
-  static async addImage({ userId, path, fileName }) {
+class UserImageService {
+  static async addImage({ owner, path, fileName }) {
     const newImage = {
-      userId,
+      owner,
       path,
       fileName,
     };
@@ -12,31 +12,31 @@ class userImageService {
     return createdNewImage;
   }
 
-  static async getImage({ userId }) {
-    const image = await UserImage.findById({ userId });
+  static async getImage({ owner }) {
+    const image = await UserImage.findByOwner({ owner });
     return image;
   }
 
-  static async updateImage({ userId, updateContent }) {
-    let updatedImage = await UserImage.findById({
-      userId,
+  static async updateImage({ owner, updateContent }) {
+    let updatedImage = await UserImage.findByOwner({
+      owner,
     });
 
     updatedImage = await UserImage.update({
-      userId,
+      owner,
       updateContent,
     });
 
     return updatedImage;
   }
 
-  static async deleteImage({ userId }) {
-    const deleteImage = await UserImage.delete({
-      userId,
+  static async deleteImage({ owner }) {
+    const deletedImage = await UserImage.delete({
+      owner,
     });
 
-    return deleteImage;
+    return deletedImage;
   }
 }
 
-export { userImageService };
+export { UserImageService };

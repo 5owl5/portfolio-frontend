@@ -1,91 +1,80 @@
 import { Router } from "express";
-import { awardService } from "../services/awardService";
+import { AwardService } from "../services/awardService";
 import { login_required } from "../middlewares/login_required";
 
 const awardRouter = Router();
+awardRouter.use(login_required);
 
-awardRouter.get(
-  "/users/:id/awards",
-  login_required,
-  async function (req, res, next) {
-    try {
-      const userId = req.params.id;
-
-      const awards = await awardService.getAwards({ userId });
-
-      res.status(200).send(awards);
-    } catch (error) {
-      next(error);
-    }
-  }
-);
-
-awardRouter.post("/awards", login_required, async function (req, res, next) {
+awardRouter.get("/users/:owner/awards", async function (req, res, next) {
   try {
-    const userId = req.currentUserId;
+    const owner = req.params.owner;
 
-    const awardHost = req.body.awardWhere;
-    const awardName = req.body.awardName;
-    const awardedAt = req.body.awardDate;
+    const awards = await AwardService.getAwards({ owner });
 
-    const newAward = await awardService.addAward({
-      userId,
-      awardHost,
-      awardName,
-      awardedAt,
-    });
-
-    res.status(201).json(newAward);
+    res.status(200).send(awards);
   } catch (error) {
     next(error);
   }
 });
 
-awardRouter.put(
-  "/awards/:number",
-  login_required,
-  async function (req, res, next) {
-    try {
-      const userId = req.currentUserId;
-      const awardNumber = req.params.number;
+awardRouter.post("/award", async function (req, res, next) {
+  try {
+    const owner = req.currentUserId;
 
-      const awardHost = req.body.awardWhere ?? null;
-      const awardName = req.body.awardName ?? null;
-      const awardedAt = req.body.awardDate ?? null;
+    const host = req.body.host;
+    const prize = req.body.prize;
+    const awardedAt = req.body.awardedAt;
 
-      const updateContent = { awardHost, awardName, awardedAt };
+    const createdNewAward = await AwardService.addAward({
+      owner,
+      host,
+      prize,
+      awardedAt,
+    });
 
-      const updateAward = await awardService.updateAward({
-        userId,
-        awardNumber,
-        updateContent,
-      });
-
-      res.status(201).json(updateAward);
-    } catch (error) {
-      next(error);
-    }
+    res.status(201).json(createdNewAward);
+  } catch (error) {
+    next(error);
   }
-);
+});
 
-awardRouter.delete(
-  "/awards/:number",
-  login_required,
-  async function (req, res, next) {
-    try {
-      const userId = req.currentUserId;
-      const awardNumber = req.params.number;
+awardRouter.put("/award/:number", async function (req, res, next) {
+  try {
+    const owner = req.currentUserId;
+    const number = req.params.number;
 
-      const deleteAward = await awardService.deleteAward({
-        userId,
-        awardNumber,
-      });
+    const host = req.body.host ?? null;
+    const prize = req.body.prize ?? null;
+    const awardedAt = req.body.awardedAt ?? null;
 
-      res.status(201).json(deleteAward);
-    } catch (error) {
-      next(error);
-    }
+    const updateContent = { host, prize, awardedAt };
+
+    const updatedAward = await AwardService.updateAward({
+      owner,
+      number,
+      updateContent,
+    });
+
+    res.status(201).json(updatedAward);
+  } catch (error) {
+    next(error);
   }
-);
+});
+
+awardRouter.delete("/award/:number", async function (req, res, next) {
+  try {
+    const owner = req.currentUserId;
+    const number = req.params.number;
+
+    const deletedAward = await AwardService.deleteAward({
+      owner,
+      number,
+    });
+
+    res.status(201).json(deletedAward);
+  } catch (error) {
+    next(error);
+  }
+});
 
 export { awardRouter };

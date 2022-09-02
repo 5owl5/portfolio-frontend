@@ -9,8 +9,8 @@ function ProjectCard({
   setProjects,
   portfolioOwnerId,
 }) {
-  const fromDate = convertTime(project.startpoint).split("T")[0];
-  const toDate = convertTime(project.endpoint).split("T")[0];
+  const fromDate = convertTime(project.startDate).split("T")[0];
+  const toDate = convertTime(project.endDate).split("T")[0];
 
   const handleDelete = async (e) => {
     e.preventDefault();
@@ -24,7 +24,7 @@ function ProjectCard({
         dangerMode: true,
       }).then(async (willDelete) => {
         if (willDelete) {
-          await Api.delete(`projects/${project.number}`);
+          await Api.delete(`project/${project.number}`);
           const res = await Api.get(`users/${portfolioOwnerId}/projects`);
           setProjects(res.data);
           swal("삭제 완료", "화끈하시네요", "success");

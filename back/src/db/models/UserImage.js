@@ -2,30 +2,30 @@ import { ImageModel } from "../schemas/userImage";
 
 class UserImage {
   static async create({ newImage }) {
-    const createNewImage = await ImageModel.create(newImage);
-    return createNewImage;
+    const createdNewImage = await ImageModel.create(newImage);
+    return createdNewImage;
   }
 
-  static async findById({ userId }) {
-    const findUserImage = await ImageModel.findOne({ userId });
+  static async findByOwner({ owner }) {
+    const findUserImage = await ImageModel.findOne({ owner });
     return findUserImage;
   }
 
-  static async update({ user_id, updateContent }) {
-    const filter = { user_id };
+  static async update({ owner, updateContent }) {
+    const filter = { owner };
     const content = { $set: updateContent };
     const option = { returnOriginal: false };
 
-    const updateUserImage = await ImageModel.findOneAndUpdate(
+    const updatedUserImage = await ImageModel.findOneAndUpdate(
       filter,
       content,
       option
     );
-    return updateUserImage;
+    return updatedUserImage;
   }
 
-  static async delete({ user_id }) {
-    return await ImageModel.findOneAndDelete({ user_id });
+  static async delete({ owner }) {
+    return await ImageModel.findOneAndDelete({ owner });
   }
 }
 

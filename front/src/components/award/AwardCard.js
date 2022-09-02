@@ -5,7 +5,6 @@ import React from "react";
 import swal from "sweetalert";
 
 const AwardCard = ({
-  portfoliOwnerId,
   portfolioOwnerId,
   award,
   setIsEditing,
@@ -28,7 +27,7 @@ const AwardCard = ({
       }).then(async (willDelete) => {
         if (willDelete) {
           await Api.delete(`awards/${award.number}`);
-          const res = await Api.get(`users/${portfolioOwnerId}/awards`);
+          const res = await Api.get(`user/${portfolioOwnerId}/awards`);
           setAwards(res.data);
           swal("삭제 완료", "화끈하시네요", "success");
         } else {
@@ -46,7 +45,7 @@ const AwardCard = ({
         <Card.Text>
           {award.host}
           <br />
-          <span className="text-muted">{award.name}</span>
+          <span className="text-muted">{award.prize}</span>
           <br />
           <span className="text-muted">{awardDate}</span>
         </Card.Text>

@@ -1,7 +1,7 @@
-import mongoose, { Schema, model } from "mongoose";
+import { Schema, model } from "mongoose";
 
 const ImageSchema = new Schema({
-  userId: {
+  owner: {
     type: String,
     ref: "User",
     required: true,
