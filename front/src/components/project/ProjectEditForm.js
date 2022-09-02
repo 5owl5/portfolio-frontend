@@ -11,17 +11,17 @@ function ProjectEditForm({
 }) {
   const [title, setTitle] = useState(project.name);
   const [description, setDescription] = useState(project.content);
-  const [fromDate, setFromDate] = useState(new Date(project.startpoint));
-  const [toDate, setToDate] = useState(new Date(project.endpoint));
+  const [fromDate, setFromDate] = useState(new Date(project.startDate));
+  const [toDate, setToDate] = useState(new Date(project.endDate));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await Api.put(`projects/${project.number}`, {
-        projectName: title,
+      await Api.put(`project/${project.number}`, {
+        name: title,
         content: description,
-        startpoint: fromDate,
-        endpoint: toDate,
+        startDate: fromDate,
+        endDate: toDate,
       });
 
       const res = await Api.get(`users/${portfolioOwnerId}/projects`);

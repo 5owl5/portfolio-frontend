@@ -9,30 +9,29 @@ function ProjectCard({
   setProjects,
   portfolioOwnerId,
 }) {
-  const fromDate = convertTime(project.startpoint).split("T")[0];
-  const toDate = convertTime(project.endpoint).split("T")[0];
+  const fromDate = convertTime(project.startDate).split("T")[0];
+  const toDate = convertTime(project.endDate).split("T")[0];
 
   const handleDelete = async (e) => {
     e.preventDefault();
 
     try {
       swal({
-        title: '삭제하시겠습니까?',
+        title: "삭제하시겠습니까?",
         text: "한번 삭제된 데이터는 복구할 수 없습니다",
-        icon: 'warning',
+        icon: "warning",
         buttons: true,
         dangerMode: true,
-      })
-      .then(async (willDelete)=>{
-        if(willDelete){
-          await Api.delete(`projects/${project.number}`);
-        const res = await Api.get(`users/${portfolioOwnerId}/projects`);
-        setProjects(res.data);
-        swal('삭제 완료', '화끈하시네요', 'success')
-        }else{
-          swal('삭제취소','당신의 수상내역은 안전합니다', 'info')
+      }).then(async (willDelete) => {
+        if (willDelete) {
+          await Api.delete(`project/${project.number}`);
+          const res = await Api.get(`users/${portfolioOwnerId}/projects`);
+          setProjects(res.data);
+          swal("삭제 완료", "화끈하시네요", "success");
+        } else {
+          swal("삭제취소", "당신의 수상내역은 안전합니다", "info");
         }
-      })
+      });
     } catch (err) {
       alert("오류가 발생했습니다", err);
     }

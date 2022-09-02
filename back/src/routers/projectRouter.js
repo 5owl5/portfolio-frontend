@@ -1,98 +1,83 @@
 import { Router } from "express";
-import { projectService } from "../services/projectService";
+import { ProjectService } from "../services/projectService";
 import { login_required } from "../middlewares/login_required";
 
 const projectRouter = Router();
+projectRouter.use(login_required);
 
-projectRouter.get(
-  "/users/:id/projects",
-  login_required,
-  async function (req, res, next) {
-    try {
-      const userId = req.params.id;
+projectRouter.get("/users/:owner/projects", async function (req, res, next) {
+  try {
+    const owner = req.params.owner;
 
-      const projects = await projectService.getProjects({ userId });
+    const projects = await ProjectService.getProjects({ owner });
 
-      res.status(200).send(projects);
-    } catch (error) {
-      next(error);
-    }
+    res.status(200).send(projects);
+  } catch (error) {
+    next(error);
   }
-);
+});
 
-projectRouter.post(
-  "/projects",
-  login_required,
-  async function (req, res, next) {
-    try {
-      const userId = req.currentUserId;
+projectRouter.post("/project", async function (req, res, next) {
+  try {
+    const owner = req.currentUserId;
 
-      const projectName = req.body.projectName;
-      const content = req.body.content;
-      const startpoint = req.body.startpoint;
-      const endpoint = req.body.endpoint;
+    const name = req.body.name;
+    const content = req.body.content;
+    const startDate = req.body.startDate;
+    const endDate = req.body.endDate;
 
-      const newProject = await projectService.addProject({
-        userId,
-        projectName,
-        content,
-        startpoint,
-        endpoint,
-      });
+    const createdNewProject = await ProjectService.addProject({
+      owner,
+      name,
+      content,
+      startDate,
+      endDate,
+    });
 
-      res.status(201).json(newProject);
-    } catch (error) {
-      next(error);
-    }
+    res.status(201).json(createdNewProject);
+  } catch (error) {
+    next(error);
   }
-);
+});
 
-projectRouter.put(
-  "/projects/:number",
-  login_required,
-  async function (req, res, next) {
-    try {
-      const userId = req.currentUserId;
-      const projectNumber = req.params.number;
+projectRouter.put("/project/:number", async function (req, res, next) {
+  try {
+    const owner = req.currentUserId;
+    const number = req.params.number;
 
-      const projectName = req.body.projectName ?? null;
-      const content = req.body.content ?? null;
-      const startpoint = req.body.startpoint ?? null;
-      const endpoint = req.body.endpoint ?? null;
+    const name = req.body.name ?? null;
+    const content = req.body.content ?? null;
+    const startDate = req.body.startDate ?? null;
+    const endDate = req.body.endDate ?? null;
 
-      const updateContent = { projectName, content, startpoint, endpoint };
+    const updateContent = { name, content, startDate, endDate };
 
-      const updateProject = await projectService.updateProject({
-        userId,
-        projectNumber,
-        updateContent,
-      });
+    const updatedproject = await ProjectService.updateProject({
+      owner,
+      number,
+      updateContent,
+    });
 
-      res.status(201).json(updateProject);
-    } catch (error) {
-      next(error);
-    }
+    res.status(201).json(updatedproject);
+  } catch (error) {
+    next(error);
   }
-);
+});
 
-projectRouter.delete(
-  "/projects/:number",
-  login_required,
-  async function (req, res, next) {
-    try {
-      const userId = req.currentUserId;
-      const projectNumber = req.params.number;
+projectRouter.delete("/project/:number", async function (req, res, next) {
+  try {
+    const owner = req.currentUserId;
+    const number = req.params.number;
 
-      const deleteProject = await projectService.deleteProject({
-        userId,
-        projectNumber,
-      });
+    const deletedProject = await ProjectService.deleteProject({
+      owner,
+      number,
+    });
 
-      res.status(201).json(deleteProject);
-    } catch (error) {
-      next(error);
-    }
+    res.status(201).json(deletedProject);
+  } catch (error) {
+    next(error);
   }
-);
+});
 
 export { projectRouter };
