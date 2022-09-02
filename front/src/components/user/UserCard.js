@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Card, Row, Button, Col } from "react-bootstrap";
 import ShareService from "./ShareService";
-import "dotenv/config";
 import { useState } from "react";
 import * as Api from "../../api";
 
@@ -10,7 +9,6 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
 
   const [image, setImage] = useState(null);
   const HOST = process.env.REACT_APP_HOST;
-  console.log(HOST);
   Api.get(`users/${user?.id}/image`).then((res) => {
     if (!res.data.fileName) {
       setImage(null);

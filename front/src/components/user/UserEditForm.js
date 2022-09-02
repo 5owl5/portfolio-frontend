@@ -3,8 +3,6 @@ import { Button, Form, Card, Col, Row, InputGroup } from "react-bootstrap";
 import * as Api from "../../api";
 import swal from "sweetalert";
 import axios from "axios";
-import "dotenv/config";
-
 function UserEditForm({ user, setIsEditing, setUser }) {
   //useState로 name 상태를 생성함.
   const [name, setName] = useState(user.name);
@@ -14,16 +12,15 @@ function UserEditForm({ user, setIsEditing, setUser }) {
   const [description, setDescription] = useState(user.description);
 
   const [file, setFile] = useState();
-
   const onFileChange = (e) => {
     setFile(e.target.files[0]);
   };
 
   const handleSubmit = async (e) => {
+    const HOST = process.env.REACT_APP_HOST;
     e.preventDefault();
     try {
       if (file) {
-        const HOST = process.env.REACT_APP_HOST;
         const formData = new FormData();
         formData.append("userimages", file);
         await axios.put(`http://${HOST}:5001/image`, formData, {
