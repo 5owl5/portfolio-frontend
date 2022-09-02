@@ -1,9 +1,9 @@
 const nodemailer = require("nodemailer");
 
-class mailAuthService {
+class MailAuthService {
   static async sendMail({ email, randomNumber }) {
-    const authUser = "5son.doson42@gmail.com";
-    const authPass = "wturnuyotlcjfnsi";
+    const authUser = process.env.AUTH_USER || null;
+    const authPass = process.env.AUTH_PASS || null;
 
     const transporter = nodemailer.createTransport({
       service: "Gmail",
@@ -40,4 +40,4 @@ class mailAuthService {
   }
 }
 
-export { mailAuthService };
+export { MailAuthService };
