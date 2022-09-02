@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Card, Row, Button, Col } from "react-bootstrap";
 import ShareService from "./ShareService";
-
+import "dotenv/config";
 import { useState } from "react";
 import * as Api from "../../api";
 
@@ -9,12 +9,15 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
   const navigate = useNavigate();
 
   const [image, setImage] = useState(null);
+  const HOST = process.env.REACT_APP_HOST;
+  console.log(HOST);
   Api.get(`users/${user?.id}/image`).then((res) => {
     if (!res.data.fileName) {
       setImage(null);
       return;
     }
-    const filename = `http://localhost:5001/img/${res.data.fileName}`;
+
+    const filename = `http://${HOST}:5001/img/${res.data.fileName}`;
     setImage(filename);
   });
 
@@ -30,7 +33,7 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
           <Card.Img
             style={{ width: "10rem", height: "8rem" }}
             className="mb-3"
-            src={image ?? "http://localhost:5001/img/default.png"}
+            src={image ?? "http://${HOST}:5001/img/default.png"}
             alt="프로필 사진"
           />
         </Row>

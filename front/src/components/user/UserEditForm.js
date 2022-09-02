@@ -3,6 +3,7 @@ import { Button, Form, Card, Col, Row, InputGroup } from "react-bootstrap";
 import * as Api from "../../api";
 import swal from "sweetalert";
 import axios from "axios";
+import "dotenv/config";
 
 function UserEditForm({ user, setIsEditing, setUser }) {
   //useState로 name 상태를 생성함.
@@ -22,9 +23,10 @@ function UserEditForm({ user, setIsEditing, setUser }) {
     e.preventDefault();
     try {
       if (file) {
+        const HOST = process.env.REACT_APP_HOST;
         const formData = new FormData();
         formData.append("userimages", file);
-        await axios.put("http://localhost:5001/image", formData, {
+        await axios.put(`http://${HOST}:5001/image`, formData, {
           headers: {
             Authorization: `Bearer ${sessionStorage.getItem("accessToken")}`,
           },
