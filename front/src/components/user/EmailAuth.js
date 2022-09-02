@@ -34,10 +34,10 @@ function EmailAuthForm({ email, isEmailAuth, setIsEmailAuth }) {
 
   return (
     <>
-    <Row>
-      <Col lg={4}>
+    <Row className="justify-content-md-center mt-3">
+      <Col>
       {randomNumber ? (
-        <Form.Group className="mt-3 text-center">
+        <Form.Group>
           <Form.Control
             type="text"
             placeholder="인증번호를 입력하세요"
@@ -52,8 +52,8 @@ function EmailAuthForm({ email, isEmailAuth, setIsEmailAuth }) {
           </Col>
         </Form.Group>
       ) : (
-        <Form.Group className="mt-3 text-center">
-          <Col sm={{ span: 20 }}>
+        <Form.Group as={Row} className="mt-2 text-center">
+          <Col>
             <Button class="emailAuth" onClick={handleClickSend} variant="primary">
               인증코드 전송
             </Button>
