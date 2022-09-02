@@ -34,7 +34,7 @@ const GlobalStyle = createGlobalStyle`
     color: ${(props) => props.mode.textColor};
   }
 
-  .navbar-light .navbar-nav .nav-link {
+  .navbar-light .navbar-nav .nav-link, .navbar-light .navbar-nav .nav-link:focus{
     color: ${(props) => props.mode.textColor};
   }
   .navbar-light .navbar-nav .nav-link:hover {
