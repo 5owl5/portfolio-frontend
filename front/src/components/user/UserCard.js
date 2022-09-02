@@ -9,7 +9,6 @@ function UserCard({ user, setIsEditing, isEditable, isNetwork }) {
 
   const [image, setImage] = useState(null);
   const HOST = process.env.REACT_APP_HOST;
-  console.log(HOST);
   Api.get(`users/${user?.id}/image`).then((res) => {
     if (!res.data.fileName) {
       setImage(null);

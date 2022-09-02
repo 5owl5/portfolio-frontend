@@ -60,7 +60,6 @@ function LoginForm() {
       // 기본 페이지로 이동함.
       navigate("/", { replace: true });
     } catch (err) {
-      console.log("로그인에 실패하였습니다.\n", err);
       swal("로그인 실패!", "아이디와 비밀번호를 확인해주세요.", "warning");
     }
   };
