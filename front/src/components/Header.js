@@ -62,7 +62,7 @@ function Header() {
                     <UserDel />
                   </NavDropdown.Item>
                   <NavDropdown.Item href="#action/3.4">
-                    <Nav.Link onClick={logout}>로그아웃</Nav.Link>
+                    <div onClick={logout}>로그아웃</div>
                   </NavDropdown.Item>
                 </NavDropdown>
               </>
