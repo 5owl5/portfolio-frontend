@@ -155,3 +155,17 @@ button.plus-btn {
   border-radius: 50%;
   font-weight: 600;
 }
+
+@media (max-width: 768px) {
+  div.ms-auto.navbar-nav {
+    flex-direction: row;
+    justify-content: center;
+  }
+  div#my-nav-item.mx-1.px-1.nav-item {
+    margin: 0 100px 0 100px;
+  }
+
+  button.navbar-toggler {
+    border: none;
+  }
+}

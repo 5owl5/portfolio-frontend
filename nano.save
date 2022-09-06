@@ -1,8 +1,0 @@
-REACT_APP_HOST=localhost
-SERVER_PORT=5001
-MONGODB_URL="mongodb+srv://user:1q2w3e4r@cluster0.w70og.mongodb.net/myDB"
-JWT_SECRET_KEY="ad5kafl91ak@192vk0ckv#ao!d3o1qw%ez"
-AUTH_USER = "5son.doson42@gmail.com"
-AUTH_PASS = "wturnuyotlcjfnsi"
-ACCESS_TOKEN_TIMEOUT = 15m
-REFRESH_TOKEN_TIMEOUT = 30d

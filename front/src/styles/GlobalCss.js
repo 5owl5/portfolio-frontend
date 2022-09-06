@@ -91,6 +91,13 @@ const GlobalStyle = createGlobalStyle`
     border: none;
     border-bottom: border-bottom: 0.0625rem solid #6c757d;
   }
+
+  @media (max-width: 768px) {
+    button.navbar-toggler {
+      border: none;
+      color: ${(props) => props.mode.textColor};
+    }
+  }
   
 `;
 
