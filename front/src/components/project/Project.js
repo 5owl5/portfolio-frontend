@@ -19,6 +19,8 @@ function Project({ portfolioOwnerId, project, setProjects, isEditable }) {
           project={project}
           setIsEditing={setIsEditing}
           isEditable={isEditable}
+          setProjects={setProjects}
+          portfolioOwnerId={portfolioOwnerId}
         />
       )}
     </>

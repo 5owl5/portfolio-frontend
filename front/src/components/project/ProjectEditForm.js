@@ -9,19 +9,19 @@ function ProjectEditForm({
   setProjects,
   portfolioOwnerId,
 }) {
-  const [title, setTitle] = useState(project.projectName);
+  const [title, setTitle] = useState(project.name);
   const [description, setDescription] = useState(project.content);
-  const [fromDate, setFromDate] = useState(new Date(project.startpoint));
-  const [toDate, setToDate] = useState(new Date(project.endpoint));
+  const [fromDate, setFromDate] = useState(new Date(project.startDate));
+  const [toDate, setToDate] = useState(new Date(project.endDate));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await Api.put(`projects/${project.projectNumber}`, {
-        projectName: title,
+      await Api.put(`project/${project.number}`, {
+        name: title,
         content: description,
-        startpoint: fromDate,
-        endpoint: toDate,
+        startDate: fromDate,
+        endDate: toDate,
       });
 
       const res = await Api.get(`users/${portfolioOwnerId}/projects`);
@@ -67,10 +67,14 @@ function ProjectEditForm({
 
       <Form.Group as={Row} className="mt-3 text-center">
         <Col sm={{ span: 20 }}>
-          <Button variant="primary" type="submit" className="me-3">
+          <Button variant="info" type="submit" size="sm">
             확인
           </Button>
-          <Button variant="secondary" onClick={() => setIsEditing(false)}>
+          <Button
+            variant="secondary"
+            onClick={() => setIsEditing(false)}
+            size="sm"
+          >
             취소
           </Button>
         </Col>

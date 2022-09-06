@@ -1,4 +1,4 @@
-import { EducationModel } from "../schemas/Education";
+import { EducationModel } from "../schemas/education";
 
 class Education {
   static async create(newEducation) {
@@ -31,6 +31,14 @@ class Education {
       option
     );
     return updatedEducation;
+  }
+  static async deleteById(_id) {
+    try {
+      await EducationModel.findOneAndDelete({ _id });
+      // return null;
+    } catch (error) {
+      return error;
+    }
   }
 }
 

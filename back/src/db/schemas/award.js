@@ -1,30 +1,31 @@
-import { Schema, model } from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
+const AutoIncrement = require("mongoose-sequence")(mongoose);
 
-const awardSchema = new Schema({
-  userId: {
+const AwardSchema = new Schema({
+  owner: {
     type: String,
     ref: "User",
     required: true,
   },
-  awardNumber: {
+  number: {
     type: Number,
-    required: true,
-    default: 0,
   },
-  awardWhere: {
+  host: {
     type: String,
     required: true,
   },
-  awardName: {
+  prize: {
     type: String,
     required: true,
   },
-  awardDate: {
+  awardedAt: {
     type: Date,
     required: true,
   },
 });
 
-const awardModel = model("Awards", awardSchema);
+AwardSchema.plugin(AutoIncrement, { id: "award_counter", inc_field: "number" });
 
-export { awardModel };
+const AwardModel = model("Awards", AwardSchema);
+
+export { AwardModel };

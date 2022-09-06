@@ -1,44 +1,36 @@
 import { Project } from "../db";
 
-class projectService {
-  static async addProject({
-    userId,
-    projectNumber,
-    projectName,
-    content,
-    startpoint,
-    endpoint,
-  }) {
+class ProjectService {
+  static async addProject({ owner, name, content, startDate, endDate }) {
     const newProject = {
-      userId,
-      projectNumber,
-      projectName,
+      owner,
+      name,
       content,
-      startpoint,
-      endpoint,
+      startDate,
+      endDate,
     };
 
     const createdNewProject = await Project.create({ newProject });
     return createdNewProject;
   }
 
-  static async getProject({ userId }) {
-    const projects = await Project.findById({ userId });
+  static async getProjects({ owner }) {
+    const projects = await Project.findByOwner({ owner });
     return projects;
   }
 
-  static async updateProject({ userId, projectNumber, updateContent }) {
-    let updatedproject = await Project.findByIdAndNumber({
-      userId,
-      projectNumber,
+  static async updateProject({ owner, number, updateContent }) {
+    let updatedproject = await Project.findByOwnerAndNumber({
+      owner,
+      number,
     });
 
-    if (updateContent.projectName) {
-      const field = "projectName";
-      const newValue = updateContent.projectName;
+    if (updateContent.name) {
+      const field = "name";
+      const newValue = updateContent.name;
       updatedproject = await Project.update({
-        userId,
-        projectNumber,
+        owner,
+        number,
         updateContent: field,
         newValue,
       });
@@ -48,30 +40,30 @@ class projectService {
       const field = "content";
       const newValue = updateContent.content;
       updatedproject = await Project.update({
-        userId,
-        projectNumber,
+        owner,
+        number,
         updateContent: field,
         newValue,
       });
     }
 
-    if (updateContent.startpoint) {
-      const field = "startpoint";
-      const newValue = updateContent.startpoint;
+    if (updateContent.startDate) {
+      const field = "startDate";
+      const newValue = updateContent.startDate;
       updatedproject = await Project.update({
-        userId,
-        projectNumber,
+        owner,
+        number,
         updateContent: field,
         newValue,
       });
     }
 
-    if (updateContent.endpoint) {
-      const field = "endpoint";
-      const newValue = updateContent.endpoint;
+    if (updateContent.endDate) {
+      const field = "endDate";
+      const newValue = updateContent.endDate;
       updatedproject = await Project.update({
-        userId,
-        projectNumber,
+        owner,
+        number,
         updateContent: field,
         newValue,
       });
@@ -79,6 +71,14 @@ class projectService {
 
     return updatedproject;
   }
+
+  static async deleteProject({ owner, number }) {
+    const deletedProject = await Project.delete({
+      owner,
+      number,
+    });
+    return deletedProject;
+  }
 }
 
-export { projectService };
+export { ProjectService };

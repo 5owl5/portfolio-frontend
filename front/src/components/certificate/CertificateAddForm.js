@@ -3,7 +3,11 @@ import { Button, Form, Col, Row } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import * as Api from "../../api";
 
-function CertificateAddForm({ portfolioOwnerId, setCertificates, setIsAdding }) {
+function CertificateAddForm({
+  portfolioOwnerId,
+  setCertificates,
+  setIsAdding,
+}) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [acquisitionDate, setAcquisitionDate] = useState(new Date());
@@ -13,17 +17,17 @@ function CertificateAddForm({ portfolioOwnerId, setCertificates, setIsAdding }) 
 
     const owner = portfolioOwnerId;
 
-    await Api.post("cer", {
+    await Api.post("certificate", {
       owner,
       name,
       description,
       acquisitionDate,
     });
 
-    const res = await Api.get(`users/${portfolioOwnerId}/cer`);
+    const res = await Api.get(`users/${portfolioOwnerId}/certificate`);
     setCertificates(res.data);
     setIsAdding(false);
-  }
+  };
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -56,10 +60,14 @@ function CertificateAddForm({ portfolioOwnerId, setCertificates, setIsAdding }) 
 
       <Form.Group as={Row} className="mt-3 text-center">
         <Col sm={{ span: 20 }}>
-          <Button variant="primary" type="submit" className="me-3">
+          <Button variant="info" type="submit" size="sm">
             확인
           </Button>
-          <Button variant="secondary" onClick={() => setIsAdding(false)}>
+          <Button
+            variant="secondary"
+            size="sm"
+            onClick={() => setIsAdding(false)}
+          >
             취소
           </Button>
         </Col>

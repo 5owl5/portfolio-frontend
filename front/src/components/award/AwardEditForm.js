@@ -9,31 +9,31 @@ const AwardEditForm = ({
   setIsEditing,
   portfolioOwnerId,
 }) => {
-  const [title, setTitle] = useState(award.awardWhere);
-  const [description, setDescription] = useState(award.awardName);
-  const [awardDate, setAwardDate] = useState(new Date(award.awardDate));
+  const [title, setTitle] = useState(award.host);
+  const [description, setDescription] = useState(award.prize);
+  const [awardDate, setAwardDate] = useState(new Date(award.awardedAt));
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try{
-    await Api.put(`awards/${award.awardNumber}`, {
-      awardWhere: title,
-      awardName: description,
-      awardDate: awardDate,
-    });
+    try {
+      await Api.put(`award/${award.number}`, {
+        host: title,
+        prize: description,
+        awardedAt: awardDate,
+      });
 
-    const res = await Api.get(`users/${portfolioOwnerId}/awards`);
-    const edit = res.data;
-    setAwards(edit);
-    setIsEditing(false);
-    }catch(e){
-      console.error(e)
+      const res = await Api.get(`users/${portfolioOwnerId}/awards`);
+      const edit = res.data;
+      setAwards(edit);
+      setIsEditing(false);
+    } catch (e) {
+      console.error(e);
     }
   };
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Group controlId="formBasicTitle" className="mb-3">
         <Form.Control
-          type="texrt"
+          type="text"
           placeholder="수상내역"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
@@ -58,16 +58,15 @@ const AwardEditForm = ({
         </Col>
       </Form.Group>
 
-      <Form.Group as={Row} className="mt-3 text-center mb-4">
+      <Form.Group as={Row} className="mt-3 text-center">
         <Col sm={{ span: 20 }}>
-          <Button variant="primary" type="submit" className="me-3">
+          <Button variant="info" type="submit" size="sm">
             확인
           </Button>
           <Button
             variant="secondary"
-            onClick={() => {
-              setIsEditing(false);
-            }}
+            onClick={() => setIsEditing(false)}
+            size="sm"
           >
             취소
           </Button>

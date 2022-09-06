@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import CertificateCard from "./CertificateCard";
 import CertificateEditForm from "./CertificateEditForm";
 
-function Certificate({ portfolioOwnerId, certificate, setCertificates, isEditable }) {
-
+function Certificate({
+  portfolioOwnerId,
+  certificate,
+  setCertificates,
+  isEditable,
+}) {
   const [isEditing, setIsEditing] = useState(false);
   return (
     <>
@@ -16,9 +20,10 @@ function Certificate({ portfolioOwnerId, certificate, setCertificates, isEditabl
         />
       ) : (
         <CertificateCard
-          certificate={certificate}
+          currentCertificate={certificate}
           isEditable={isEditable}
           setIsEditing={setIsEditing}
+          portfolioOwnerId={portfolioOwnerId}
           setCertificates={setCertificates}
         />
       )}

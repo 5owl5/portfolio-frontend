@@ -1,11 +1,11 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Container, Col, Row, Form, Button } from "react-bootstrap";
-
+import swal from "sweetalert";
 import * as Api from "../../api";
 import { DispatchContext } from "../../App";
 
-import { IoPersonCircleOutline } from 'react-icons/io5';
+import { IoPersonCircleOutline } from "react-icons/io5";
 
 function LoginForm() {
   const navigate = useNavigate();
@@ -46,33 +46,35 @@ function LoginForm() {
       const user = res.data;
       // JWT 토큰은 유저 정보의 token임.
       const jwtToken = user.token;
-      // sessionStorage에 "userToken"이라는 키로 JWT 토큰을 저장함.
-      sessionStorage.setItem("userToken", jwtToken);
+      const refreshToken = user.refreshToken;
+      localStorage.setItem("refreshToken", refreshToken);
+      // sessionStorage에 "accessToken"이라는 키로 JWT 토큰을 저장함.
+      sessionStorage.setItem("accessToken", jwtToken);
       // dispatch 함수를 이용해 로그인 성공 상태로 만듦.
       dispatch({
         type: "LOGIN_SUCCESS",
         payload: user,
       });
+      swal("로그인 성공!", `${user.name}님 환영합니다!`, "success");
 
       // 기본 페이지로 이동함.
       navigate("/", { replace: true });
     } catch (err) {
-      console.log("로그인에 실패하였습니다.\n", err);
-      alert('로그인에 실패하였습니다.')
+      swal("로그인 실패!", "아이디와 비밀번호를 확인해주세요.", "warning");
     }
   };
 
   return (
     <Container>
       <Row className="justify-content-md-center mt-5">
-        <Col lg={3}>
-          <div className='text-center'>
-            <IoPersonCircleOutline size='3rem' color='rgb(0 0 0 / 50%' />
+        <Col lg={3} className="input-form">
+          <div className="text-center">
+            <IoPersonCircleOutline size="3rem" />
           </div>
-          <div id='signIn' className='my-2 text-center'>
+          <div id="signIn" className="my-2 text-center">
             Sign In
           </div>
-          <div className='mt-4'>
+          <div className="mt-4">
             <Form onSubmit={handleSubmit}>
               <Form.Group controlId="loginEmail">
                 <Form.Label>이메일 주소</Form.Label>
@@ -114,7 +116,7 @@ function LoginForm() {
                 <Button
                   variant="light"
                   onClick={() => navigate("/register")}
-                  style={{ color: 'grey '}}
+                  style={{ color: "grey " }}
                 >
                   회원가입하기
                 </Button>
