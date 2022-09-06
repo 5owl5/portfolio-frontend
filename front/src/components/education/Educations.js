@@ -15,7 +15,7 @@ function Educations({ portfolioOwnerId, isEditable }) {
   }, [portfolioOwnerId]);
 
   return (
-    <Card>
+    <Card className="mb-4">
       <Card.Body>
         <Card.Title>학력</Card.Title>
         {educations.map((education) => (
@@ -23,13 +23,16 @@ function Educations({ portfolioOwnerId, isEditable }) {
             key={education._id}
             education={education}
             setEducations={setEducations}
+            portfolioOwnerId={portfolioOwnerId}
             isEditable={isEditable}
           />
         ))}
         {isEditable && (
-          <Row className="mt-3 text-center mb-4">
+          <Row className="mt-3 text-center">
             <Col sm={{ span: 20 }}>
-              <Button onClick={() => setIsAdding(true)}>+</Button>
+              <Button className="plus-btn" onClick={() => setIsAdding(true)}>
+                +
+              </Button>
             </Col>
           </Row>
         )}

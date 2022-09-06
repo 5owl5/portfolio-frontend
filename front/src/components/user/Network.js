@@ -10,11 +10,10 @@ function Network() {
   const userState = useContext(UserStateContext);
   // useState 훅을 통해 users 상태를 생성함.
   const [users, setUsers] = useState([]);
-  const [visible, setVisible]=useState(10)
-  const showMoreCards=()=>{
-    setVisible((preValue)=>preValue+10)
-  }
-  
+  const [visible, setVisible] = useState(8);
+  const showMoreCards = () => {
+    setVisible((preValue) => preValue + 8);
+  };
   useEffect(() => {
     // 만약 전역 상태의 user가 null이라면, 로그인 페이지로 이동함.
     if (!userState.user) {
@@ -27,19 +26,16 @@ function Network() {
 
   return (
     <Container fluid>
-      <Row xs="auto" className="jusify-content-center">
-        {users.slice(0,visible).map((user) => (
+      <Row xs="auto" id="network-wrap" className="jusify-content-center">
+        {users.slice(0, visible).map((user) => (
           <UserCard key={user.id} user={user} isNetwork />
         ))}
       </Row>
-      {
-        visible<users.length ? (
-          <Button onClick={showMoreCards}>더보기</Button>
-        )
-        :
-        null
-      }
-      
+      {visible < users.length ? (
+        <Button id="showMore-btn" className="mt-3 mb-5" onClick={showMoreCards}>
+          더보기
+        </Button>
+      ) : null}
     </Container>
   );
 }

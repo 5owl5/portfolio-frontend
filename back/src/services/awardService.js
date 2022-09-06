@@ -1,64 +1,57 @@
 import { Award } from "../db";
 
-class awardService {
-  static async addAward({
-    userId,
-    awardNumber,
-    awardWhere,
-    awardName,
-    awardDate,
-  }) {
+class AwardService {
+  static async addAward({ owner, host, prize, awardedAt }) {
     const newAward = {
-      userId,
-      awardNumber,
-      awardWhere,
-      awardName,
-      awardDate,
+      owner,
+      host,
+      prize,
+      awardedAt,
     };
 
     const createdNewAward = await Award.create({ newAward });
     return createdNewAward;
   }
 
-  static async getAward({ userId }) {
-    const awards = await Award.findById({ userId });
+  static async getAwards({ owner }) {
+    const awards = await Award.findByOwner({ owner });
     return awards;
   }
 
-  static async updateAward({ userId, awardNumber, updateContent }) {
-    let updatedAward = await Award.findByIdAndNumber({
-      userId,
-      awardNumber,
+  static async updateAward({ owner, number, updateContent }) {
+    let updatedAward = await Award.findByOwnerAndNumber({
+      owner,
+      number,
     });
 
-    if (updateContent.awardWhere) {
-      const field = "awardWhere";
-      const newValue = updateContent.awardWhere;
+    if (updateContent.host) {
+      const field = "host";
+      const newValue = updateContent.host;
       updatedAward = await Award.update({
-        userId,
-        awardNumber,
+        owner,
+        number,
         updateContent: field,
         newValue,
       });
     }
 
-    if (updateContent.awardName) {
-      const field = "awardName";
-      const newValue = updateContent.awardName;
+    if (updateContent.prize) {
+      const field = "prize";
+      const newValue = updateContent.prize;
       updatedAward = await Award.update({
-        userId,
-        awardNumber,
+        owner,
+        number,
         updateContent: field,
         newValue,
       });
     }
 
-    if (updateContent.awardDate) {
-      const field = "awardDate";
-      const newValue = updateContent.awardDate;
+    if (updateContent.awardedAt) {
+      const field = "awardedAt";
+      const newValue = updateContent.awardedAt;
       updatedAward = await Award.update({
-        userId,
-        awardNumber,
+        owner,
+        number,
         updateContent: field,
         newValue,
       });
@@ -66,6 +59,15 @@ class awardService {
 
     return updatedAward;
   }
+
+  static async deleteAward({ owner, number }) {
+    const deletedAward = await Award.delete({
+      owner,
+      number,
+    });
+
+    return deletedAward;
+  }
 }
 
-export { awardService };
+export { AwardService };

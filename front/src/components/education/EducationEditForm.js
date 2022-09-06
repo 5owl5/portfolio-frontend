@@ -11,7 +11,7 @@ function EducationEditForm({
   const [name, setName] = useState(currentEducation.name);
   const [major, setMajor] = useState(currentEducation.major);
   const [present, setPresent] = useState(currentEducation.present);
-  console.log(currentEducation);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -94,12 +94,16 @@ function EducationEditForm({
         />
       </div>
 
-      <Form.Group as={Row} className="mt-3 text-center mb-4">
+      <Form.Group as={Row} className="mt-3 text-center">
         <Col sm={{ span: 20 }}>
-          <Button variant="primary" type="submit" className="me-3">
+          <Button variant="info" type="submit" size="sm">
             확인
           </Button>
-          <Button variant="secondary" onClick={() => setIsEditing(false)}>
+          <Button
+            variant="secondary"
+            onClick={() => setIsEditing(false)}
+            size="sm"
+          >
             취소
           </Button>
         </Col>

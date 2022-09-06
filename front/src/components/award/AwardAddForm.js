@@ -9,18 +9,18 @@ const AwardAddForm = ({ portfolioOwnerId, setAwards, setIsAdding }) => {
   const [date, setDate] = useState(new Date());
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try{
-    await Api.post("awards", {
-      awardWhere: title,
-      awardName: description,
-      awardDate: date,
-    });
-    const res = await Api.get(`users/${portfolioOwnerId}/awards`);
-    const update = res.data;
-    setAwards(update);
-    setIsAdding(false);
-    } catch(e){
-      console.error(e)
+    try {
+      await Api.post("award", {
+        host: title,
+        prize: description,
+        awardedAt: date,
+      });
+      const res = await Api.get(`users/${portfolioOwnerId}/awards`);
+      const update = res.data;
+      setAwards(update);
+      setIsAdding(false);
+    } catch (e) {
+      console.error(e);
     }
   };
 
@@ -54,10 +54,14 @@ const AwardAddForm = ({ portfolioOwnerId, setAwards, setIsAdding }) => {
 
       <Form.Group as={Row} className="mt-3 text-center">
         <Col sm={{ span: 20 }}>
-          <Button variant="primary" type="submit" className="me-3">
+          <Button variant="info" type="submit" size="sm">
             확인
           </Button>
-          <Button variant="secondary" onClick={() => setIsAdding(false)}>
+          <Button
+            variant="secondary"
+            size="sm"
+            onClick={() => setIsAdding(false)}
+          >
             취소
           </Button>
         </Col>

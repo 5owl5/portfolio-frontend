@@ -1,17 +1,16 @@
-import { Schema, model } from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
+const AutoIncrement = require("mongoose-sequence")(mongoose);
 
-const projectSchema = new Schema({
-  userId: {
+const ProjectSchema = new Schema({
+  owner: {
     type: String,
     ref: "User",
     required: true,
   },
-  projectNumber: {
+  number: {
     type: Number,
-    required: true,
-    default: 0,
   },
-  projectName: {
+  name: {
     type: String,
     required: true,
   },
@@ -19,16 +18,21 @@ const projectSchema = new Schema({
     type: String,
     required: true,
   },
-  startpoint: {
+  startDate: {
     type: Date,
     required: true,
   },
-  endpoint: {
+  endDate: {
     type: Date,
     required: true,
   },
 });
 
-const projectModel = model("Projects", projectSchema);
+ProjectSchema.plugin(AutoIncrement, {
+  id: "project_counter",
+  inc_field: "number",
+});
 
-export { projectModel };
+const ProjectModel = model("Projects", ProjectSchema);
+
+export { ProjectModel };

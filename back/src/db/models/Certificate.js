@@ -1,4 +1,4 @@
-import { CertificateModel } from "../schemas/Certificate";
+import { CertificateModel } from "../schemas/certificate";
 
 class Certificate {
   static async create(newCertificate) {
@@ -31,6 +31,15 @@ class Certificate {
       option
     );
     return updatedCertificate;
+  }
+
+  static async deleteById(_id) {
+    try {
+      await CertificateModel.findOneAndDelete({ _id });
+      // return null;
+    } catch (error) {
+      return error;
+    }
   }
 }
 

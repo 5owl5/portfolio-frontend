@@ -9,13 +9,13 @@ function Certificates({ portfolioOwnerId, isEditable }) {
   const [isAdding, setIsAdding] = useState(false);
 
   useEffect(() => {
-    Api.get(`users/${portfolioOwnerId}/cer`).then((res) =>
+    Api.get(`users/${portfolioOwnerId}/certificate`).then((res) =>
       setCertificates(res.data)
     );
   }, [portfolioOwnerId]);
 
   return (
-    <Card>
+    <Card className="mb-4">
       <Card.Body>
         <Card.Title>자격증</Card.Title>
         {certificates.map((certificate) => (
@@ -28,9 +28,11 @@ function Certificates({ portfolioOwnerId, isEditable }) {
           />
         ))}
         {isEditable && (
-          <Row className="mt-3 text-center mb-4">
+          <Row className="mt-3 text-center">
             <Col sm={{ span: 20 }}>
-              <Button onClick={() => setIsAdding(true)}>+</Button>
+              <Button className="plus-btn" onClick={() => setIsAdding(true)}>
+                +
+              </Button>
             </Col>
           </Row>
         )}

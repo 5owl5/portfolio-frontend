@@ -1,68 +1,80 @@
 import { Router } from "express";
-import { projectService } from "../services/projectService";
+import { ProjectService } from "../services/projectService";
 import { login_required } from "../middlewares/login_required";
 
 const projectRouter = Router();
+projectRouter.use(login_required);
 
-projectRouter.get("/users/:id/projects", login_required, async function (req, res, next) {
+projectRouter.get("/users/:owner/projects", async function (req, res, next) {
   try {
-    const userId = req.params.id // 헤더에서 정보 받아오기
+    const owner = req.params.owner;
 
-    const projects = await projectService.getProject({ userId });
+    const projects = await ProjectService.getProjects({ owner });
 
-    res.status(200).send(projects); // list형태로 send
+    res.status(200).send(projects);
   } catch (error) {
     next(error);
   }
 });
 
-projectRouter.post("/projects", login_required,async function (req, res, next) {
+projectRouter.post("/project", async function (req, res, next) {
   try {
-    const userId = req.currentUserId
+    const owner = req.currentUserId;
 
-    const projects = await projectService.getProject({ userId });
-    const projectslength = projects.length;
-
-    const projectNumber = projectslength ? projects.pop().projectNumber + 1 : 1;
-    const projectName = req.body.projectName;
+    const name = req.body.name;
     const content = req.body.content;
-    const startpoint = req.body.startpoint;
-    const endpoint = req.body.endpoint;
+    const startDate = req.body.startDate;
+    const endDate = req.body.endDate;
 
-    const newProject = await projectService.addProject({
-      userId,
-      projectNumber,
-      projectName,
+    const createdNewProject = await ProjectService.addProject({
+      owner,
+      name,
       content,
-      startpoint,
-      endpoint,
+      startDate,
+      endDate,
     });
 
-    res.status(201).json(newProject);
+    res.status(201).json(createdNewProject);
   } catch (error) {
     next(error);
   }
 });
 
-projectRouter.put("/projects/:number", login_required, async function (req, res, next) {
+projectRouter.put("/project/:number", async function (req, res, next) {
   try {
-    const userId = req.currentUserId
-    const projectNumber = req.params.number;
+    const owner = req.currentUserId;
+    const number = req.params.number;
 
-    const projectName = req.body.projectName ?? null;
+    const name = req.body.name ?? null;
     const content = req.body.content ?? null;
-    const startpoint = req.body.startpoint ?? null;
-    const endpoint = req.body.endpoint ?? null;
+    const startDate = req.body.startDate ?? null;
+    const endDate = req.body.endDate ?? null;
 
-    const updateContent = { projectName, content, startpoint, endpoint };
+    const updateContent = { name, content, startDate, endDate };
 
-    const updateProject = await projectService.updateProject({
-      userId,
-      projectNumber,
+    const updatedproject = await ProjectService.updateProject({
+      owner,
+      number,
       updateContent,
     });
 
-    res.status(201).json(updateProject);
+    res.status(201).json(updatedproject);
+  } catch (error) {
+    next(error);
+  }
+});
+
+projectRouter.delete("/project/:number", async function (req, res, next) {
+  try {
+    const owner = req.currentUserId;
+    const number = req.params.number;
+
+    const deletedProject = await ProjectService.deleteProject({
+      owner,
+      number,
+    });
+
+    res.status(201).json(deletedProject);
   } catch (error) {
     next(error);
   }

@@ -9,8 +9,9 @@ import LoginForm from "./components/user/LoginForm";
 import Network from "./components/user/Network";
 import RegisterForm from "./components/user/RegisterForm";
 import Portfolio from "./components/Portfolio";
+import GlobalCss from "./styles/GlobalCss";
 
-import './App.css';
+import "./App.css";
 
 export const UserStateContext = createContext(null);
 export const DispatchContext = createContext(null);
@@ -20,6 +21,14 @@ function App() {
   const [userState, dispatch] = useReducer(loginReducer, {
     user: null,
   });
+  const handleStorageChange = async function () {
+    let refreshToken = await localStorage.getItem("refreshToken");
+    let accessToken = await sessionStorage.getItem("accessToken");
+    if (!refreshToken && !accessToken && userState.user) {
+      dispatch({ type: "LOGOUT" });
+    } else if (refreshToken && userState.user != null) {
+    }
+  };
 
   // 아래의 fetchCurrentUser 함수가 실행된 다음에 컴포넌트가 구현되도록 함.
   // 아래 코드를 보면 isFetchCompleted 가 true여야 컴포넌트가 구현됨.
@@ -28,6 +37,7 @@ function App() {
   const fetchCurrentUser = async () => {
     try {
       // 이전에 발급받은 토큰이 있다면, 이를 가지고 유저 정보를 받아옴.
+      await Api.updateToken();
       const res = await Api.get("user/current");
       const currentUser = res.data;
 
@@ -36,8 +46,6 @@ function App() {
         type: "LOGIN_SUCCESS",
         payload: currentUser,
       });
-
-      console.log("%c sessionStorage에 토큰 있음.", "color: #d93d1a;");
     } catch {
       console.log("%c SessionStorage에 토큰 없음.", "color: #d93d1a;");
     }
@@ -51,6 +59,7 @@ function App() {
   }, []);
 
   if (!isFetchCompleted) {
+    handleStorageChange();
     return "loading...";
   }
 
@@ -58,6 +67,7 @@ function App() {
     <DispatchContext.Provider value={dispatch}>
       <UserStateContext.Provider value={userState}>
         <Router>
+          <GlobalCss />
           <Header />
           <Routes>
             <Route path="/" exact element={<Portfolio />} />
