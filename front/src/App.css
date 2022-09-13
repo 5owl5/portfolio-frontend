@@ -1,0 +1,171 @@
+* {
+  font-family: "Gothic A1", sans-serif;
+}
+
+#cardLink {
+  color: #000 !important;
+  text-decoration: none !important;
+}
+
+/* body {
+    background-color: #f8f9fa !important;
+  } */
+
+#networkUser {
+  background-color: #ffffff;
+  height: 23rem !important;
+
+  border: 0;
+  border-radius: 7px;
+  cursor: pointer;
+  box-shadow: rgb(0 0 0 / 4%) 0px 4px 16px 0px;
+  transition: 0.25s ease-in 0s, transform 0.25s ease-in 0s;
+  display: flex;
+  flex-direction: column;
+}
+
+#networkUser:hover {
+  box-shadow: rgb(0 0 0 / 5%) 0px 14px 16px 0px;
+  transform: translateY(-2%);
+}
+
+#likeUserList li:not(hr) {
+  list-style: none;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+#svgHeart {
+  color: #dc3545;
+  float: right;
+  margin-top: 5px;
+  margin-right: 5px;
+  text-align: center;
+}
+
+/*카드 관련 css*/
+div.card {
+  border-radius: 0.75rem;
+  box-shadow: rgb(0 0 0 / 4%) 0px 4px 16px 0px;
+}
+
+div.card-body {
+  padding: 2rem 1.5rem;
+}
+
+div.card-title {
+  margin: 0.7rem 0 1.4rem 0;
+  font-size: 1.5rem;
+}
+
+p.card-text {
+  margin-bottom: 1.5rem;
+}
+
+div.col-auto {
+  padding: 0 0.8rem 0 0;
+  display: flex;
+  align-items: center;
+}
+
+button.btn.btn-info.btn-sm {
+  background-color: #237bf3;
+  color: #ffffff;
+  border-color: #237bf3;
+}
+
+div.col-sm-20 button.btn.btn-info.btn-sm {
+  margin: 0 0.8rem 0 0;
+}
+
+a#logo h2 {
+  font-weight: 800;
+  padding-top: 1.2rem;
+  padding-left: 2rem;
+  font-size: 2.3rem;
+}
+
+a.nav-link {
+  transition: none;
+}
+
+div.dropdown-menu.show {
+  min-width: 5rem;
+  text-align: center;
+  left: -1rem;
+  padding: 0;
+  border: none;
+}
+
+div#my-nav-item.mx-1.px-1.nav-item {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+}
+
+div#network-wrap {
+  max-width: 80rem;
+  margin: 0 auto;
+  justify-content: center;
+}
+
+a.mt-3.card-link {
+  background-color: transparent;
+  color: #237bf3;
+}
+
+p.card-text:last-child {
+  margin-bottom: 0.5rem;
+}
+
+button#showMore-btn {
+  display: block;
+  margin: 0 auto;
+}
+
+a#kakao-link-btn {
+  background: none;
+}
+
+div.modal-header {
+  border: none;
+}
+
+div.modal-footer {
+  border: none;
+  margin: 0 auto;
+}
+
+.image-wrap {
+  text-align: center;
+}
+
+img.card-img.mb-3 {
+  width: 11rem;
+  height: 11rem;
+  object-fit: cover;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: rgb(0 0 0 / 4%) 0px 4px 16px 0px;
+}
+
+button.plus-btn {
+  width: 2.25rem;
+  background-color: #237bf3;
+  border-radius: 50%;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  div.ms-auto.navbar-nav {
+    flex-direction: row;
+    justify-content: center;
+  }
+  div#my-nav-item.mx-1.px-1.nav-item {
+    margin: 0 100px 0 100px;
+  }
+
+  button.navbar-toggler {
+    border: none;
+  }
+}
