@@ -1,5 +1,8 @@
 # dependencies
 node_modules
 build
+
+package-lock.json
+
 .env
 .env.production
